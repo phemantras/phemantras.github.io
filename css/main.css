@@ -10,15 +10,17 @@ body {
 }
 
 .map-container {
-	position: relative;
-	width: 80%;
-	max-width: 1000vh;
+    overflow: hidden; /* Inhalt außerhalb des Containers ausblenden */
+    width: 100%; /* Volle Breite */
+    height: 100vh; /* Vollbildhöhe */
+    position: relative;
 }
 
 svg {
-	width: 100%;
-	height: auto;
+    touch-action: none; /* Deaktiviert Standard-Touch-Gesten */
+    cursor: grab; /* Zeigt an, dass die Karte verschoben werden kann */
 }
+
 
 .country {
 	fill: #cccccc;
