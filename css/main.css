@@ -1,0 +1,51 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #f0f0f0;
+}
+
+.map-container {
+	position: relative;
+	width: 80%;
+	max-width: 1000vh;
+}
+
+svg {
+	width: 100%;
+	height: auto;
+}
+
+.country {
+	fill: #cccccc;
+	stroke: #ffffff;
+	stroke-width: 0.5;
+	transition: fill 0.3s, stroke 0.3s;
+}
+
+.visited {
+	fill: #7EBAB5;
+	stroke: #000000;
+}
+
+.country:hover {
+	fill: #ff9800;
+	stroke: #000000;
+}
+
+.tooltip {
+	position: sticky;
+	background: rgba(0, 0, 0, 0.7);
+	color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 3px;
+	font-size: 14px;
+	pointer-events: none;
+	opacity: 0;
+	width: max-content;
+	transition: opacity 0.3s;
+}
