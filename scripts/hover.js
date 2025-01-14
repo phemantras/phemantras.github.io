@@ -61,6 +61,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Panzoom-Initialisierung
+    const mapContainer = document.querySelector('.map-container svg');
+    if (mapContainer) {
+        const panzoom = new Panzoom(mapContainer, {
+            maxScale: 8, // Maximale Vergrößerung
+            minScale: 1, // Minimale Verkleinerung
+            contain: 'outside', // Grenzen flexibel
+        });
+
+        // Mausrad-Interaktion hinzufügen
+        mapContainer.parentElement.addEventListener('wheel', (event) => {
+            event.preventDefault(); // Standardverhalten (Scrollen) verhindern
+            panzoom.zoomWithWheel(event);
+        });
+    } else {
+        console.error('SVG-Element nicht gefunden. Bitte überprüfe deinen Selektor oder die HTML-Struktur.');
+    }
+
     // Schließen des Detail-Elements bei Klick außerhalb
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
