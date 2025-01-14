@@ -66,7 +66,7 @@ svg {
     padding: 20px;
     display: none;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund mit Transparenz */
+    background: rgba(0, 0, 0, 0.5); /* Schwarzer Hintergrund mit Transparenz */
     color: #ffffff; /* Weiße Schriftfarbe */
 }
 
