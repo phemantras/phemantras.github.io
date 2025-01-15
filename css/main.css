@@ -57,7 +57,8 @@ svg {
     top: 20%;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 50%;
+    width: 90%; /* Breite für kleinere Bildschirme */
+    max-width: 600px;
     max-height: 60%;
     overflow-y: auto;
     border: 1px solid #cccccc;
