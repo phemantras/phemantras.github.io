@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const tooltip = document.getElementById('tooltip');
 	const countries = document.querySelectorAll('.country');
 	const detailElement = document.createElement('div');
+	const titleContainer = document.querySelector('.title-container');
+	
 	detailElement.classList.add('detail-element');
 	document.body.appendChild(detailElement);
 
@@ -101,6 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
 			contain: 'outside',
 			/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
 			step: 1.0
+		});
+		
+		// Titel ausblenden, wenn Zoom nicht im Standard ist
+		mapContainer.addEventListener('panzoomchange', () => {
+			const zoomLevel = panzoom.getScale(); // Aktuelle Zoomstufe
+			const defaultZoom = 1; // Standard-Zoomstufe
+
+			if (zoomLevel !== defaultZoom) {
+				titleContainer.style.display = 'none';
+			} else {
+				titleContainer.style.display = 'block';
+			}
 		});
 
 		// Mausrad- und Touch-Interaktion hinzufügen

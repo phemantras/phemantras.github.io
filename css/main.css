@@ -7,6 +7,55 @@ body {
 	height: 100vh;
 	background-color: #f0f0f0;
 }
+.title-container {
+    position: fixed;
+    top: 10px; /* Abstand vom oberen Rand */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Immer im Vordergrund */
+    pointer-events: none; /* Klicks durchlassen */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.title-container[style*="display: none"] {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.title-container[style*="display: block"] {
+    opacity: 1;
+    visibility: visible;
+}
+
+.title {
+    font-family: Georgia, sans-serif;
+    font-size: 4rem; /* Schriftgröße */
+    font-weight: bold;
+    text-align: center;
+    color: #0A3161; /* Textfarbe */
+    text-shadow: -1px -1px 0 black, /* Oben links */
+                 1px -1px 0 black,  /* Oben rechts */
+                 -1px 1px 0 black,  /* Unten links */
+                 1px 1px 0 black;   /* Unten rechts */
+}
+
+.title .red {
+    color: #B31942;
+}
+
+.title .white {
+    color: white;
+}
+
+.subtitle {
+	width: 100%;
+    font-family: Georgia, sans-serif;
+    font-size: 2rem; /* Schriftgröße */
+    font-weight: bold;
+    text-align: center;
+    color: #0A3161; /* Textfarbe */
+
+}
 
 .map-container {
     overflow: hidden; /* Inhalt außerhalb des Containers ausblenden */
@@ -57,8 +106,8 @@ svg {
 
 /* Zentrierte Darstellung für Touchgeräte */
 .tooltip.touch {
-    position: fixed;
-    top: 10px; /* Abstand vom oberen Rand */
+    position: absolute;
+    top: -30px; /* Abstand vom oberen Rand */
     left: 50%;
     transform: translateX(-50%);
     opacity: 0; /* Unsichtbar, bis aktiv */
