@@ -11,7 +11,7 @@ body {
 
 .map-container {
     overflow: hidden; /* Inhalt außerhalb des Containers ausblenden */
-    width: 100%; /* Volle Breite */
+	width: 100%; /* Volle Breite */
     height: 100vh; /* Vollbildhöhe */
     position: relative;
 }
@@ -40,7 +40,7 @@ svg {
 }
 
 .tooltip {
-	position: sticky;
+	position: absolute;
 	background: rgba(0, 0, 0, 0.7);
 	color: #ffffff;
 	padding: 5px 10px;
