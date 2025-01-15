@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (isTouchDevice) {
 		tooltip.classList.add('touch');
 	}
-	
+
 	const getRandomColor = () => {
 		let r, g, b;
 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				tooltip.style.opacity = '0';
 			});
 		}
-		
+
 		// Touchverhalten (Mobile)
 		if (isTouchDevice) {
 			country.addEventListener('touchstart', (e) => {
@@ -95,13 +95,25 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Panzoom-Initialisierung
 	const mapContainer = document.querySelector('.map-container svg');
 	if (mapContainer) {
-		const panzoom = new Panzoom(mapContainer, {
-			maxScale: 9,
-			minScale: 1,
-			contain: 'outside',
-			/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
-			step: 1.0
-		});
+		if (!isTouchDevice) {
+			const panzoom = new Panzoom(mapContainer, {
+				maxScale: 9,
+				minScale: 1,
+				contain: 'outside',
+				/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
+				step: 1.0
+			});
+		}
+
+		if (isTouchDevice) {
+			const panzoom = new Panzoom(mapContainer, {
+				maxScale: 20,
+				minScale: 1,
+				contain: 'outside',
+				/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
+				step: 10.0
+			});
+		}
 
 		// Mausrad- und Touch-Interaktion hinzufügen
 		mapContainer.parentElement.addEventListener('wheel', (event) => {
