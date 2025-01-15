@@ -57,6 +57,67 @@ body {
 
 }
 
+/* Menü-Container */
+.menu-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.menu-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.menu-button:hover {
+    background-color: #555;
+}
+
+/* Dropdown-Menü */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.menu-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.menu-dropdown li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    color: #333;
+}
+
+.menu-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.menu-dropdown li:hover {
+    background: #f0f0f0;
+}
+
 .map-container {
     overflow: hidden; /* Inhalt außerhalb des Containers ausblenden */
 	width: 100%; /* Volle Breite */
