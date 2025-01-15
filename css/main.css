@@ -10,8 +10,8 @@ body {
 
 .map-container {
     overflow: hidden; /* Inhalt außerhalb des Containers ausblenden */
-	width: 90%; /* Volle Breite */
-    height: 90vh; /* Vollbildhöhe */
+	width: 100%; /* Volle Breite */
+    height: 100vh; /* Vollbildhöhe */
     position: absolute;
 }
 
