@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			minScale: 1,
 			contain: 'outside',
 			/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
-			zoomSpeed: 1, // Verlangsamt den Zoom für bessere Kontrolle
+			step: 1.0
 		});
 
 		// Mausrad- und Touch-Interaktion hinzufügen
