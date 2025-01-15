@@ -17,7 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
 	    detailElement.classList.add('detail-element');
 	    document.body.appendChild(detailElement);
 
+		const getRandomColor = () => {
+		    let r, g, b;
+
+		    do {
+		        r = Math.floor(Math.random() * 256);
+		        g = Math.floor(Math.random() * 256);
+		        b = Math.floor(Math.random() * 256);
+		    } while (Math.abs(r - g) < 30 && Math.abs(g - b) < 30 && Math.abs(r - b) < 30);
+
+		    return `rgb(${r}, ${g}, ${b})`;
+		};
+		
 	    countries.forEach(country => {
+			if (country.classList.contains('visited')) {
+			            const randomColor = getRandomColor();
+			            country.style.fill = randomColor; // Farbe direkt setzen
+			        }
+			
 	        country.addEventListener('mouseover', (e) => {
 	            const name = country.getAttribute('title');
 	            tooltip.textContent = name;
