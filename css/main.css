@@ -66,9 +66,9 @@ svg {
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
-    max-width: 90%;
     text-align: center;
     pointer-events: none;
+    width: max-content;
 }
 
 .detail-element {
