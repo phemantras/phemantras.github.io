@@ -95,25 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Panzoom-Initialisierung
 	const mapContainer = document.querySelector('.map-container svg');
 	if (mapContainer) {
-		if (!isTouchDevice) {
-			const panzoom = new Panzoom(mapContainer, {
-				maxScale: 9,
-				minScale: 1,
-				contain: 'outside',
-				/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
-				step: 1.0
-			});
-		}
-
-		if (isTouchDevice) {
-			const panzoom = new Panzoom(mapContainer, {
-				maxScale: 20,
-				minScale: 1,
-				contain: 'outside',
-				/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
-				step: 10.0
-			});
-		}
+		const panzoom = new Panzoom(mapContainer, {
+			maxScale: 9,
+			minScale: 1,
+			contain: 'outside',
+			/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
+			step: 1.0
+		});
 
 		// Mausrad- und Touch-Interaktion hinzufügen
 		mapContainer.parentElement.addEventListener('wheel', (event) => {
