@@ -87,20 +87,22 @@ svg {
     color: #ffffff;
 }
 
+/* Optimierung für mobile Geräte */
+@media (max-width: 768px) {
+    .detail-element {
+        width: 80%;
+        top: 10%; /* Höher positionieren */
+        max-height: 70%; /* Etwas mehr Platz erlauben */
+        font-size: 14px; /* Schriftgröße reduzieren */
+    }
 
-.detail-element .encounter {
-    margin-bottom: 20px;
+    .detail-element img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .detail-element p {
+        font-size: 14px;
+    }
 }
-
-.detail-element img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.detail-element p {
-    font-size: 16px;
-    color: #ffffff;
-}
-
