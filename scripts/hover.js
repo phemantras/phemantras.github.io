@@ -1,15 +1,3 @@
-// Datenstruktur für Begegnungen
-const encounters = {
-	Switzerland: [
-		{ image: 'path/to/swiss_image1.jpg', text: 'Treffen mit Peter in Zürich.' },
-		{ image: 'path/to/swiss_image2.jpg', text: 'Skifahren mit Claudia in den Alpen.' },
-	],
-	Germany: [
-		{ image: 'path/to/german_image1.jpg', text: 'Treffen mit Hans in Berlin.' },
-	],
-	// Weitere Länder hinzufügen...
-};
-
 document.addEventListener('DOMContentLoaded', () => {
 	const tooltip = document.getElementById('tooltip');
 	const countries = document.querySelectorAll('.country');
@@ -108,11 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const mapContainer = document.querySelector('.map-container svg');
 	if (mapContainer) {
 		const panzoom = new Panzoom(mapContainer, {
-			maxScale: 5,
+			maxScale: 9,
 			minScale: 1,
 			contain: 'outside',
-			touchAction: 'none', // Verhindert unerwünschte Browser-Gesten
-			zoomSpeed: 0.065, // Verlangsamt den Zoom für bessere Kontrolle
+			/*touchAction: 'none', // Verhindert unerwünschte Browser-Gesten*/
+			zoomSpeed: 1, // Verlangsamt den Zoom für bessere Kontrolle
 		});
 
 		// Mausrad- und Touch-Interaktion hinzufügen
