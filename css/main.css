@@ -191,7 +191,7 @@ svg {
     transform: translate(-50%, 0);
     width: 90%; /* Breite für kleinere Bildschirme */
     max-width: 600px;
-    max-height: 60%;
+    max-height: 75%;
     overflow-y: auto;
     border: 1px solid #cccccc;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
