@@ -52,6 +52,25 @@ svg {
 	transition: opacity 0.3s;
 }
 
+/* Zentrierte Darstellung für Touchgeräte */
+.tooltip.touch {
+    position: fixed;
+    top: 10px; /* Abstand vom oberen Rand */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0; /* Unsichtbar, bis aktiv */
+    transition: opacity 0.3s;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund */
+    color: #ffffff; /* Weiße Schrift */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 90%;
+    text-align: center;
+    pointer-events: none;
+}
+
 .detail-element {
     position: fixed;
     top: 20%;

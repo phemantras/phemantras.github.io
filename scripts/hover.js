@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	detailElement.classList.add('detail-element');
 	document.body.appendChild(detailElement);
 
+	// Prüfen, ob es sich um ein Touchgerät handelt
+	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+	if (isTouchDevice) {
+		tooltip.classList.add('touch');
+	}
+	
 	const getRandomColor = () => {
 		let r, g, b;
 
@@ -35,20 +42,35 @@ document.addEventListener('DOMContentLoaded', () => {
 			country.style.fill = randomColor; // Farbe direkt setzen
 		}
 
-		country.addEventListener('mouseover', (e) => {
-			const name = country.getAttribute('title');
-			tooltip.textContent = name;
-			tooltip.style.opacity = '1';
-		});
+		if (!isTouchDevice) {
+			country.addEventListener('mouseover', (e) => {
+				const name = country.getAttribute('title');
+				tooltip.textContent = name;
+				tooltip.style.opacity = '1';
+			});
 
-		country.addEventListener('mousemove', (e) => {
-			tooltip.style.left = e.pageX + 10 + 'px';
-			tooltip.style.top = e.pageY + 10 + 'px';
-		});
+			country.addEventListener('mousemove', (e) => {
+				tooltip.style.left = e.pageX + 10 + 'px';
+				tooltip.style.top = e.pageY + 10 + 'px';
+			});
 
-		country.addEventListener('mouseout', () => {
-			tooltip.style.opacity = '0';
-		});
+			country.addEventListener('mouseout', () => {
+				tooltip.style.opacity = '0';
+			});
+		}
+		
+		// Touchverhalten (Mobile)
+		if (isTouchDevice) {
+			country.addEventListener('touchstart', (e) => {
+				const name = country.getAttribute('title');
+				tooltip.textContent = name;
+				tooltip.style.opacity = '1';
+			});
+
+			country.addEventListener('touchend', () => {
+				tooltip.style.opacity = '0';
+			});
+		}
 
 		if (country.classList.contains('visited')) {
 			country.addEventListener('click', async () => {
