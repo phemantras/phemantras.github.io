@@ -16,10 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		country.classList.contains('visited')
 	).length;
 
+	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	
 	const totalCountries = countries.length;
 	document.querySelector('.stats-container').innerHTML = 
-	    `Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries`;
+	    `Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries ${isTouchDevice}`;
 
 
 
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.body.appendChild(detailElement);
 
 	// Prüfen, ob es sich um ein Touchgerät handelt
-	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 	if (isTouchDevice) {
 		tooltip.classList.add('touch');
