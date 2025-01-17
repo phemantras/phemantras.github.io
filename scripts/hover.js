@@ -66,9 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Länder initialisieren
 	countries.forEach(country => {
 		if (country.classList.contains('visited')) {
-			const randomColor = getRandomColor();
-			country.style.fill = randomColor; // Farbe direkt setzen
-
+			if (!country.getAttribute('title') == "Canada"
+				&& !country.getAttribute('title') == "Mexico"
+				&& !country.getAttribute('title') == "United States") {
+				const randomColor = getRandomColor();
+				country.style.fill = randomColor; // Farbe direkt setzen
+			}
 			country.addEventListener('click', () => handleCountryClick(country));
 		}
 

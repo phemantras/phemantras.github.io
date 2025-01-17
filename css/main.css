@@ -75,6 +75,7 @@ body {
 	color: #B31942;
 }
 
+
 /* Menü-Container */
 .menu-container {
     position: fixed;
@@ -168,6 +169,21 @@ svg {
 .country:hover {
 	fill: #ff9800;
 	stroke: #000000;
+}
+
+.canada{
+	/* fill:#D80621; */
+	fill: url(flag_canada.jpg);
+}
+
+.usa{
+	fill: #0A3161;
+	/* #B31942; */
+}
+
+.mexico{
+	fill: #006341;
+/* 	C8102E */
 }
 
 .tooltip {
