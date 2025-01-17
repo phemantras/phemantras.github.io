@@ -6,10 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const menuButton = document.querySelector('.menu-button');
 	const menuDropdown = document.querySelector('.menu-dropdown');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
-	tooltip.style.opacity = '1';
-	tooltip.style.left = '50%';
-	tooltip.style.top = '50px';
-	tooltip.textContent = 'Test Tooltip';
 
 	// Alle Länder mit der Klasse "visited" zählen
 	const visitedCount = Array.from(countries).filter(country =>
@@ -20,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	const totalCountries = countries.length;
 	document.querySelector('.stats-container').innerHTML = 
-	    `Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries ${isTouchDevice}`;
-
+	    `Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries`;
 
 
 	detailElement.classList.add('detail-element');
@@ -99,11 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 				const name = country.getAttribute('title');
 				tooltip.textContent = name;
-
-				// Positionierung: Zentriere den Tooltip
-				const rect = country.getBoundingClientRect();
-				tooltip.style.left = `${rect.left + rect.width / 2}px`;
-				tooltip.style.top = `${rect.top - tooltip.offsetHeight - 10}px`; // 10px Abstand nach oben
 				tooltip.style.opacity = '1';
 			});
 

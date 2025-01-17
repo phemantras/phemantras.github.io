@@ -181,8 +181,8 @@ svg {
 
 /* Zentrierte Darstellung für Touchgeräte */
 .tooltip.touch {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 70px;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
