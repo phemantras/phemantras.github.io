@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuDropdown = document.querySelector('.menu-dropdown');
     const visitedCountriesList = document.getElementById('visited-countries-list');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	
+	
+
 
     // Gastgeberländer, die ihre Farbe nicht ändern
     const hostCountries = ["Canada", "Mexico", "United States"];
