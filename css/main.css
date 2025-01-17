@@ -172,8 +172,8 @@ svg {
 }
 
 .canada{
-	/* fill:#D80621; */
-	fill: url(flag_canada.jpg);
+	fill:#D80621; 
+/* 	fill: url(css/flag_canada.jpg); */
 }
 
 .usa{
