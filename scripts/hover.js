@@ -91,9 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				tooltip.style.opacity = '0';
 			});
 		} else {
-			country.addEventListener('touchstart', () => {
+			country.addEventListener('touchstart', (e) => {
 				const name = country.getAttribute('title');
 				tooltip.textContent = name;
+
+				// Positionierung: Zentriere den Tooltip am oberen Ende der Karte
+				const rect = country.getBoundingClientRect();
+				const mapRect = document.querySelector('.map-container').getBoundingClientRect();
+
+				tooltip.style.left = `${mapRect.left + mapRect.width / 2}px`;
+				tooltip.style.top = `${mapRect.top - tooltip.offsetHeight - 10}px`; // 10px Abstand nach oben
 				tooltip.style.opacity = '1';
 			});
 
