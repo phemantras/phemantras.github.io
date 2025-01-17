@@ -122,9 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					});
 
 					detailElement.style.display = 'block';
-				} else {
-					console.error(`Keine Daten gefunden für ${countryName}`);
-				}
+				} 
 			});
 		}
 	});
