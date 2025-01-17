@@ -57,6 +57,20 @@ body {
 
 }
 
+.stats-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-family: Georgia, sans-serif;
+    font-size: 1rem;
+    color: #0A3161;
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 1000;
+    pointer-events: none; /* Keine Interaktion */
+    text-align: center;
+}
+
 /* Menü-Container */
 .menu-container {
     position: fixed;
@@ -236,5 +250,26 @@ svg {
 
     .detail-element p {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .title-container {
+        top: 50px; /* Etwas weiter nach unten verschieben */
+        font-size: 1.5rem; /* Schriftgröße reduzieren */
+    }
+}
+
+@media (max-width: 480px) {
+    .title-container {
+        top: 70px; /* Noch weiter nach unten verschieben */
+        font-size: 1.2rem; /* Noch kleinere Schriftgröße */
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        font-size: 0.9rem;
+        padding: 6px 10px;
     }
 }
