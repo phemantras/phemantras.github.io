@@ -92,15 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		} else {
 			country.addEventListener('touchstart', (e) => {
+				e.preventDefault(); // Standard-Touch-Verhalten verhindern
+
 				const name = country.getAttribute('title');
 				tooltip.textContent = name;
 
-				// Positionierung: Zentriere den Tooltip am oberen Ende der Karte
+				// Positionierung: Zentriere den Tooltip
 				const rect = country.getBoundingClientRect();
-				const mapRect = document.querySelector('.map-container').getBoundingClientRect();
-
-				tooltip.style.left = `${mapRect.left + mapRect.width / 2}px`;
-				tooltip.style.top = `${mapRect.top - tooltip.offsetHeight - 10}px`; // 10px Abstand nach oben
+				tooltip.style.left = `${rect.left + rect.width / 2}px`;
+				tooltip.style.top = `${rect.top - tooltip.offsetHeight - 10}px`; // 10px Abstand nach oben
 				tooltip.style.opacity = '1';
 			});
 
