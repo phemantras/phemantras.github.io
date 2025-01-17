@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const menuButton = document.querySelector('.menu-button');
 	const menuDropdown = document.querySelector('.menu-dropdown');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
-
+	tooltip.style.opacity = '1';
+	tooltip.style.left = '50%';
+	tooltip.style.top = '50px';
+	tooltip.textContent = 'Test Tooltip';
 
 	// Alle Länder mit der Klasse "visited" zählen
 	const visitedCount = Array.from(countries).filter(country =>
