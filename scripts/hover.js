@@ -14,9 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-	const totalCountries = countries.length;
 	document.querySelector('.stats-container').innerHTML =
-		`Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries`;
+		`Met people from <span id="countries-count">${visitedCount}</span> different countries!`;
 
 
 	detailElement.classList.add('detail-element');
