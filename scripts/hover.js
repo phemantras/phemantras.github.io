@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	).length;
 
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-	
+
 	const totalCountries = countries.length;
-	document.querySelector('.stats-container').innerHTML = 
-	    `Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries`;
+	document.querySelector('.stats-container').innerHTML =
+		`Met people from <span id="countries-count">${visitedCount}</span> out of ${totalCountries} countries`;
 
 
 	detailElement.classList.add('detail-element');
@@ -97,8 +97,32 @@ document.addEventListener('DOMContentLoaded', () => {
 				tooltip.style.opacity = '1';
 			});
 
-			country.addEventListener('touchend', () => {
-				tooltip.style.opacity = '0';
+			country.addEventListener('touchend', async (e) => {
+				e.preventDefault(); // Standard-Touch-Verhalten verhindern
+
+				tooltip.style.opacity = '0'; // Tooltip ausblenden
+
+				// Klick-Funktionalität ausführen
+				const countryName = country.getAttribute('title');
+				const response = await fetch(`encounters/${countryName}/data.json`);
+				if (response.ok) {
+					const data = await response.json();
+					detailElement.innerHTML = ''; // Detail-Element zurücksetzen
+
+					data.encounters.forEach(encounter => {
+						const encounterDiv = document.createElement('div');
+						encounterDiv.classList.add('encounter');
+						encounterDiv.innerHTML = `
+			                    <img src="encounters/${countryName}/${encounter.image}" alt="${countryName}" />
+			                    <p>${encounter.text}</p>
+			                `;
+						detailElement.appendChild(encounterDiv);
+					});
+
+					detailElement.style.display = 'block';
+				} else {
+					console.error(`Keine Daten gefunden für ${countryName}`);
+				}
 			});
 		}
 	});
