@@ -187,7 +187,7 @@ svg {
     transform: translateX(-50%);
     opacity: 0; /* Unsichtbar, bis aktiv */
     transition: opacity 0.3s;
-    z-index: 1000;
+    z-index: 1200;
     background: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund */
     color: #ffffff; /* Weiße Schrift */
     padding: 5px 10px;
