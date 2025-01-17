@@ -66,9 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Länder initialisieren
 	countries.forEach(country => {
 		if (country.classList.contains('visited')) {
-			if (!country.getAttribute('title') == "Canada"
-				&& !country.getAttribute('title') == "Mexico"
-				&& !country.getAttribute('title') == "United States") {
+			if (country.getAttribute('title') !== "Canada"
+				&& country.getAttribute('title') !== "Mexico"
+				&& country.getAttribute('title') !== "United States") {
 				const randomColor = getRandomColor();
 				country.style.fill = randomColor; // Farbe direkt setzen
 			}
