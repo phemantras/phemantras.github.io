@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             country.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 showTooltip(e.touches[0]);
+				detailElement.style.display = 'none';
             });
 
             country.addEventListener('touchend', (e) => {
