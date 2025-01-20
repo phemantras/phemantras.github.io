@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuDropdown = document.querySelector('.menu-dropdown');
     const visitedCountriesList = document.getElementById('visited-countries-list');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-	
-	
-
 
     // Gastgeberländer, die ihre Farbe nicht ändern
     const hostCountries = ["Canada", "Mexico", "United States"];
@@ -30,86 +27,104 @@ document.addEventListener('DOMContentLoaded', () => {
     detailElement.classList.add('detail-element');
     document.body.appendChild(detailElement);
 
-    // Tooltip für Touchgeräte
-    if (isTouchDevice) {
-        tooltip.classList.add('touch');
-    }
+    countries.forEach(country => {
+        const name = country.getAttribute('title');
 
-    // Farbzuweisung und Klick-Logik für Länder
-	countries.forEach(country => {
-	    const name = country.getAttribute('title');
+        // Gastgeberländer behalten Standardfarbe
+        if (!hostCountries.includes(name) && country.classList.contains('visited')) {
+            const randomColor = `rgb(${Math.random() * 200}, ${Math.random() * 200}, ${Math.random() * 200})`;
+            country.style.fill = randomColor;
+        }
 
-	    // Gastgeberländer behalten Standardfarbe
-	    if (!hostCountries.includes(name) && country.classList.contains('visited')) {
-	        const randomColor = `rgb(${Math.random() * 200}, ${Math.random() * 200}, ${Math.random() * 200})`;
-	        country.style.fill = randomColor;
-	    }
+        // Tooltip-Logik
+        const showTooltip = (e) => {
+            tooltip.textContent = name;
+            tooltip.style.opacity = '1';
 
-	    const showTooltip = (e) => {
-	        tooltip.textContent = name;
-	        tooltip.style.opacity = '1';
+            if (isTouchDevice) {
+                tooltip.classList.add('touch');
+                // Die Position bleibt durch die CSS-Klasse festgelegt.
+            } else {
+                tooltip.classList.remove('touch');
+                tooltip.style.left = `${e.pageX + 10}px`;
+                tooltip.style.top = `${e.pageY + 10}px`;
+            }
+        };
 
-	        if (!isTouchDevice) {
-	            // Positionierung für Desktop
-	            tooltip.style.left = e.pageX + 10 + 'px';
-	            tooltip.style.top = e.pageY + 10 + 'px';
-	        }
-	    };
+        const hideTooltip = () => {
+            tooltip.style.opacity = '0';
+        };
 
-	    const hideTooltip = () => {
-	        tooltip.style.opacity = '0';
-	    };
+        // Tooltip für alle Geräte
+        if (isTouchDevice) {
+            country.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                showTooltip(e.touches[0]);
+            });
 
-	    // Tooltip für alle Länder (Desktop)
-	    if (!isTouchDevice) {
-	        country.addEventListener('mouseover', showTooltip);
-	        country.addEventListener('mousemove', showTooltip); // Bewegungen aktualisieren Tooltip-Position
-	        country.addEventListener('mouseout', hideTooltip);
-	    }
+            country.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                hideTooltip();
+            });
+        } else {
+            country.addEventListener('mouseover', showTooltip);
+            country.addEventListener('mousemove', showTooltip);
+            country.addEventListener('mouseout', hideTooltip);
+        }
 
-	    // Interaktivität nur für besuchte Länder
-	    if (country.classList.contains('visited')) {
-	        const clickHandler = async () => {
-	            const response = await fetch(`encounters/${name}/data.json`);
-	            if (response.ok) {
-	                const data = await response.json();
-	                detailElement.innerHTML = ''; // Detail-Element zurücksetzen
+        // Klick-Logik nur für visited-Länder
+		if (country.classList.contains('visited')) {
+			const pathData = country.getAttribute('d'); // Umriss des Landes
+			const maskId = `mask-${country.id}`; // Eindeutige ID für die Maske
 
-	                data.encounters.forEach(encounter => {
-	                    const encounterDiv = document.createElement('div');
-	                    encounterDiv.classList.add('encounter');
-	                    encounterDiv.innerHTML = `
-	                        <img src="encounters/${name}/${encounter.image}" alt="${name}" />
-	                        <p>${encounter.text}</p>
-	                    `;
-	                    detailElement.appendChild(encounterDiv);
-	                });
+			// Dynamische Maske erstellen
+			const mask = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
+			mask.setAttribute('id', maskId);
 
-	                detailElement.style.display = 'block';
-	            } else {
-	                console.error(`Keine Daten gefunden für ${name}`);
-	            }
-	        };
+			const maskPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			maskPath.setAttribute('d', pathData);
+			maskPath.setAttribute('fill', 'white');
 
-	        if (isTouchDevice) {
-	            // Mobile: Tooltip und Klick
-	            country.addEventListener('touchstart', (e) => {
-	                e.preventDefault();
-	                showTooltip(e);
-	            });
+			mask.appendChild(maskPath);
+			document.querySelector('defs').appendChild(mask);
 
-	            country.addEventListener('touchend', (e) => {
-	                e.preventDefault();
-	                hideTooltip();
-	                clickHandler();
-	            });
-	        } else {
-	            // Desktop: Klick-Logik
-	            country.addEventListener('click', clickHandler);
-	        }
-	    }
-	});
+			// Maske im CSS-Stil anwenden
+			country.style.mask = `url(#${maskId})`;
+			country.style.webkitMask = `url(#${maskId})`; // Für WebKit-Browser
 
+
+			const clickHandler = async () => {
+                const response = await fetch(`encounters/${name}/data.json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    detailElement.innerHTML = ''; // Zurücksetzen
+
+                    data.encounters.forEach(encounter => {
+                        const encounterDiv = document.createElement('div');
+                        encounterDiv.classList.add('encounter');
+                        encounterDiv.innerHTML = `
+                            <img src="encounters/${name}/${encounter.image}" alt="${name}" />
+                            <p>${encounter.text}</p>
+                        `;
+                        detailElement.appendChild(encounterDiv);
+                    });
+
+                    detailElement.style.display = 'block';
+                } else {
+                    console.error(`Keine Daten gefunden für ${name}`);
+                }
+            };
+
+            // Kombiniere Klick und Touch-Events
+            country.addEventListener('click', clickHandler);
+            if (isTouchDevice) {
+                country.addEventListener('touchend', (e) => {
+                    e.preventDefault(); // Verhindert Konflikte mit Standard-Touch-Events
+                    clickHandler();
+                });
+            }
+        }
+    });
 
     // Besuchte Länder in Menü einfügen
     visitedCountries.forEach(({ name, element }) => {

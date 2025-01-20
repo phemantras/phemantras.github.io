@@ -161,6 +161,11 @@ svg {
 	transition: fill 0.3s, stroke 0.3s;
 }
 
+.country.visited {
+    fill: #d9ad7c;
+    filter: url(#grain-filter);
+}
+
 .country[fill] {
     fill: inherit; /* Überschreibt die CSS-Füllung mit der SVG-spezifischen */
 }
@@ -174,21 +179,6 @@ svg {
 	fill: #ff9800;
 	stroke: #000000;
 }
-/* 
-.canada{
-	fill:#D80621; 
-	fill: url(css/flag_canada.jpg);
-}
-
-.usa{
-	fill: #0A3161;
-	#B31942;
-}
-
-.mexico{
-	fill: #006341;
-	C8102E
-} */
 
 .tooltip {
 	position: absolute;
