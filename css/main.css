@@ -162,8 +162,8 @@ svg {
 }
 
 .country.visited {
-    fill: #d9ad7c;
-    filter: url(#grain-filter);
+    fill: #d9ad7c; /* Basisfarbe */
+fill: url(#texture); /* Texturfüllung */
 }
 
 .country[fill] {
