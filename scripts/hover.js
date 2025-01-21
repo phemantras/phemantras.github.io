@@ -31,12 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		const name = country.getAttribute('title');
 
 		if (!hostCountries.includes(name) && country.classList.contains('visited')) {
-		    // RGB-Farbe zufällig generieren
-		    const randomColor = `rgb(${Math.random() * 200}, ${Math.random() * 200}, ${Math.random() * 200})`;
+		    // Funktion: Zufällige Farbe generieren
+		    const generateRandomColor = () => {
+		        const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
+		        const g = Math.random() * 150 + 50; // Gedecktes Grün (50-200)
+		        const b = Math.random() * 150 + 50; // Gedecktes Blau (50-200)
+		        return `rgb(${r}, ${g}, ${b})`;
+		    };
 
-		    // Hellerer Farbton für den Farbverlauf berechnen
-		    const rgbValues = randomColor.match(/\d+/g).map(Number);
-		    const lighterColor = `rgb(${Math.min(rgbValues[0] + 50, 255)}, ${Math.min(rgbValues[1] + 50, 255)}, ${Math.min(rgbValues[2] + 50, 255)})`;
+		    // Zwei zufällige Farben für den Farbverlauf generieren
+		    const randomColorStart = generateRandomColor();
+		    const randomColorEnd = generateRandomColor();
 
 		    // Dynamischen Farbverlauf erstellen
 		    const gradientId = `gradient-${country.id}`;
@@ -45,20 +50,44 @@ document.addEventListener('DOMContentLoaded', () => {
 		        document.querySelector('svg').appendChild(defs);
 		    }
 
+		    // Zielpunkt (Nordosten der USA) und SVG-Viewport
+		    const targetPoint = { x: 265, y: 340 }; // Absoluter Zielpunkt
+		    const svg = document.querySelector('svg');
+		    const viewBox = svg.viewBox.baseVal; // ViewBox des SVGs (x, y, width, height)
+
+		    // Zielpunkt relativ zur ViewBox berechnen
+		    const relativeTarget = {
+		        x: (targetPoint.x - viewBox.x) / viewBox.width,
+		        y: (targetPoint.y - viewBox.y) / viewBox.height,
+		    };
+
+		    // Begrenzungsrahmen des Landes
+		    const bbox = country.getBBox();
+		    const startX = bbox.x + bbox.width * 0.4; // Farbverlauf startet bei 20% Breite
+		    const startY = bbox.y + bbox.height * 0.4; // Farbverlauf startet bei 20% Höhe
+
+		    // Dynamische Richtung des Farbverlaufs berechnen
+		    const directionVector = {
+		        x1: (startX - viewBox.x) / viewBox.width, // Startpunkt relativ zur ViewBox
+		        y1: (startY - viewBox.y) / viewBox.height,
+		        x2: relativeTarget.x, // Zielpunkt relativ zur ViewBox
+		        y2: relativeTarget.y,
+		    };
+
 		    const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
 		    gradient.setAttribute('id', gradientId);
-		    gradient.setAttribute('x1', '0');
-		    gradient.setAttribute('y1', '0');
-		    gradient.setAttribute('x2', '1');
-		    gradient.setAttribute('y2', '1');
+		    gradient.setAttribute('x1', directionVector.x1.toString());
+		    gradient.setAttribute('y1', directionVector.y1.toString());
+		    gradient.setAttribute('x2', directionVector.x2.toString());
+		    gradient.setAttribute('y2', directionVector.y2.toString());
 
 		    const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
 		    stop1.setAttribute('offset', '0%');
-		    stop1.setAttribute('stop-color', randomColor);
+		    stop1.setAttribute('stop-color', randomColorStart);
 
 		    const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
 		    stop2.setAttribute('offset', '100%');
-		    stop2.setAttribute('stop-color', lighterColor);
+		    stop2.setAttribute('stop-color', randomColorEnd);
 
 		    gradient.appendChild(stop1);
 		    gradient.appendChild(stop2);
@@ -66,7 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		    // Farbverlauf anwenden
 		    country.style.fill = `url(#${gradientId})`;
+
+		    // Debugging: Logge die beiden Farben in der Konsole
+		    console.log(`Land: ${name}, Start Color: ${randomColorStart}, End Color: ${randomColorEnd}`);
 		}
+
 
 
 		// Tooltip-Logik
