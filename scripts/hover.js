@@ -179,13 +179,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 					data.encounters.forEach(encounter => {
 						const encounterDiv = document.createElement('div');
 						encounterDiv.classList.add('encounter');
-						encounterDiv.innerHTML = `
+						encounterDiv.innerHTML = `							
                             <img src="encounters/${name}/${encounter.image}" alt="${name}" />
-                            <p>${encounter.text}</p>
+                            <p class="encounter-text">${encounter.text}</p>
                         `;
 						detailElement.appendChild(encounterDiv);
 					});
-
+					
+					detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
 					detailElement.style.display = 'block';
 				}
 			};

@@ -225,12 +225,20 @@ fill: url(#texture); /* Texturfüllung */
     overflow-y: auto;
     border: 1px solid #cccccc;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.5); /* Schwarzer Hintergrund mit Transparenz */
+    background: rgba(0, 0, 0, 0.7); /* Schwarzer Hintergrund mit Transparenz */
     color: #ffffff; /* Weiße Schrift */
     border-radius: 10px;
     padding: 20px;
     display: none;
     z-index: 1000;
+}
+
+.detail-element .encounter-title{
+	font-family: Georgia, sans-serif;
+    font-size: 2rem; /* Schriftgröße */
+    font-weight: bold;
+    text-align: center;
+    margin: 0px 0px 10px 0px;
 }
 
 .detail-element .encounter {
@@ -244,9 +252,10 @@ fill: url(#texture); /* Texturfüllung */
     margin-bottom: 10px;
 }
 
-.detail-element p {
-    font-size: 16px;
+.detail-element .encounter-text {
+    font-size: 18px;
     color: #ffffff;
+    
 }
 
 /* Optimierung für mobile Geräte */
