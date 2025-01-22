@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 		);
 		if (countryElement) {
 			countryElement.classList.add('visited');
-			console.log(`Land "${countryName}" wurde als besucht markiert.`);
 		}
 	});
 
@@ -128,9 +127,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 			// Farbverlauf anwenden
 			country.style.fill = `url(#${gradientId})`;
-
-			// Debugging: Logge die Farben
-			console.log(`Land: ${name}, Start Color: ${randomColor}, Lighter Color: ${lighterColor}`);
 		}
 
 
@@ -190,8 +186,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 					});
 
 					detailElement.style.display = 'block';
-				} else {
-					console.error(`Keine Daten gefunden für ${name}`);
 				}
 			};
 
