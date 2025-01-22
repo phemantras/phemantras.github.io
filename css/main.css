@@ -81,7 +81,7 @@ body {
     position: fixed;
     top: 10px;
     left: 10px;
-    z-index: 1000;
+    z-index: 1200;
     font-family: Arial, sans-serif;
 }
 
@@ -113,7 +113,7 @@ body {
     width: 200px;
     max-height: 300px;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 5555;
 }
 
 .menu-dropdown ul {
