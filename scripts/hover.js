@@ -31,17 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		const name = country.getAttribute('title');
 
 		if (!hostCountries.includes(name) && country.classList.contains('visited')) {
-		    // Funktion: Zufällige Farbe generieren
+		    // Funktion: Zufällige gedeckte Farbe generieren
 		    const generateRandomColor = () => {
 		        const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
 		        const g = Math.random() * 150 + 50; // Gedecktes Grün (50-200)
 		        const b = Math.random() * 150 + 50; // Gedecktes Blau (50-200)
-		        return `rgb(${r}, ${g}, ${b})`;
+		        return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
 		    };
 
-		    // Zwei zufällige Farben für den Farbverlauf generieren
-		    const randomColorStart = generateRandomColor();
-		    const randomColorEnd = generateRandomColor();
+		    // Funktion: Helligkeit proportional anpassen
+		    const lightenColor = (rgb, factor) => {
+		        const rgbValues = rgb.match(/\d+/g).map(Number); // Extrahiere RGB-Werte
+		        return `rgb(${Math.min(rgbValues[0] * factor, 255)}, ${Math.min(rgbValues[1] * factor, 255)}, ${Math.min(rgbValues[2] * factor, 255)})`;
+		    };
+
+		    // Zufällige Startfarbe generieren
+		    const randomColor = generateRandomColor();
+
+		    // Zielfarbe: Startfarbe leicht aufgehellt (z. B. um 1.2x)
+		    const lighterColor = lightenColor(randomColor, 1.4); // 20% heller
 
 		    // Dynamischen Farbverlauf erstellen
 		    const gradientId = `gradient-${country.id}`;
@@ -63,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		    // Begrenzungsrahmen des Landes
 		    const bbox = country.getBBox();
-		    const startX = bbox.x + bbox.width * 0.4; // Farbverlauf startet bei 20% Breite
-		    const startY = bbox.y + bbox.height * 0.4; // Farbverlauf startet bei 20% Höhe
+		    const startX = bbox.x + bbox.width * 0.2; // Farbverlauf startet bei 20% Breite
+		    const startY = bbox.y + bbox.height * 0.2; // Farbverlauf startet bei 20% Höhe
 
 		    // Dynamische Richtung des Farbverlaufs berechnen
 		    const directionVector = {
@@ -83,11 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		    const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
 		    stop1.setAttribute('offset', '0%');
-		    stop1.setAttribute('stop-color', randomColorStart);
+		    stop1.setAttribute('stop-color', randomColor);
 
 		    const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
 		    stop2.setAttribute('offset', '100%');
-		    stop2.setAttribute('stop-color', randomColorEnd);
+		    stop2.setAttribute('stop-color', lighterColor);
 
 		    gradient.appendChild(stop1);
 		    gradient.appendChild(stop2);
@@ -96,10 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		    // Farbverlauf anwenden
 		    country.style.fill = `url(#${gradientId})`;
 
-		    // Debugging: Logge die beiden Farben in der Konsole
-		    console.log(`Land: ${name}, Start Color: ${randomColorStart}, End Color: ${randomColorEnd}`);
+		    // Debugging: Logge die Farben
+		    console.log(`Land: ${name}, Start Color: ${randomColor}, Lighter Color: ${lighterColor}`);
 		}
-
 
 
 		// Tooltip-Logik
