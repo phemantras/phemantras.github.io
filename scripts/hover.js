@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	const visitedCountries = document.querySelectorAll('.country.visited');
+	
 	// Statistik aktualisieren
 	if (statsContainer) {
 		statsContainer.innerHTML = `Met people from <span id="countries-count">${visitedCountries.length}</span> different countries!`;
@@ -199,22 +200,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 			}
 		}
 	});
+	
+	const visitedCountriesArray = Array.from(visitedCountries).map(countryElement => {
+	  const name = countryElement.getAttribute('title');
+	  return { name, element: countryElement };
+	});
 
-	visitedCountries.forEach((countryElement) => {
-	  const name = countryElement.getAttribute('title'); // Holen des Namens aus dem Titel-Attribut
-	  if (name) {
-	    const li = document.createElement('li');
-	    li.textContent = name;
-	    li.addEventListener('click', () => {
-	      const event = new MouseEvent('click', {
-	        bubbles: true,
-	        cancelable: true,
-	        view: window,
-	      });
-	      countryElement.dispatchEvent(event); // Verwende das tatsächliche DOM-Element
+	// Alphabetische Sortierung der Länder nach Namen
+	visitedCountriesArray.sort((a, b) => a.name.localeCompare(b.name));
+
+	// Besuchte Länder in Menü einfügen
+	visitedCountriesArray.forEach(({ name, element }) => {
+	  const li = document.createElement('li');
+	  li.textContent = name;
+	  li.addEventListener('click', () => {
+	    const event = new MouseEvent('click', {
+	      bubbles: true,
+	      cancelable: true,
+	      view: window,
 	    });
-	    visitedCountriesList.appendChild(li);
-	  }
+	    element.dispatchEvent(event);
+	  });
+	  visitedCountriesList.appendChild(li);
 	});
 
 	// Dropdown-Menü anzeigen/verbergen
