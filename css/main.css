@@ -216,12 +216,12 @@ fill: url(#texture); /* Texturfüllung */
 
 .detail-element {
     position: fixed;
-    top: 20%;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, 0);
     width: 90%; /* Breite für kleinere Bildschirme */
     max-width: 600px;
-    max-height: 75%;
+    max-height: 80%;
     overflow-y: auto;
     border: 1px solid #cccccc;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
