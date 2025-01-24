@@ -38,14 +38,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	const visitedCountries = document.querySelectorAll('.country.visited');
-	
+
 	// Statistik aktualisieren
 	if (statsContainer) {
 		statsContainer.innerHTML = `Met people from <span id="countries-count">${visitedCountries.length}</span> different countries!`;
 	}
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
-	const hostCountries = ["Canada", "Mexico", "United States"];
+	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
 
 
 	// Detail-Element konfigurieren
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const name = country.getAttribute('title');
 
 		if (!hostCountries.includes(name) && country.classList.contains('visited')) {
-			// Funktion: Zufällige gedeckte Farbe generieren
+			// Zufällige gedeckte Farbe generieren
 			const generateRandomColor = () => {
 				const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
 				const g = Math.random() * 150 + 50; // Gedecktes Grün (50-200)
@@ -64,46 +64,39 @@ document.addEventListener('DOMContentLoaded', async () => {
 				return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
 			};
 
-			// Funktion: Helligkeit proportional anpassen
+			// Helligkeit anpassen
 			const lightenColor = (rgb, factor) => {
-				const rgbValues = rgb.match(/\d+/g).map(Number); // Extrahiere RGB-Werte
+				const rgbValues = rgb.match(/\d+/g).map(Number);
 				return `rgb(${Math.min(rgbValues[0] * factor, 255)}, ${Math.min(rgbValues[1] * factor, 255)}, ${Math.min(rgbValues[2] * factor, 255)})`;
 			};
 
-			// Zufällige Startfarbe generieren
 			const randomColor = generateRandomColor();
+			const lighterColor = lightenColor(randomColor, 1.2);
 
-			// Zielfarbe: Startfarbe leicht aufgehellt (z. B. um 1.2x)
-			const lighterColor = lightenColor(randomColor, 1.4); // 20% heller
-
-			// Dynamischen Farbverlauf erstellen
+			// Dynamischer Farbverlauf
 			const gradientId = `gradient-${country.id}`;
 			const defs = document.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 			if (!defs.parentNode) {
 				document.querySelector('svg').appendChild(defs);
 			}
 
-			// Zielpunkt (Nordosten der USA) und SVG-Viewport
-			const targetPoint = { x: 265, y: 340 }; // Absoluter Zielpunkt
+			const targetPoint = { x: 265, y: 340 };
 			const svg = document.querySelector('svg');
-			const viewBox = svg.viewBox.baseVal; // ViewBox des SVGs (x, y, width, height)
+			const viewBox = svg.viewBox.baseVal;
 
-			// Zielpunkt relativ zur ViewBox berechnen
 			const relativeTarget = {
 				x: (targetPoint.x - viewBox.x) / viewBox.width,
 				y: (targetPoint.y - viewBox.y) / viewBox.height,
 			};
 
-			// Begrenzungsrahmen des Landes
 			const bbox = country.getBBox();
-			const startX = bbox.x + bbox.width * 0.2; // Farbverlauf startet bei 20% Breite
-			const startY = bbox.y + bbox.height * 0.2; // Farbverlauf startet bei 20% Höhe
+			const startX = bbox.x + bbox.width * 0.2;
+			const startY = bbox.y + bbox.height * 0.2;
 
-			// Dynamische Richtung des Farbverlaufs berechnen
 			const directionVector = {
-				x1: (startX - viewBox.x) / viewBox.width, // Startpunkt relativ zur ViewBox
+				x1: (startX - viewBox.x) / viewBox.width,
 				y1: (startY - viewBox.y) / viewBox.height,
-				x2: relativeTarget.x, // Zielpunkt relativ zur ViewBox
+				x2: relativeTarget.x,
 				y2: relativeTarget.y,
 			};
 
@@ -126,11 +119,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 			gradient.appendChild(stop2);
 			defs.appendChild(gradient);
 
-			// Farbverlauf anwenden
 			country.style.fill = `url(#${gradientId})`;
 		}
-
-
 		// Tooltip-Logik
 		const showTooltip = (e) => {
 			tooltip.textContent = name;
@@ -185,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         `;
 						detailElement.appendChild(encounterDiv);
 					});
-					
+
 					detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
 					detailElement.style.display = 'block';
 				}
@@ -201,10 +191,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 			}
 		}
 	});
-	
+
 	const visitedCountriesArray = Array.from(visitedCountries).map(countryElement => {
-	  const name = countryElement.getAttribute('title');
-	  return { name, element: countryElement };
+		const name = countryElement.getAttribute('title');
+		return { name, element: countryElement };
 	});
 
 	// Alphabetische Sortierung der Länder nach Namen
@@ -212,17 +202,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Besuchte Länder in Menü einfügen
 	visitedCountriesArray.forEach(({ name, element }) => {
-	  const li = document.createElement('li');
-	  li.textContent = name;
-	  li.addEventListener('click', () => {
-	    const event = new MouseEvent('click', {
-	      bubbles: true,
-	      cancelable: true,
-	      view: window,
-	    });
-	    element.dispatchEvent(event);
-	  });
-	  visitedCountriesList.appendChild(li);
+		const li = document.createElement('li');
+		li.textContent = name;
+		li.addEventListener('click', () => {
+			const event = new MouseEvent('click', {
+				bubbles: true,
+				cancelable: true,
+				view: window,
+			});
+			element.dispatchEvent(event);
+		});
+		visitedCountriesList.appendChild(li);
 	});
 
 	// Dropdown-Menü anzeigen/verbergen
