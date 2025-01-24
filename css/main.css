@@ -5,7 +5,7 @@ body {
 	display: flex;
 	justify-content: center;
 	height: 100vh;
-	background-color: #f0f0f0;
+	background: -webkit-linear-gradient(#f0f0f0, #eaeaea);
 }
 .title-container {
     position: fixed;
