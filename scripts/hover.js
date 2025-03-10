@@ -197,9 +197,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 							encounterDetail.classList.add('encounter-detail', 'hidden');
 							encounterDetail.innerHTML = `
 							    <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-							    <p><strong>Name:</strong> ${encounter.name}</p>
-							    <p><strong>Location:</strong> ${encounter.location}</p>
-							    <p><strong>Date:</strong> ${encounter.date}</p>
 							    <p>${encounter.text}</p>
 							`;
 
