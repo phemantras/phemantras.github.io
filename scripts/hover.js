@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Statistik aktualisieren
 	if (statsContainer) {
-		statsContainer.innerHTML = `Met people from <span id="countries-count">${visitedCountries.length}</span> different countries!`;
+		statsContainer.innerHTML = `enCOUNTERed: <span id="countries-count">${visitedCountries.length}</span>`;
 	}
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
