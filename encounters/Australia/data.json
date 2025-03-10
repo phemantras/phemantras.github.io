@@ -2,6 +2,9 @@
     "title": "Australia",
     "encounters": [
         {
+        	"name": "Simon & Liz",
+			"location": "Labuan Bajo",
+			"date": "2024-11-11",
             "image": "dags.jpg",
             "text": "We've met a couple of dags in Indonesia back then in 2024. Maybe we'll see them around some day.. or at the world cup?"
         }

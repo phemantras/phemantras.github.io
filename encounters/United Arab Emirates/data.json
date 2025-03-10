@@ -2,8 +2,11 @@
     "title": "United Arab Emirates",
     "encounters": [
         {
+        	"name": "Al-Jazira Club",
+			"location": "Abu Dhabi",
+			"date": "26.10.2024",
             "image": "al_jazira.jpg",
-            "text": "26.10.2024 - Trip to Al-Jazira Club vs. Khor Fakkan (4:2) in the United Arab Emirates! Still a lot to do regarding Football in the middle east..."
+            "text": "Trip to Al-Jazira Club vs. Khor Fakkan (4:2) in the United Arab Emirates! Still a lot to do regarding Football in the middle east..."
         }
     ]
 }

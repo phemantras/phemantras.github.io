@@ -165,19 +165,66 @@ document.addEventListener('DOMContentLoaded', async () => {
 				if (response.ok) {
 					const data = await response.json();
 					detailElement.innerHTML = ''; // Zurücksetzen
+					if (data.encounters.length > 1) {
+						const encounterList = document.createElement('div');
+						encounterList.classList.add('encounter-list');
 
-					data.encounters.forEach(encounter => {
-						const encounterDiv = document.createElement('div');
-						encounterDiv.classList.add('encounter');
-						encounterDiv.innerHTML = `							
-                            <img src="encounters/${name}/${encounter.image}" alt="${name}" />
-                            <p class="encounter-text">${encounter.text}</p>
-                        `;
-						detailElement.appendChild(encounterDiv);
-					});
+						data.encounters.forEach((encounter, index) => {
+							const encounterItem = document.createElement('div');
+							encounterItem.classList.add('encounter-item');
 
-					detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
-					detailElement.style.display = 'block';
+							// "+" Button für Aufklappen
+							const thumbnail = document.createElement('img');
+							thumbnail.src = `encounters/${name}/${encounter.image}`;
+							thumbnail.alt = encounter.name;
+							thumbnail.classList.add('thumbnail');
+
+							const info = document.createElement('div');
+							info.classList.add('encounter-info');
+							info.innerHTML = `<strong>${encounter.name}</strong> - ${encounter.location} (${encounter.date})`;
+
+							// 🔹 "+" Button zum Aufklappen
+							const toggleButton = document.createElement('button');
+							toggleButton.textContent = "+";
+							toggleButton.classList.add('expand-btn');
+							toggleButton.addEventListener('click', () => {
+							    // Toggle-Klasse, um das Element zu öffnen
+							    encounterDetail.classList.toggle('expanded');
+							});
+
+							// 🔹 Detailansicht (versteckt), erscheint unterhalb
+							const encounterDetail = document.createElement('div');
+							encounterDetail.classList.add('encounter-detail', 'hidden');
+							encounterDetail.innerHTML = `
+							    <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
+							    <p><strong>Name:</strong> ${encounter.name}</p>
+							    <p><strong>Location:</strong> ${encounter.location}</p>
+							    <p><strong>Date:</strong> ${encounter.date}</p>
+							    <p>${encounter.text}</p>
+							`;
+
+							// 🔹 Elemente zusammenfügen (Detail unterhalb!)
+							encounterItem.appendChild(toggleButton);
+							encounterItem.appendChild(thumbnail);
+							encounterItem.appendChild(info);
+							encounterList.appendChild(encounterItem);
+							encounterList.appendChild(encounterDetail);
+						});
+
+						detailElement.appendChild(encounterList);
+					} else {
+						const encounter = data.encounters[0];
+						detailElement.innerHTML = `
+						    <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
+						    <p><strong>Name:</strong> ${encounter.name}</p>
+						    <p><strong>Location:</strong> ${encounter.location}</p>
+						    <p><strong>Date:</strong> ${encounter.date}</p>
+						    <p>${encounter.text}</p>
+						`;
+
+					}
+						detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
+						detailElement.style.display = 'block';
 				}
 			};
 

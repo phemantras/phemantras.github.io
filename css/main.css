@@ -71,6 +71,24 @@ body {
     text-align: center;
 }
 
+.hashtag {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-family: Georgia, sans-serif;
+    font-size: 2.5rem;
+    color: #0A3161;
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 9000;
+    text-align: center;
+}
+
+.btn {
+	font-size: 2.5rem;
+	color: #0A3161;
+}
+
 #countries-count {
 	color: #B31942;
 }
@@ -232,23 +250,20 @@ fill: url(#texture); /* Texturfüllung */
     z-index: 1000;
 }
 
+.detail-element p{
+    margin-bottom: 0;
+}
+
 .detail-element .encounter-title{
-	font-family: Georgia, sans-serif;
-    font-size: 2rem; /* Schriftgröße */
-    font-weight: bold;
+	font-family: Verdana, sans-serif;
+    font-size: 1.8em; /* Schriftgröße */
+    
     text-align: center;
     margin: 0px 0px 10px 0px;
 }
 
 .detail-element .encounter {
     margin-bottom: 20px;
-}
-
-.detail-element img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
 }
 
 .detail-element .encounter-text {
@@ -265,17 +280,83 @@ fill: url(#texture); /* Texturfüllung */
         max-height: 70%; /* Etwas mehr Platz erlauben */
         font-size: 14px; /* Schriftgröße reduzieren */
     }
-
+/* 
     .detail-element img {
         width: 100%;
         height: auto;
         margin-bottom: 10px;
-    }
+    } */
 
     .detail-element p {
         font-size: 14px;
     }
 }
+
+.detail-image {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.encounter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.encounter-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.encounter-item:hover {
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.encounter-info {
+    flex-grow: 1;
+}
+
+.expand-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.expand-btn:hover {
+    background-color: #0056b3;
+}
+
+.encounter-detail {
+    display: none; /* Standardmäßig versteckt */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%; /* Volle Breite unter dem Listenelement */
+}
+
+
+
+.encounter-detail.expanded {
+    display: block;
+}
+
+
 
 @media (max-width: 768px) {
     .title-container {
