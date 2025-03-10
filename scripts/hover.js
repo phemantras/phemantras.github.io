@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const menuDropdown = document.querySelector('.menu-dropdown');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
+	const newsfeedList = document.getElementById('newsfeed-list');
+	const newsfeed = document.querySelector('.newsfeed');
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	let allEncounters = [];
 
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
@@ -38,6 +41,83 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	const visitedCountries = document.querySelectorAll('.country.visited');
+
+	const toggleButton = document.createElement('div');
+	toggleButton.classList.add('newsfeed-toggle');
+	toggleButton.textContent = "▲ Newsfeed";
+	document.body.appendChild(toggleButton);
+
+	// 🔹 Funktion: Newsfeed ein- und ausfahren
+	toggleButton.addEventListener('click', () => {
+		if (newsfeed.classList.contains('expanded')) {
+			newsfeed.classList.remove('expanded');
+			toggleButton.textContent = "▲ Newsfeed";
+			toggleButton.style.bottom = "10px"; // Zurück nach unten
+		} else {
+			newsfeed.classList.add('expanded');
+			toggleButton.textContent = "▼ Newsfeed";
+			toggleButton.style.bottom = "410px"; // Hoch schieben
+		}
+	});
+
+
+
+	const fetchEncounters = async () => {
+		for (const country of visitedCountries) {
+			const countryName = country.getAttribute('title');
+			try {
+				const response = await fetch(`encounters/${countryName}/data.json`);
+				if (response.ok) {
+					const data = await response.json();
+					data.encounters.forEach(encounter => {
+						allEncounters.push({
+							...encounter, // Alle vorhandenen Felder übernehmen
+							country: countryName // Land hinzufügen
+						});
+					});
+				}
+			} catch (error) {
+				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
+			}
+		}
+
+		// 🔹 Nach Datum sortieren (neueste zuerst)
+		allEncounters.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+		// 🔹 Newsfeed befüllen
+		populateNewsfeed();
+	};
+
+	// 🔹 Funktion: Newsfeed mit Encounters anzeigen
+	const populateNewsfeed = () => {
+		newsfeedList.innerHTML = ''; // Liste leeren
+
+		allEncounters.forEach(encounter => {
+			const listItem = document.createElement('li');
+			listItem.classList.add('newsfeed-item');
+
+			// 🔹 Thumbnail + Kurzinfo
+			listItem.innerHTML = `
+		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
+		            <div class="newsfeed-info">
+		                <p><strong>${encounter.date} ${encounter.name}</strong> - ${encounter.location}, ${encounter.country}</p>
+		            </div>
+		        `;
+
+			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
+			listItem.addEventListener('click', () => {
+				const countryElement = Array.from(visitedCountries).find(c => c.getAttribute('title') === encounter.country);
+				if (countryElement) {
+					countryElement.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+				}
+			});
+
+			newsfeedList.appendChild(listItem);
+		});
+	};
+
+	// 🔹 Encounters abrufen und Newsfeed befüllen
+	await fetchEncounters();
 
 	// Statistik aktualisieren
 	if (statsContainer) {
@@ -162,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		if (country.classList.contains('visited')) {
 			const clickHandler = async () => {
 				const response = await fetch(`encounters/${name}/data.json`);
+
 				if (response.ok) {
 					const data = await response.json();
 					detailElement.innerHTML = ''; // Zurücksetzen
@@ -188,8 +269,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 							toggleButton.textContent = "+";
 							toggleButton.classList.add('expand-btn');
 							toggleButton.addEventListener('click', () => {
-							    // Toggle-Klasse, um das Element zu öffnen
-							    encounterDetail.classList.toggle('expanded');
+								// Toggle-Klasse, um das Element zu öffnen
+								encounterDetail.classList.toggle('expanded');
 							});
 
 							// 🔹 Detailansicht (versteckt), erscheint unterhalb
@@ -220,8 +301,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 						`;
 
 					}
-						detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
-						detailElement.style.display = 'block';
+					detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
+					detailElement.style.display = 'block';
 				}
 			};
 

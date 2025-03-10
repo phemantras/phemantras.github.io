@@ -247,7 +247,7 @@ fill: url(#texture); /* Texturfüllung */
     border-radius: 10px;
     padding: 20px;
     display: none;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .detail-element p{
@@ -329,7 +329,7 @@ fill: url(#texture); /* Texturfüllung */
 }
 
 .expand-btn {
-    background-color: #007BFF;
+    background-color: #0080ff;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -354,6 +354,117 @@ fill: url(#texture); /* Texturfüllung */
 
 .encounter-detail.expanded {
     display: block;
+}
+
+/* 🔹 Newsfeed bleibt unten eingeklappt */
+.newsfeed {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 9995;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    bottom: -80%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 0.4s ease-in-out;
+    height: auto; /* Automatische Höhe */
+    max-height: 400px; /* Maximale Größe */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* 🔹 Newsfeed-Überschrift */
+.newsfeed-title {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 🔹 Scrollbarer Bereich */
+.newsfeed-list {
+    flex-grow: 1;
+    max-height: 350px; /* Begrenzung für Scrollen */
+    overflow-y: auto; /* Scrollbar aktivieren */
+    padding-right: 5px;
+}
+
+/* 🔹 Toggle-Button */
+.newsfeed-toggle {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10000;
+    text-align: center;
+    transition: background 0.3s, bottom 0.4s ease-in-out;
+}
+
+/* 🔹 Newsfeed ausgeklappt */
+.newsfeed.expanded {
+    bottom: 0px;
+}
+
+/* 🔹 Button fährt mit nach oben */
+.newsfeed.expanded + .newsfeed-toggle {
+    bottom: 410px;
+}
+
+
+.newsfeed-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.newsfeed-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.newsfeed-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.newsfeed-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.newsfeed-info {
+    flex-grow: 1;
+    color: white;
+}
+
+.newsfeed-date {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.newsfeed-text {
+    font-size: 14px;
+    color: #ddd;
 }
 
 
