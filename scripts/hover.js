@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		} else {
 			newsfeed.classList.add('expanded');
 			toggleButton.textContent = "▼ Newsfeed";
-			toggleButton.style.bottom = "410px"; // Hoch schieben
+			toggleButton.style.bottom = "41%"; // Hoch schieben
 		}
 	});
 
