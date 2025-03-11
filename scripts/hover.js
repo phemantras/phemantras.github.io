@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	const toggleButton = document.createElement('div');
 	toggleButton.classList.add('newsfeed-toggle');
-	toggleButton.textContent = "▲ Newsfeed";
+	toggleButton.textContent = "▼ Newsfeed";
+	toggleButton.style.bottom = "41%";
 	document.body.appendChild(toggleButton);
 
 	// 🔹 Funktion: Newsfeed ein- und ausfahren
@@ -59,8 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 			toggleButton.style.bottom = "41%"; // Hoch schieben
 		}
 	});
-
-
 
 	const fetchEncounters = async () => {
 		for (const country of visitedCountries) {
