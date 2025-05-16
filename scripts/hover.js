@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 			listItem.innerHTML = `
 		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
-		                <p><strong>${encounter.date} ${encounter.name}</strong> - ${encounter.location}, ${encounter.country}</p>
+		                <p><strong>${encounter.date} ${encounter.name} </strong></p>
+						<p>${encounter.location}, ${encounter.country}</p>
 		            </div>
 		        `;
 
