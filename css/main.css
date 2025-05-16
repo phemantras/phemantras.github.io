@@ -47,10 +47,10 @@ body {
 	max-width: 90vw;
 	display: block;
 	margin: 0 auto;
+	position: relative;
 }
 
 .subtitle {
-	margin-top: 30%; /* Etwas Abstand zum Logo */
 	font-family: 'SCHABO', Georgia, sans-serif;
 	font-size: 2.2rem;
 	font-weight: bold;
@@ -291,7 +291,7 @@ svg {
 		width: 80%;
 		top: 10%; /* Höher positionieren */
 		max-height: 70%; /* Etwas mehr Platz erlauben */
-		 /* Schriftgröße reduzieren */
+		/* Schriftgröße reduzieren */
 	}
 	.detail-element .encounter-title {
 		font-size: 2em; /* Schriftgröße */
