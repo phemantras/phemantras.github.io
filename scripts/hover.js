@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const detailElement = document.createElement('div');
 	const titleContainer = document.querySelector('.title-container');
 	const menuButton = document.querySelector('.menu-button');
-	const menuDropdown = document.querySelector('.menu-dropdown');
+	const burgerMenu = document.querySelector('.burger-menu');
+	const overlay = document.querySelector('.burger-menu-overlay');
+	const submenus = document.querySelectorAll('.submenu');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
@@ -12,6 +14,50 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	let allEncounters = [];
 
+	// Detail-Element konfigurieren
+	detailElement.classList.add('detail-element');
+	document.body.appendChild(detailElement);
+
+	// Schließen-Button für das Detail-Element (einmal anlegen)
+	const detailCloseBtn = document.createElement('button');
+	detailCloseBtn.className = 'close-btn';
+	detailCloseBtn.innerHTML = '&times;';
+	detailCloseBtn.addEventListener('click', () => {
+		detailElement.style.display = 'none';
+	});
+
+	submenus.forEach(submenu => {
+		const closeBtn = document.createElement('button');
+		closeBtn.className = 'close-btn';
+		closeBtn.innerHTML = '&times;';
+		closeBtn.addEventListener('click', () => {
+			submenu.classList.remove('open');
+		});
+		submenu.insertBefore(closeBtn, submenu.firstChild);
+	});
+
+	menuButton.addEventListener('click', () => {
+		burgerMenu.classList.add('open');
+		overlay.classList.add('open');
+		menuButton.style.display = 'none';
+	});
+
+	overlay.addEventListener('click', () => {
+		burgerMenu.classList.remove('open');
+		overlay.classList.remove('open');
+		submenus.forEach(sm => sm.classList.remove('open'));
+		menuButton.style.display = 'block';
+	});
+
+	document.querySelectorAll('.main-menu li').forEach(item => {
+		item.addEventListener('click', () => {
+			// Alle Submenüs schließen
+			submenus.forEach(sm => sm.classList.remove('open'));
+			// Das passende öffnen
+			const menu = item.getAttribute('data-menu');
+			document.querySelector(`.${menu}-container`).classList.add('open');
+		});
+	});
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
@@ -44,20 +90,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	const toggleButton = document.createElement('div');
 	toggleButton.classList.add('newsfeed-toggle');
-	toggleButton.textContent = "▼ Newsfeed";
-	toggleButton.style.bottom = "41%";
+	toggleButton.textContent = "👤 Latest Encounters";
+	toggleButton.style.bottom = "19%";
+	toggleButton.style.left = "50%";
 	document.body.appendChild(toggleButton);
 
 	// 🔹 Funktion: Newsfeed ein- und ausfahren
 	toggleButton.addEventListener('click', () => {
 		if (newsfeed.classList.contains('expanded')) {
 			newsfeed.classList.remove('expanded');
-			toggleButton.textContent = "▲ Newsfeed";
 			toggleButton.style.bottom = "10px"; // Zurück nach unten
 		} else {
 			newsfeed.classList.add('expanded');
-			toggleButton.textContent = "▼ Newsfeed";
-			toggleButton.style.bottom = "41%"; // Hoch schieben
+			toggleButton.style.bottom = "19%"; // Hoch schieben
 		}
 	});
 
@@ -121,16 +166,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Statistik aktualisieren
 	if (statsContainer) {
-		statsContainer.innerHTML = `enCOUNTERed: <span id="countries-count">${visitedCountries.length}</span>`;
+		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/195 Countries`;
 	}
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
 
-
-	// Detail-Element konfigurieren
-	detailElement.classList.add('detail-element');
-	document.body.appendChild(detailElement);
 
 	countries.forEach(country => {
 		const name = country.getAttribute('title');
@@ -155,13 +196,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 			// Dynamischer Farbverlauf
 			const gradientId = `gradient-${country.id}`;
-			const defs = document.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-			if (!defs.parentNode) {
-				document.querySelector('svg').appendChild(defs);
+			const svg = document.getElementById('worldmap');
+			let defs = svg.querySelector('defs');
+			if (!defs) {
+				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+				svg.insertBefore(defs, svg.firstChild);
 			}
-
+			if (!defs.parentNode) {
+				document.getElementById('worldmap').appendChild(defs);
+			}
 			const targetPoint = { x: 265, y: 340 };
-			const svg = document.querySelector('svg');
 			const viewBox = svg.viewBox.baseVal;
 
 			const relativeTarget = {
@@ -242,10 +286,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 		if (country.classList.contains('visited')) {
 			const clickHandler = async () => {
 				const response = await fetch(`encounters/${name}/data.json`);
-
 				if (response.ok) {
 					const data = await response.json();
 					detailElement.innerHTML = ''; // Zurücksetzen
+
+					// X-Button immer als erstes wieder einfügen!
+					detailElement.appendChild(detailCloseBtn);
+
+					// Titel einfügen
+					const title = document.createElement('p');
+					title.className = 'encounter-title';
+					title.textContent = name;
+					detailElement.appendChild(title);
+
 					if (data.encounters.length > 1) {
 						const encounterList = document.createElement('div');
 						encounterList.classList.add('encounter-list');
@@ -255,6 +308,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 							encounterItem.classList.add('encounter-item');
 
 							// "+" Button für Aufklappen
+							const toggleButton = document.createElement('button');
+							toggleButton.textContent = "+";
+							toggleButton.classList.add('expand-btn');
+
+							// Detailansicht (versteckt), erscheint unterhalb
+							const encounterDetail = document.createElement('div');
+							encounterDetail.classList.add('encounter-detail', 'hidden');
+							encounterDetail.innerHTML = `
+                                <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
+                                <p>${encounter.text}</p>
+                            `;
+
+							toggleButton.addEventListener('click', () => {
+								encounterDetail.classList.toggle('hidden');
+							});
+
 							const thumbnail = document.createElement('img');
 							thumbnail.src = `encounters/${name}/${encounter.image}`;
 							thumbnail.alt = encounter.name;
@@ -264,44 +333,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 							info.classList.add('encounter-info');
 							info.innerHTML = `<strong>${encounter.name}</strong> - ${encounter.location} (${encounter.date})`;
 
-							// 🔹 "+" Button zum Aufklappen
-							const toggleButton = document.createElement('button');
-							toggleButton.textContent = "+";
-							toggleButton.classList.add('expand-btn');
-							toggleButton.addEventListener('click', () => {
-								// Toggle-Klasse, um das Element zu öffnen
-								encounterDetail.classList.toggle('expanded');
-							});
-
-							// 🔹 Detailansicht (versteckt), erscheint unterhalb
-							const encounterDetail = document.createElement('div');
-							encounterDetail.classList.add('encounter-detail', 'hidden');
-							encounterDetail.innerHTML = `
-							    <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-							    <p>${encounter.text}</p>
-							`;
-
-							// 🔹 Elemente zusammenfügen (Detail unterhalb!)
 							encounterItem.appendChild(toggleButton);
 							encounterItem.appendChild(thumbnail);
 							encounterItem.appendChild(info);
+
 							encounterList.appendChild(encounterItem);
 							encounterList.appendChild(encounterDetail);
 						});
 
 						detailElement.appendChild(encounterList);
-					} else {
+					} else if (data.encounters.length === 1) {
 						const encounter = data.encounters[0];
-						detailElement.innerHTML = `
-						    <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-						    <p><strong>Name:</strong> ${encounter.name}</p>
-						    <p><strong>Location:</strong> ${encounter.location}</p>
-						    <p><strong>Date:</strong> ${encounter.date}</p>
-						    <p>${encounter.text}</p>
-						`;
 
+						const img = document.createElement('img');
+						img.src = `encounters/${name}/${encounter.image}`;
+						img.alt = encounter.name;
+						img.className = 'detail-image';
+
+						const pName = document.createElement('p');
+						pName.innerHTML = `<strong>Name:</strong> ${encounter.name}`;
+
+						const pLocation = document.createElement('p');
+						pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
+
+						const pDate = document.createElement('p');
+						pDate.innerHTML = `<strong>Date:</strong> ${encounter.date}`;
+
+						const pText = document.createElement('p');
+						pText.textContent = encounter.text;
+
+						detailElement.appendChild(img);
+						detailElement.appendChild(pName);
+						detailElement.appendChild(pLocation);
+						detailElement.appendChild(pDate);
+						detailElement.appendChild(pText);
 					}
-					detailElement.insertAdjacentHTML('afterbegin', `<p class="encounter-title">${name}</p>`);
+
 					detailElement.style.display = 'block';
 				}
 			};
@@ -310,7 +377,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			country.addEventListener('click', clickHandler);
 			if (isTouchDevice) {
 				country.addEventListener('touchend', (e) => {
-					e.preventDefault(); // Verhindert Konflikte mit Standard-Touch-Events
+					e.preventDefault();
 					clickHandler();
 				});
 			}
@@ -338,19 +405,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 			element.dispatchEvent(event);
 		});
 		visitedCountriesList.appendChild(li);
-	});
-
-	// Dropdown-Menü anzeigen/verbergen
-	menuButton.addEventListener('click', () => {
-		const isVisible = menuDropdown.style.display === 'block';
-		menuDropdown.style.display = isVisible ? 'none' : 'block';
-	});
-
-	// Menü schließen, wenn außerhalb geklickt wird
-	document.addEventListener('click', (e) => {
-		if (!e.target.closest('.menu-container')) {
-			menuDropdown.style.display = 'none';
-		}
 	});
 
 	// Panzoom initialisieren
