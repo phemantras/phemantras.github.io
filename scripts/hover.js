@@ -6,13 +6,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const menuButton = document.querySelector('.menu-button');
 	const burgerMenu = document.querySelector('.burger-menu');
 	const overlay = document.querySelector('.burger-menu-overlay');
-	const submenus = document.querySelectorAll('.submenu');
+	const modals = document.querySelectorAll('.modal');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
 	const newsfeed = document.querySelector('.newsfeed');
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	let allEncounters = [];
+	let encountersByCountry = {};
 
 	// Detail-Element konfigurieren
 	detailElement.classList.add('detail-element');
@@ -26,14 +27,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 		detailElement.style.display = 'none';
 	});
 
-	submenus.forEach(submenu => {
+	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
 		closeBtn.className = 'close-btn';
 		closeBtn.innerHTML = '&times;';
 		closeBtn.addEventListener('click', () => {
-			submenu.classList.remove('open');
+			modal.classList.remove('open');
+			// Overlay nur entfernen, wenn kein Modal mehr offen ist
+			if (![...modals].some(sm => sm.classList.contains('open'))) {
+				overlay.classList.remove('open');
+				menuButton.style.display = 'block';
+			}
 		});
-		submenu.insertBefore(closeBtn, submenu.firstChild);
+		modal.insertBefore(closeBtn, modal.firstChild);
 	});
 
 	menuButton.addEventListener('click', () => {
@@ -44,18 +50,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	overlay.addEventListener('click', () => {
 		burgerMenu.classList.remove('open');
+		// Alle Modals schließen
+		modals.forEach(sm => sm.classList.remove('open'));
+		// Overlay nur entfernen, wenn kein Modal mehr offen ist
 		overlay.classList.remove('open');
-		submenus.forEach(sm => sm.classList.remove('open'));
 		menuButton.style.display = 'block';
+	});
+
+	// Menüpunkt-Klick: Menü schließen, Modal öffnen, Overlay bleibt!
+	document.querySelectorAll('.main-menu li').forEach(item => {
+		item.addEventListener('click', () => {
+			// Alle Submenüs schließen
+			modals.forEach(sm => sm.classList.remove('open'));
+			// Das passende öffnen
+			const menu = item.getAttribute('data-menu');
+			document.querySelector(`.${menu}-container`).classList.add('open');
+			// Menü schließen, Overlay bleibt!
+			burgerMenu.classList.remove('open');
+			overlay.classList.add('open'); // Overlay bleibt aktiv!
+			menuButton.style.display = 'block';
+		});
 	});
 
 	document.querySelectorAll('.main-menu li').forEach(item => {
 		item.addEventListener('click', () => {
 			// Alle Submenüs schließen
-			submenus.forEach(sm => sm.classList.remove('open'));
+			modals.forEach(sm => sm.classList.remove('open'));
 			// Das passende öffnen
 			const menu = item.getAttribute('data-menu');
 			document.querySelector(`.${menu}-container`).classList.add('open');
+			burgerMenu.classList.remove('open');
+			overlay.classList.remove('open');
+			menuButton.style.display = 'block';
 		});
 	});
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
@@ -107,28 +133,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	const fetchEncounters = async () => {
+		let id = 0;
+		encountersByCountry = {}; // leeren
 		for (const country of visitedCountries) {
 			const countryName = country.getAttribute('title');
 			try {
 				const response = await fetch(`encounters/${countryName}/data.json`);
 				if (response.ok) {
 					const data = await response.json();
-					data.encounters.forEach(encounter => {
-						allEncounters.push({
-							...encounter, // Alle vorhandenen Felder übernehmen
-							country: countryName // Land hinzufügen
-						});
-					});
+					encountersByCountry[countryName] = data.encounters.map(encounter => ({
+						...encounter,
+						country: countryName,
+						id: id++
+					}));
 				}
 			} catch (error) {
 				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
 			}
 		}
-
-		// 🔹 Nach Datum sortieren (neueste zuerst)
+		// Flache Liste für Newsfeed
+		allEncounters = Object.values(encountersByCountry).flat();
+		// Nach Datum sortieren
 		allEncounters.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-		// 🔹 Newsfeed befüllen
 		populateNewsfeed();
 	};
 
@@ -152,8 +178,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
 			listItem.addEventListener('click', () => {
 				const countryElement = Array.from(visitedCountries).find(c => c.getAttribute('title') === encounter.country);
-				if (countryElement) {
-					countryElement.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+				if (countryElement && typeof countryElement.clickHandler === 'function') {
+					setTimeout(() => {
+						countryElement.clickHandler(encounter.id);
+					}, 0);
 				}
 			});
 
@@ -284,95 +312,91 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		// Klick-Logik nur für visited-Länder
 		if (country.classList.contains('visited')) {
-			const clickHandler = async () => {
-				const response = await fetch(`encounters/${name}/data.json`);
-				if (response.ok) {
-					const data = await response.json();
-					detailElement.innerHTML = ''; // Zurücksetzen
+			const clickHandler = async (id = null) => {
+				const encounters = encountersByCountry[name] || [];
+				detailElement.innerHTML = '';
+				detailElement.appendChild(detailCloseBtn);
+				const title = document.createElement('p');
+				title.className = 'encounter-title';
+				title.textContent = name;
+				detailElement.appendChild(title);
 
-					// X-Button immer als erstes wieder einfügen!
-					detailElement.appendChild(detailCloseBtn);
+				if (encounters.length > 1) {
+					const encounterList = document.createElement('div');
+					encounterList.classList.add('encounter-list');
 
-					// Titel einfügen
-					const title = document.createElement('p');
-					title.className = 'encounter-title';
-					title.textContent = name;
-					detailElement.appendChild(title);
+					encounters.forEach((encounter, index) => {
+						const encounterItem = document.createElement('div');
+						encounterItem.classList.add('encounter-item');
 
-					if (data.encounters.length > 1) {
-						const encounterList = document.createElement('div');
-						encounterList.classList.add('encounter-list');
+						// "+" Button für Aufklappen
+						const toggleButton = document.createElement('button');
+						toggleButton.textContent = "+";
+						toggleButton.classList.add('expand-btn');
 
-						data.encounters.forEach((encounter, index) => {
-							const encounterItem = document.createElement('div');
-							encounterItem.classList.add('encounter-item');
-
-							// "+" Button für Aufklappen
-							const toggleButton = document.createElement('button');
-							toggleButton.textContent = "+";
-							toggleButton.classList.add('expand-btn');
-
-							// Detailansicht (versteckt), erscheint unterhalb
-							const encounterDetail = document.createElement('div');
-							encounterDetail.classList.add('encounter-detail', 'hidden');
-							encounterDetail.innerHTML = `
+						// Detailansicht (versteckt), erscheint unterhalb
+						const encounterDetail = document.createElement('div');
+						if(encounter.id === id) {
+							encounterDetail.classList.add('expanded');
+						}
+						encounterDetail.classList.add('encounter-detail');
+						encounterDetail.innerHTML = `
                                 <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
                                 <p>${encounter.text}</p>
                             `;
 
-							toggleButton.addEventListener('click', () => {
-								encounterDetail.classList.toggle('hidden');
-							});
-
-							const thumbnail = document.createElement('img');
-							thumbnail.src = `encounters/${name}/${encounter.image}`;
-							thumbnail.alt = encounter.name;
-							thumbnail.classList.add('thumbnail');
-
-							const info = document.createElement('div');
-							info.classList.add('encounter-info');
-							info.innerHTML = `<strong>${encounter.name}</strong> - ${encounter.location} (${encounter.date})`;
-
-							encounterItem.appendChild(toggleButton);
-							encounterItem.appendChild(thumbnail);
-							encounterItem.appendChild(info);
-
-							encounterList.appendChild(encounterItem);
-							encounterList.appendChild(encounterDetail);
+						toggleButton.addEventListener('click', () => {
+							encounterDetail.classList.toggle('expanded');
 						});
 
-						detailElement.appendChild(encounterList);
-					} else if (data.encounters.length === 1) {
-						const encounter = data.encounters[0];
+						const thumbnail = document.createElement('img');
+						thumbnail.src = `encounters/${name}/${encounter.image}`;
+						thumbnail.alt = encounter.name;
+						thumbnail.classList.add('thumbnail');
 
-						const img = document.createElement('img');
-						img.src = `encounters/${name}/${encounter.image}`;
-						img.alt = encounter.name;
-						img.className = 'detail-image';
+						const info = document.createElement('div');
+						info.classList.add('encounter-info');
+						info.innerHTML = `<strong>${encounter.name}</strong> - ${encounter.location} (${encounter.date})`;
 
-						const pName = document.createElement('p');
-						pName.innerHTML = `<strong>Name:</strong> ${encounter.name}`;
+						encounterItem.appendChild(toggleButton);
+						encounterItem.appendChild(thumbnail);
+						encounterItem.appendChild(info);
 
-						const pLocation = document.createElement('p');
-						pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
+						encounterList.appendChild(encounterItem);
+						encounterList.appendChild(encounterDetail);
+					});
 
-						const pDate = document.createElement('p');
-						pDate.innerHTML = `<strong>Date:</strong> ${encounter.date}`;
+					detailElement.appendChild(encounterList);
+				} else if (encounters.length === 1) {
+					const encounter = encounters[0];
 
-						const pText = document.createElement('p');
-						pText.textContent = encounter.text;
+					const img = document.createElement('img');
+					img.src = `encounters/${name}/${encounter.image}`;
+					img.alt = encounter.name;
+					img.className = 'detail-image';
 
-						detailElement.appendChild(img);
-						detailElement.appendChild(pName);
-						detailElement.appendChild(pLocation);
-						detailElement.appendChild(pDate);
-						detailElement.appendChild(pText);
-					}
+					const pName = document.createElement('p');
+					pName.innerHTML = `<strong>Name:</strong> ${encounter.name}`;
 
-					detailElement.style.display = 'block';
+					const pLocation = document.createElement('p');
+					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
+
+					const pDate = document.createElement('p');
+					pDate.innerHTML = `<strong>Date:</strong> ${encounter.date}`;
+
+					const pText = document.createElement('p');
+					pText.textContent = encounter.text;
+
+					detailElement.appendChild(img);
+					detailElement.appendChild(pName);
+					detailElement.appendChild(pLocation);
+					detailElement.appendChild(pDate);
+					detailElement.appendChild(pText);
 				}
-			};
 
+				detailElement.style.display = 'block';
+			};
+			country.clickHandler = clickHandler;
 			// Kombiniere Klick und Touch-Events
 			country.addEventListener('click', clickHandler);
 			if (isTouchDevice) {

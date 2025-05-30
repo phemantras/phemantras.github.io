@@ -14,34 +14,39 @@ body {
 	height: 100vh;
 	background: -webkit-linear-gradient(#f0f0f0, #eaeaea);
 }
-
-.title-container svg .letter {
-	fill: #0A3161;
-	/* Default: dunkles Blau */
+h1 {
+	font-family: 'SCHABO', Verdana, sans-serif;
+	font-size: 2em;
+	/* Schriftgröße */
+	text-align: center;
+	margin: 0px 0px 10px 0px;
 }
-
+.title-container svg .letter {
+	fill: rgba(0, 0, 0, 0.7);
+}
+/*
 .title-container svg .letter-n {
 	fill: #B31942;
-	/* Rot */
+	 Rot 
 }
 
 .title-container svg .letter-j {
 	fill: white;
 }
-
+*/
 .title-container {
 	position: fixed;
 	top: 10px;
 	left: 50%;
+	width: 50vh;
+	max-width: 500px;
 	transform: translateX(-50%);
 	z-index: 1000;
 	text-align: center;
 	pointer-events: none;
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 	display: flex;
-	/* ✅ wichtig */
 	flex-direction: column;
-	/* ✅ untereinander statt nebeneinander */
 	align-items: center;
 	/* zentriert */
 }
@@ -62,7 +67,9 @@ body {
 	font-size: 2.0rem;
 	font-weight: bold;
 	text-align: center;
-	color: #0A3161;
+	color: rgba(0, 0, 0, 0.7);
+	letter-spacing: 0.02em;
+	/*color: #0A3161;*/
 }
 
 @media (max-width : 768px) {
@@ -82,7 +89,8 @@ body {
 		top: 70px;
 		/* Noch weiter nach unten verschieben */
 		font-size: 1.2rem;
-		/* Noch kleinere Schriftgröße */
+		width: 35vh;
+		max-width: 500px;
 	}
 
 	.subtitle {
@@ -108,7 +116,7 @@ body {
 	right: 10px;
 	font-family: 'SCHABO', Georgia, sans-serif;
 	font-size: 2.4rem;
-	color: #0A3161;
+	color: rgba(0, 0, 0, 0.7);
 	padding: 8px 12px;
 	border-radius: 5px;
 	z-index: 1000;
@@ -164,7 +172,6 @@ body {
 	padding: 0;
 	/* NEU: */
 	position: relative;
-	/* Damit .submenu sich daran orientiert */
 }
 
 .burger-menu.open {
@@ -187,13 +194,14 @@ body {
 	border-bottom: 1px solid #eee;
 }
 
-.submenu {
+.modal {
 	position: fixed;
 	top: 10%;
 	left: 50%;
 	transform: translate(-50%, 0);
 	width: 90%;
 	max-width: 600px;
+	height: auto;
 	max-height: 80%;
 	background: rgba(0, 0, 0, 0.8);
 	color: #fff;
@@ -201,17 +209,17 @@ body {
 	border-radius: 10px;
 	padding: 20px;
 	overflow-y: auto;
-	z-index: 9999;
+	z-index: 9997;
 	display: none;
 }
 
-.submenu.open {
+.modal.open {
 	display: block;
 }
 
 /* Optional: für mobile Geräte */
 @media (max-width: 768px) {
-	.submenu {
+	.modal {
 		width: 90%;
 		top: 20%;
 		max-width: 90vw;
@@ -234,7 +242,7 @@ body {
 .about-container p {
 	margin-bottom: 0;
 	font-family: Arial, sans-serif;
-	font-size: 0.7em;
+	font-size: 1em;
 	padding-bottom: 10px;
 }
 
@@ -243,6 +251,7 @@ body {
 	/* Keine Aufzählungszeichen */
 	padding: 0;
 	margin: 0;
+	font-size: 1.4em;
 }
 
 #visited-countries-list li {
@@ -275,7 +284,12 @@ body {
 }
 
 #countries-count {
-	color: #B31942;
+	color: #fff;	
+	text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
 }
 
 .map-container {
