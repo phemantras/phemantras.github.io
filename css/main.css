@@ -14,6 +14,7 @@ body {
 	height: 100vh;
 	background: -webkit-linear-gradient(#f0f0f0, #eaeaea);
 }
+
 h1 {
 	font-family: 'SCHABO', Verdana, sans-serif;
 	font-size: 2em;
@@ -21,9 +22,11 @@ h1 {
 	text-align: center;
 	margin: 0px 0px 10px 0px;
 }
+
 .title-container svg .letter {
 	fill: rgba(0, 0, 0, 0.7);
 }
+
 /*
 .title-container svg .letter-n {
 	fill: #B31942;
@@ -72,33 +75,6 @@ h1 {
 	/*color: #0A3161;*/
 }
 
-@media (max-width : 768px) {
-	.title-container svg.logo {
-		width: 240px;
-		height: auto;
-		max-width: 90vw;
-	}
-
-	.subtitle {
-		font-size: 1.6rem;
-	}
-}
-
-@media (max-width : 480px) {
-	.title-container {
-		top: 70px;
-		/* Noch weiter nach unten verschieben */
-		font-size: 1.2rem;
-		width: 35vh;
-		max-width: 500px;
-	}
-
-	.subtitle {
-		font-size: 1.4rem;
-	}
-}
-
-
 
 .title-container[style*="display: none"] {
 	opacity: 0;
@@ -117,7 +93,6 @@ h1 {
 	font-family: 'SCHABO', Georgia, sans-serif;
 	font-size: 2.4rem;
 	color: rgba(0, 0, 0, 0.7);
-	padding: 8px 12px;
 	border-radius: 5px;
 	z-index: 1000;
 	pointer-events: none;
@@ -217,16 +192,6 @@ h1 {
 	display: block;
 }
 
-/* Optional: für mobile Geräte */
-@media (max-width: 768px) {
-	.modal {
-		width: 90%;
-		top: 20%;
-		max-width: 90vw;
-		max-height: 80%;
-		padding: 10px;
-	}
-}
 
 .close-btn {
 	position: absolute;
@@ -239,6 +204,7 @@ h1 {
 	cursor: pointer;
 	z-index: 10001;
 }
+
 .about-container p {
 	margin-bottom: 0;
 	font-family: Arial, sans-serif;
@@ -279,17 +245,18 @@ h1 {
 	color: #fff;
 	padding: 0;
 }
+
 .btn:hover {
 	color: #fff;
 }
 
 #countries-count {
-	color: #fff;	
+	color: #fff;
 	text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
 
 .map-container {
@@ -424,27 +391,7 @@ svg {
 	font-family: Arial, sans-serif;
 }
 
-/* Optimierung für mobile Geräte */
-@media (max-width : 768px) {
-	.detail-element {
-		width: 80%;
-		top: 10%;
-		/* Höher positionieren */
-		max-height: 70%;
-		/* Etwas mehr Platz erlauben */
-		/* Schriftgröße reduzieren */
-	}
 
-	.detail-element .encounter-title {
-		font-size: 2em;
-		/* Schriftgröße */
-	}
-
-	.detail-element p {
-		font-family: Arial, sans-serif;
-		font-size: 1.2em;
-	}
-}
 
 .detail-image {
 	max-width: 100%;
@@ -482,17 +429,19 @@ svg {
 }
 
 .expand-btn {
-	background-color: #0080ff;
+	background-color: rgba(0, 0, 0, 0.8);
 	color: white;
 	border: none;
-	padding: 5px 10px;
 	margin-right: 10px;
 	border-radius: 5px;
 	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	text-align: center;
 }
 
 .expand-btn:hover {
-	background-color: #0056b3;
+	background-color: rgba(0, 0, 0, 0.7);
 }
 
 .encounter-detail {
@@ -634,11 +583,156 @@ svg {
 	color: #ddd;
 }
 
+.story{
+	padding-top: 10px;
+}
 
+.date {
+	padding-top: 10px;
+	font-style: italic;
+}
 
+/* Optimierung für mobile Geräte */
 @media (max-width : 768px) {
 	.stats-container {
 		font-size: 2rem;
-		padding: 6px 10px;
+	}
+
+	.detail-element {
+		width: 90%;
+		top: 10%;
+		/* Höher positionieren */
+		max-height: 70%;
+		/* Etwas mehr Platz erlauben */
+		/* Schriftgröße reduzieren */
+	}
+
+	.detail-element .encounter-title {
+		font-size: 2em;
+		/* Schriftgröße */
+	}
+
+	.detail-element p {
+		font-family: Arial, sans-serif;
+		font-size: 1.0em;
+	}
+
+	.encounter-info {
+		font-size: 0.9em;
+	}
+
+	.modal {
+		width: 90%;
+		top: 20%;
+		max-width: 90vw;
+		max-height: 80%;
+		padding: 10px;
+	}
+
+	.title-container svg.logo {
+		width: 240px;
+		height: auto;
+		max-width: 90vw;
+	}
+
+	.subtitle {
+		font-size: 1.6rem;
+	}
+}
+
+@media (max-width : 480px) {
+
+	.title-container {
+		top: 50px;
+		/* Noch weiter nach unten verschieben */
+		font-size: 1.2rem;
+		width: 40vh;
+		max-width: 250px;
+	}
+
+	.title-container svg.logo {
+		width: 160px;
+		height: auto;
+		max-width: 90vw;
+	}
+
+	.subtitle {
+		font-size: 1.1rem;
+	}
+
+	.stats-container {
+		font-size: 1.7rem;
+	}
+
+	.newsfeed {
+		padding: 8px 8px 0px 8px;
+	}
+
+	.newsfeed-toggle {
+		font-size: 1.0em;
+		padding: 8px 12px;
+	}
+
+	.newsfeed-item {
+		font-size: 0.7em;
+		padding: 5px;
+	}
+
+	.newsfeed-thumbnail {
+		width: 42px;
+		height: 42px;
+	}
+
+	.menu-button {
+		background: rgba(0, 0, 0, 0.9);
+		color: #fff;
+		border: none;
+		padding: 5px 10px;
+		border-radius: 10px;
+		cursor: pointer;
+		font-size: 1.0em;
+		transition: background-color 0.3s;
+		text-align: center;
+		letter-spacing: 0.04em;
+	}
+
+	.burger-menu {
+		width: 220px;
+		color: #fff;
+		font-size: 1.0em;
+		letter-spacing: 0.04em;
+		background: rgba(0, 0, 0, 0.7);
+		z-index: 101;
+		box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+		padding: 0;
+		/* NEU: */
+		position: relative;
+	}
+
+	.main-menu li {
+		padding: 0.7em;
+		cursor: pointer;
+		border-bottom: 1px solid #eee;
+	}
+
+	.modal {
+		width: 90%;
+		top: 8%;
+		max-width: 90vw;
+		max-height: 75%;
+		padding: 10px;
+	}
+
+	.detail-element .encounter-title {
+		font-size: 1.6em;
+		/* Schriftgröße */
+	}
+
+	.encounter-info {
+		font-size: 0.9em;
+	}
+
+	.detail-element p {
+		font-size: 0.9em;
 	}
 }

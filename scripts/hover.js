@@ -336,17 +336,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 						// Detailansicht (versteckt), erscheint unterhalb
 						const encounterDetail = document.createElement('div');
-						if(encounter.id === id) {
+						if (encounter.id === id) {
 							encounterDetail.classList.add('expanded');
 						}
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
                                 <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-                                <p>${encounter.text}</p>
+                                <p><strong>Champions:</strong> ${encounter.wcc}</p>
+                                <p><strong>Club:</strong> ${encounter.favClub}</p>
+                                <p><strong>Player:</strong> ${encounter.favPlayer}</p>
+                                <p><strong>Game:</strong> ${encounter.favGame}</p>
+                                <p class="story">${encounter.text}</p>
                             `;
 
 						toggleButton.addEventListener('click', () => {
 							encounterDetail.classList.toggle('expanded');
+							if (encounterDetail.classList.contains('expanded')) {
+								toggleButton.textContent = "-";
+							} else {
+								toggleButton.textContent = "+";
+							}
 						});
 
 						const thumbnail = document.createElement('img');
@@ -356,7 +365,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 						const info = document.createElement('div');
 						info.classList.add('encounter-info');
-						info.innerHTML = `<strong>${encounter.name}</strong> - ${encounter.location} (${encounter.date})`;
+						info.innerHTML = `<strong>${encounter.name}</strong> <p>${encounter.location}</p><p>${encounter.date}</p>`;
 
 						encounterItem.appendChild(toggleButton);
 						encounterItem.appendChild(thumbnail);
@@ -380,18 +389,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 					const pLocation = document.createElement('p');
 					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
+					
+					const wcc = document.createElement('p');
+					wcc.innerHTML = `<strong>Champions:</strong> ${encounter.wcc}`;
+					const favClub = document.createElement('p');
+					favClub.innerHTML = `<strong>Club:</strong> ${encounter.favClub}`;
+					const favPlayer = document.createElement('p');
+					favPlayer.innerHTML = `<strong>Player:</strong> ${encounter.favPlayer}`;
+					const favGame = document.createElement('p');
+					favGame.innerHTML = `<strong>Game:</strong> ${encounter.favGame}`;
+					const pText = document.createElement('p');
+					pText.classList.add('story');
+					pText.textContent = encounter.text;
 
 					const pDate = document.createElement('p');
-					pDate.innerHTML = `<strong>Date:</strong> ${encounter.date}`;
-
-					const pText = document.createElement('p');
-					pText.textContent = encounter.text;
+					pDate.classList.add('date')
+					pDate.innerHTML = `${encounter.date}`;
 
 					detailElement.appendChild(img);
 					detailElement.appendChild(pName);
 					detailElement.appendChild(pLocation);
-					detailElement.appendChild(pDate);
+					detailElement.appendChild(wcc);
+					detailElement.appendChild(favClub);
+					detailElement.appendChild(favPlayer);
+					detailElement.appendChild(favGame);
 					detailElement.appendChild(pText);
+					detailElement.appendChild(pDate);
 				}
 
 				detailElement.style.display = 'block';
@@ -421,12 +444,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const li = document.createElement('li');
 		li.textContent = name;
 		li.addEventListener('click', () => {
-			const event = new MouseEvent('click', {
-				bubbles: true,
-				cancelable: true,
-				view: window,
-			});
-			element.dispatchEvent(event);
+			setTimeout(() => {
+				modals.forEach(modal => modal.classList.remove('open'));
+				element.clickHandler();
+			}, 0);
 		});
 		visitedCountriesList.appendChild(li);
 	});
@@ -466,8 +487,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Detail-Element schließen, wenn außerhalb geklickt wird
 	document.addEventListener('click', (e) => {
+		// Detail-Element schließen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';
+		}
+		// Modal schließen
+		const openModal = [...modals].find(m => m.classList.contains('open'));
+		if (
+			openModal &&
+			!e.target.closest('.modal') &&
+			!e.target.closest('.burger-menu')
+		) {
+			openModal.classList.remove('open');
+			if (![...modals].some(m => m.classList.contains('open'))) {
+				overlay.classList.remove('open');
+				menuButton.style.display = 'block';
+			}
 		}
 	});
 });
