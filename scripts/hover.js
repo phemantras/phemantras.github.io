@@ -342,10 +342,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
                                 <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-                                <p><strong>Champions:</strong> ${encounter.wcc}</p>
                                 <p><strong>Club:</strong> ${encounter.favClub}</p>
                                 <p><strong>Player:</strong> ${encounter.favPlayer}</p>
                                 <p><strong>Game:</strong> ${encounter.favGame}</p>
+                                <p><strong>Champions:</strong> ${encounter.wcc}</p>
                                 <p class="story">${encounter.text}</p>
                             `;
 
@@ -391,14 +391,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
 					
 					const wcc = document.createElement('p');
-					wcc.innerHTML = `<strong>Champions:</strong> ${encounter.wcc}`;
-					const favClub = document.createElement('p');
 					favClub.innerHTML = `<strong>Club:</strong> ${encounter.favClub}`;
 					const favPlayer = document.createElement('p');
 					favPlayer.innerHTML = `<strong>Player:</strong> ${encounter.favPlayer}`;
 					const favGame = document.createElement('p');
 					favGame.innerHTML = `<strong>Game:</strong> ${encounter.favGame}`;
 					const pText = document.createElement('p');
+					wcc.innerHTML = `<strong>Champions:</strong> ${encounter.wcc}`;
+					const favClub = document.createElement('p');
 					pText.classList.add('story');
 					pText.textContent = encounter.text;
 
@@ -409,10 +409,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 					detailElement.appendChild(img);
 					detailElement.appendChild(pName);
 					detailElement.appendChild(pLocation);
-					detailElement.appendChild(wcc);
 					detailElement.appendChild(favClub);
 					detailElement.appendChild(favPlayer);
 					detailElement.appendChild(favGame);
+					detailElement.appendChild(wcc);
 					detailElement.appendChild(pText);
 					detailElement.appendChild(pDate);
 				}
