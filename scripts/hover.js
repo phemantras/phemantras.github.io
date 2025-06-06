@@ -344,8 +344,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
                                 <p><strong>Club:</strong> ${encounter.favClub}</p>
                                 <p><strong>Player:</strong> ${encounter.favPlayer}</p>
-                                <p><strong>Game:</strong> ${encounter.favGame}</p>
-                                <p><strong>Champions:</strong> ${encounter.wcc}</p>
+                                <p><strong>Best game:</strong> ${encounter.favGame}</p>
+                                <p><strong>WC26 Champions:</strong> ${encounter.wcc}</p>
                                 <p class="story">${encounter.text}</p>
                             `;
 
@@ -396,8 +396,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
 					favClub.innerHTML = `<strong>Club:</strong> ${encounter.favClub}`;
 					favPlayer.innerHTML = `<strong>Player:</strong> ${encounter.favPlayer}`;
-					favGame.innerHTML = `<strong>Game:</strong> ${encounter.favGame}`;
-					wcc.innerHTML = `<strong>Champions:</strong> ${encounter.wcc}`;
+					favGame.innerHTML = `<strong>Best game:</strong> ${encounter.favGame}`;
+					wcc.innerHTML = `<strong>WC26 Champions:</strong> ${encounter.wcc}`;
 					pText.classList.add('story');
 					pText.textContent = encounter.text;
 
