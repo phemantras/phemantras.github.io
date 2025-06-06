@@ -1,0 +1,16 @@
+{
+    "title": "Colombia",
+    "encounters": [
+        {
+            "name": "Lorena",
+            "location": "Munich",
+            "date": "2025-06-10",
+            "image": "lorena.jpg",
+            "wcc": "Portugal / Colombia",
+            "favClub": "Real Madrid",
+            "favPlayer": "C. Ronaldo / A. Rüdiger",
+            "favGame": "Paris Saint-Germain vs. Inter Milan (5:0, UCL Final 2025)",
+            "text": ""
+        }
+    ]
+}

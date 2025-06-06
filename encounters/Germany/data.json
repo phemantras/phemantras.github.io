@@ -1,27 +1,16 @@
 {
-	"title": "Germany",
-	"encounters": [
-		{
-			"name": "Jane Smith",
-			"location": "Munich, Germany",
-			"date": "2099-05-10",
-			"image": "don_kanaille.jpg",
-			"wcc": "Australia",
-            "favClub": "Melbourne Victory",
-            "favPlayer": "Andreas Merkel",
-            "favGame":"Melbourne Victory vs. Sydney FC",
-			"text": "Met Jane at Oktoberfest. What an experience!"
-		},
-		{
-			"name": "Don Kanaillie",
-			"location": "Cap Zuzette",
-			"date": "2001-03-01",
-			"image": "iron_vultrue.jpg",
-			"wcc": "Australia",
-            "favClub": "Melbourne Victory",
-            "favPlayer": "Andreas Merkel",
-            "favGame":"Melbourne Victory vs. Sydney FC",
-			"text": "Wahnsinn, warum schickst du mich in die Hölle?"
-		}		
-	]
+    "title": "Germany",
+    "encounters": [
+        {
+            "name": "Michael",
+            "location": "Munich",
+            "date": "2021-06-23",
+            "image": "michael.jpg",
+            "wcc": "Germany",
+            "favClub": "1. FC Kaiserslautern / Liverpool FC",
+            "favPlayer": "Trent Alexander Arnold",
+            "favGame": "Germany vs. Portugal (4:2, EURO 2021)",
+            "text": ""
+        }
+    ]
 }

@@ -1,0 +1,16 @@
+{
+    "title": "Portugal",
+    "encounters": [
+        {
+            "name": "Familia Borges",
+            "location": "Munich",
+            "date": "2025-01-01",
+            "image": "borges.jpg",
+            "wcc": "Portugal",
+            "favClub": "Seleção Portugal",
+            "favPlayer": "Cristiano Ronaldo",
+            "favGame": "Germany vs. Portugal (1:2, 2025)",
+            "text": ""
+        }
+    ]
+}

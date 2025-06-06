@@ -380,25 +380,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 					const encounter = encounters[0];
 
 					const img = document.createElement('img');
+					const pName = document.createElement('p');
+					const pLocation = document.createElement('p');
+					const wcc = document.createElement('p');
+					const favClub = document.createElement('p');
+					const favPlayer = document.createElement('p');
+					const favGame = document.createElement('p');
+					const pText = document.createElement('p');
+					
+					
 					img.src = `encounters/${name}/${encounter.image}`;
 					img.alt = encounter.name;
 					img.className = 'detail-image';
-
-					const pName = document.createElement('p');
 					pName.innerHTML = `<strong>Name:</strong> ${encounter.name}`;
-
-					const pLocation = document.createElement('p');
 					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
-					
-					const wcc = document.createElement('p');
 					favClub.innerHTML = `<strong>Club:</strong> ${encounter.favClub}`;
-					const favPlayer = document.createElement('p');
 					favPlayer.innerHTML = `<strong>Player:</strong> ${encounter.favPlayer}`;
-					const favGame = document.createElement('p');
 					favGame.innerHTML = `<strong>Game:</strong> ${encounter.favGame}`;
-					const pText = document.createElement('p');
 					wcc.innerHTML = `<strong>Champions:</strong> ${encounter.wcc}`;
-					const favClub = document.createElement('p');
 					pText.classList.add('story');
 					pText.textContent = encounter.text;
 
