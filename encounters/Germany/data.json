@@ -11,6 +11,17 @@
             "favPlayer": "Trent Alexander Arnold",
             "favGame": "Germany vs. Portugal (4:2, EURO 2021)",
             "text": ""
-        }
+        },
+{
+    "name": "Paddy",
+    "location": "Stuttgart",
+    "date": "2025-06-08",
+    "image": "paddy.jpg",
+    "wcc": "Spain",
+    "favClub": "Fürth",
+    "favPlayer": "Tom Sichling",
+    "favGame": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
+    "text": ""
+}
     ]
 }
