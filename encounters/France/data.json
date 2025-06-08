@@ -1,11 +1,11 @@
 {
-    "title": "Frankreich",
+    "title": "France",
     "encounters": [
         {
             "name": "Andy",
             "location": "Stuttgart",
             "date": "2025-06-08",
-            "image": "",
+            "image": "andy.jpg",
             "wcc": "France",
             "favClub": "Racing Club de Strasbourg",
             "favPlayer": "Zinédine Zidane",
