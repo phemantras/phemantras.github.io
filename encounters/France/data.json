@@ -1,0 +1,16 @@
+{
+    "title": "Frankreich",
+    "encounters": [
+        {
+            "name": "Andy",
+            "location": "Stuttgart",
+            "date": "2025-06-08",
+            "image": "",
+            "wcc": "France",
+            "favClub": "Racing Club de Strasbourg",
+            "favPlayer": "Zinédine Zidane",
+            "favGame": "SL Benfica - Juventus (4:3, UCL 2022)",
+            "text": ""
+        }
+    ]
+}
