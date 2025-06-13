@@ -22,6 +22,29 @@
     "favPlayer": "Tom Sichling",
     "favGame": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
     "text": ""
+},
+{
+    "name": "Sarah",
+    "location": "Nitra",
+    "date": "2025-06-08",
+    "image": "sarah.jpg",
+    "wcc": "Portugal",
+    "favClub": "Borussia M‘Gladbach",
+    "favPlayer": "Raffael",
+    "favGame": "M‘Gladbach - 1. FC Köln (5:2, 2022)",
+    "text": ""
+},
+{
+    "name": "Carlos",
+    "location": "Nitra",
+    "date": "2025-06-08",
+    "image": "carlos.jpg",
+    "wcc": "England",
+    "favClub": "SV Waldhof Mannheim",
+    "favPlayer": "Diego Maradona",
+    "favGame": "Germany - France (1:0, World Cup 2014)",
+    "text": ""
 }
+
     ]
 }
