@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 						const encounterDetail = document.createElement('div');
 						if (encounter.id === id) {
 							encounterDetail.classList.add('expanded');
+							toggleButton.textContent = "-";
 						}
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
