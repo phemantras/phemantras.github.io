@@ -1,0 +1,38 @@
+{
+    "title": "Romania",
+    "encounters": [
+        {
+            "name": "Adrian & Raul",
+            "location": "Bratislava",
+            "date": "2025-06-14",
+            "image": "adrian.jpg",
+            "wcc": "Spain",
+            "favClub": "FCS Bukarest",
+            "favPlayer": "Gheorghe Hagi",
+            "favGame": "Romania vs. Ukraine (3:0, EURO 2024)",
+            "text": ""
+        },
+        {
+            "name": "Ovvy",
+            "location": "Bratislava",
+            "date": "2025-06-14",
+            "image": "ovvy.jpg",
+            "wcc": "Romania",
+            "favClub": "FCS Bukarest",
+            "favPlayer": "Gheorghe Hagi",
+            "favGame": "Romania - Ukraine (3:0, EURO 2024)",
+            "text": ""
+        },
+        {
+            "name": "Balazs",
+            "location": "Bratislava",
+            "date": "2025-06-14",
+            "image": "ovvy.jpg",
+            "wcc": "Hungary",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Cristiano Ronaldo",
+            "favGame": "Liverpool FC - Villarreal CF (3:0, UCL 2016)",
+            "text": ""
+        }
+    ]
+}
