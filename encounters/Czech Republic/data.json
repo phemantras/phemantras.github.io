@@ -1,0 +1,16 @@
+{
+    "title": "Czech Republic",
+    "encounters": [
+        {
+            "name": "Tomas",
+            "location": "Dunajská Streda",
+            "date": "2025-06-15",
+            "image": "tomas.jpg",
+            "wcc": "Portugal",
+            "favClub": "Real Madrid",
+            "favPlayer": "Cristiano Ronaldo",
+            "favGame": "Real Madrid - Paris Saint-Germain (1:1, UCL 2019)",
+            "text": ""
+        }
+    ]
+}
