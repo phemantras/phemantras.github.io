@@ -1,0 +1,16 @@
+{
+    "title": "England",
+    "encounters": [
+        {
+            "name": "Alan",
+            "location": "Zilina",
+            "date": "2025-06-17",
+            "image": "alan.jpg",
+            "wcc": "England",
+            "favClub": "Swindon Town",
+            "favPlayer": "Lou Macari",
+            "favGame": "Everton FC - Liverpool FC (2:0, 2024)",
+            "text": ""
+        }
+    ]
+}
