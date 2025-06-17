@@ -1,0 +1,27 @@
+{
+    "title": "Poland",
+    "encounters": [
+        {
+            "name": "Jacek",
+            "location": "Zilina",
+            "date": "2025-06-17",
+            "image": "jacek.jpg",
+            "wcc": "Spain",
+            "favClub": "Real Madrid",
+            "favPlayer": "Ronaldo Nazario",
+            "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
+            "text": ""
+        },
+        {
+            "name": "Iro",
+            "location": "Zilina",
+            "date": "2025-06-17",
+            "image": "jacek.jpg",
+            "wcc": "Spain",
+            "favClub": "Manchester United",
+            "favPlayer": "Bruno Fernandes",
+            "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
+            "text": ""
+        }
+    ]
+}
