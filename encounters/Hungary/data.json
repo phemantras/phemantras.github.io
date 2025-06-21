@@ -1,0 +1,16 @@
+{
+    "title": "Hungary",
+    "encounters": [
+        {
+            "name": "Lilla",
+            "location": "Budapest",
+            "date": "2025-06-21",
+            "image": "lilla.jpg",
+            "wcc": "Spain",
+            "favClub": "FC Barcelona",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Portugal - France (2:2, EURO 2020)",
+            "text": "She gave us a great tour in the Puskás Arena!"
+        }
+    ]
+}
