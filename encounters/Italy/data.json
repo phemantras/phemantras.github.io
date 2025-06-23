@@ -1,0 +1,16 @@
+{
+    "title": "Italy",
+    "encounters": [
+        {
+            "name": "Gianluca & Leo",
+            "location": "Dunajská Streda",
+            "date": "2025-06-22",
+            "image": "gianluca.jpg",
+            "wcc": "Brazil",
+            "favClub": "Juventus",
+            "favPlayer": "Alessandro Del Piero",
+            "favGame": "Juventus - Atlético Madrid (3:0, UCL 2019)",
+            "text": ""
+        }
+    ]
+}
