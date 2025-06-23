@@ -1,0 +1,16 @@
+{
+    "title": "Austria",
+    "encounters": [
+        {
+            "name": "Barbara & Stefan",
+            "location": "Dunajská Streda",
+            "date": "2025-06-22",
+            "image": "barbara.jpg",
+            "wcc": "England",
+            "favClub": "Real Madrid",
+            "favPlayer": "Zinédine Zidane",
+            "favGame": "Germany - Italy (3:2, U21 EURO 2025)",
+            "text": ""
+        }
+    ]
+}
