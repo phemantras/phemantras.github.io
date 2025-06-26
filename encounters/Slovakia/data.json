@@ -1,0 +1,16 @@
+{
+    "title": "Slovakia",
+    "encounters": [
+        {
+            "name": "Fero",
+            "location": "Košice",
+            "date": "2025-06-25",
+            "image": "fero.jpg",
+            "wcc": "Spain",
+            "favClub": "FC Košice / Chelsea FC",
+            "favPlayer": "Frank Lampard",
+            "favGame": "AC Milan - Inter Milan (1:1, Cup Semifinal 2025)",
+            "text": ""
+        }
+    ]
+}
