@@ -302,17 +302,13 @@ svg {
 }
 
 .country {
-	fill: #cccccc;
 	stroke: #ffffff;
 	stroke-width: 0.5;
 	transition: fill 0.3s, stroke 0.3s;
 }
 
-.country.visited {
-	fill: #d9ad7c;
-	/* Basisfarbe */
-	fill: url(#texture);
-	/* Texturfüllung */
+.grey {
+	fill: #cccccc;
 }
 
 .country[fill] {
@@ -325,9 +321,21 @@ svg {
 	stroke: #000000;
 }
 
-.country:hover {
-	fill: #ff9800;
+.country:hover, .country path:hover {
+	fill: #ff9800 !important;
 	stroke: #000000;
+}
+
+/* Wenn ein Teil (path) innerhalb einer Ländergruppe gehovt wird, soll die ganze Gruppe hervorgehoben werden */
+g.country:hover path,
+g.country path:hover {
+	fill: #ff9800 !important;
+	stroke: #000000;
+}
+
+/* Stelle sicher, dass der Hover-Effekt auch für Subregionen funktioniert */
+g.country path {
+	transition: fill 0.3s, stroke 0.3s;
 }
 
 .tooltip {

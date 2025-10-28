@@ -109,10 +109,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 		);
 		if (countryElement) {
 			countryElement.classList.add('visited');
+			
 		}
 	});
 
-	const visitedCountries = document.querySelectorAll('.country.visited');
+	// Build a list of visited country "roots" only (groups with title or single country elements with title).
+	// Avoid including subregion <path> elements that may lack a title attribute which caused NPEs when
+	// later used to build fetch URLs.
+	const visitedCountries = (() => {
+		// Groups which represent countries and have a title
+		const groups = Array.from(document.querySelectorAll('g.country[title].visited'));
+		// Single elements (e.g. path) that have title and visited but are not inside a visited group
+		const singles = Array.from(document.querySelectorAll('.country[title].visited')).filter(el => el.tagName.toLowerCase() !== 'g');
+		const uniqueSingles = singles.filter(el => !el.closest('g.country[title].visited'));
+		return [...groups, ...uniqueSingles];
+	})();
 
 	const toggleButton = document.createElement('div');
 	toggleButton.classList.add('newsfeed-toggle');
@@ -136,9 +147,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 		let id = 0;
 		encountersByCountry = {}; // leeren
 		for (const country of visitedCountries) {
-			const countryName = country.getAttribute('title');
+			const countryName = country && country.getAttribute ? country.getAttribute('title') : null;
+			if (!countryName) {
+				// skip elements without a title (defensive)
+				continue;
+			}
 			try {
-				const response = await fetch(`encounters/${countryName}/data.json`);
+				// URL-encode countryName to avoid issues with spaces / special chars
+				const url = `encounters/${encodeURIComponent(countryName)}/data.json`;
+				const response = await fetch(url);
 				if (response.ok) {
 					const data = await response.json();
 					encountersByCountry[countryName] = data.encounters.map(encounter => ({
@@ -146,6 +163,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 						country: countryName,
 						id: id++
 					}));
+				} else {
+					// Non-OK responses are logged but don't stop processing other countries
+					console.warn(`encounters data not found for ${countryName}:`, response.status);
 				}
 			} catch (error) {
 				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
@@ -201,10 +221,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
 
 
+	// Track which country roots we've already processed so we only create one gradient per country
+	const processedCountryRoots = new Set();
+
 	countries.forEach(country => {
 		const name = country.getAttribute('title');
 
-		if (!hostCountries.includes(name) && country.classList.contains('visited')) {
+		// Determine the root element representing the whole country: the <g.country> if present, otherwise the element itself
+		const root = country.tagName.toLowerCase() === 'g' ? country : (country.closest && country.closest('g.country')) || country;
+
+		// If we've already processed this root (another subpath mapped to it), skip to avoid duplicate gradients
+		if (processedCountryRoots.has(root)) return;
+
+		// Mark root as processed (even if we don't generate a gradient for it)
+		processedCountryRoots.add(root);
+
+		const rootName = root.getAttribute('title');
+
+		if (!hostCountries.includes(rootName) && root.classList && root.classList.contains('visited')) {
 			// Zufällige gedeckte Farbe generieren
 			const generateRandomColor = () => {
 				const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
@@ -223,15 +257,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 			const lighterColor = lightenColor(randomColor, 1.2);
 
 			// Dynamischer Farbverlauf
-			const gradientId = `gradient-${country.id}`;
+			// Use a stable id based on the root element (prefer element id, fall back to title)
+			const gradientIdBase = root.id || rootName || Math.random().toString(36).slice(2, 8);
+			// Namespace generated ids to avoid colliding with hand-authored defs
+			const gradientId = `ph-gradient-${gradientIdBase}`;
 			const svg = document.getElementById('worldmap');
+			if (!svg) {
+				console.error('SVG element not found');
+				return;
+			}
 			let defs = svg.querySelector('defs');
 			if (!defs) {
 				defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
 				svg.insertBefore(defs, svg.firstChild);
 			}
+			// Make sure defs is properly attached to the SVG
 			if (!defs.parentNode) {
-				document.getElementById('worldmap').appendChild(defs);
+				svg.insertBefore(defs, svg.firstChild);
 			}
 			const targetPoint = { x: 265, y: 340 };
 			const viewBox = svg.viewBox.baseVal;
@@ -241,7 +283,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 				y: (targetPoint.y - viewBox.y) / viewBox.height,
 			};
 
-			const bbox = country.getBBox();
+			const bbox = root.getBBox();
 			const startX = bbox.x + bbox.width * 0.2;
 			const startY = bbox.y + bbox.height * 0.2;
 
@@ -253,7 +295,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 			};
 
 			const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-			gradient.setAttribute('id', gradientId);
+			// ensure unique, safe id in defs (sanitize whitespace/special chars)
+			const sanitizeId = (s) => String(s).replace(/\s+/g, '-').replace(/[^A-Za-z0-9_\-]/g, '').toLowerCase();
+			const safeBase = sanitizeId(gradientIdBase);
+			// Use a prefixed id so we never accidentally clash with hand-authored ids like "germany-filter"
+			const safeGradientId = `ph-gradient-${safeBase}`;
+			gradient.setAttribute('id', safeGradientId);
 			gradient.setAttribute('x1', directionVector.x1.toString());
 			gradient.setAttribute('y1', directionVector.y1.toString());
 			gradient.setAttribute('x2', directionVector.x2.toString());
@@ -269,9 +316,86 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 			gradient.appendChild(stop1);
 			gradient.appendChild(stop2);
-			defs.appendChild(gradient);
+			// Before appending/applying a generated gradient, detect if this root (or any of its
+			// subpaths) already uses a hand-authored fill referencing a url(#...) — in that case
+			// we must NOT generate or apply our gradient to avoid visual overlays (fixes Germany).
+			const hasAuthorDefinedFill = (() => {
+				try {
+					// Check computed style on the root: if it resolves to a url(...) fill,
+					// that means the author already painted the country via a pattern/gradient.
+					const rootComputed = window.getComputedStyle(root);
+					if (rootComputed && String(rootComputed.fill).includes('url(')) return true;
 
-			country.style.fill = `url(#${gradientId})`;
+					// Also check the inline style attributes as a fallback
+					const styleAttr = (root.getAttribute && root.getAttribute('style')) || '';
+					if (styleAttr.includes('url(#')) return true;
+					if (root.style && root.style.fill && String(root.style.fill).includes('url(#')) return true;
+
+					// Check child paths' computed fills too (they may inherit from group)
+					const childPaths = root.querySelectorAll && root.querySelectorAll('path');
+					if (childPaths && childPaths.length) {
+						for (const p of childPaths) {
+							const pComputed = window.getComputedStyle(p);
+							if (pComputed && String(pComputed.fill).includes('url(')) return true;
+							const pStyle = (p.getAttribute && p.getAttribute('style')) || '';
+							if (pStyle.includes('url(#')) return true;
+							if (p.style && p.style.fill && String(p.style.fill).includes('url(#')) return true;
+						}
+					}
+				} catch (err) {
+					// Defensive: if computedStyle fails for any reason, fall back to attribute checks only
+					const styleAttr = (root.getAttribute && root.getAttribute('style')) || '';
+					if (styleAttr.includes('url(#')) return true;
+				}
+				return false;
+			})();
+
+			if (hasAuthorDefinedFill) {
+				// Do not create/apply a generated gradient for this root — respect hand-authored styling.
+				return;
+			}
+
+			// If a gradient with the same id already exists in defs, reuse it instead of appending
+			if (!defs.querySelector(`#${CSS.escape(safeGradientId)}`)) {
+				defs.appendChild(gradient);
+			} else {
+				// release the created element (garbage collected) and keep using existing id
+			}
+
+			// Wende den Gradient auf das Root-Element (Gruppe) und alle seine Subregionen an
+			const finalGradientId = safeGradientId;
+			if (root.tagName.toLowerCase() === 'g') {
+				// Für Länder mit Subregionen — apply only to subpaths that don't already have an
+				// author-defined url(...) fill to avoid overwriting/overlaying hand-authored styles.
+				root.querySelectorAll('path').forEach(path => {
+					// If the rendered/computed fill of the path already references a url(...), skip it.
+					try {
+						const comp = window.getComputedStyle(path);
+						if (comp && String(comp.fill).includes('url(')) return; // skip
+					} catch (e) {
+						// ignore and fall back to attribute checks
+					}
+					const pStyleAttr = (path.getAttribute && path.getAttribute('style')) || '';
+					if (pStyleAttr.includes('url(#')) return; // skip
+					if (path.style && path.style.fill && String(path.style.fill).includes('url(#')) return;
+					path.style.fill = `url(#${finalGradientId})`;
+				});
+			} else {
+				// For single-element countries, if they already reference a url(...) skip applying.
+				let shouldApplyRoot = true;
+				try {
+					const compRoot = window.getComputedStyle(root);
+					if (compRoot && String(compRoot.fill).includes('url(')) shouldApplyRoot = false;
+				} catch (e) {
+					// ignore and rely on attribute checks
+				}
+				const rootStyle = (root.getAttribute && root.getAttribute('style')) || '';
+				if (rootStyle.includes('url(#')) shouldApplyRoot = false;
+				if (root.style && root.style.fill && String(root.style.fill).includes('url(#')) shouldApplyRoot = false;
+				if (shouldApplyRoot) {
+					root.style.fill = `url(#${finalGradientId})`;
+				}
+			}
 		}
 		// Tooltip-Logik
 		const showTooltip = (e) => {
@@ -310,15 +434,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 			country.addEventListener('mouseout', hideTooltip);
 		}
 
-		// Klick-Logik nur für visited-Länder
-		if (country.classList.contains('visited')) {
+		// Klick-Logik nur für visited-Länder und ihre Subregionen
+		if (country.classList.contains('visited') || country.closest('.visited')) {
 			const clickHandler = async (id = null) => {
-				const encounters = encountersByCountry[name] || [];
+				// Finde das Hauptland, entweder das Element selbst oder das übergeordnete g-Element
+				const mainElement = country.tagName.toLowerCase() === 'g' ? country : country.closest('g.country');
+				const mainCountry = mainElement ? mainElement.getAttribute('title') : name;
+				const encounters = encountersByCountry[mainCountry] || [];
 				detailElement.innerHTML = '';
 				detailElement.appendChild(detailCloseBtn);
 				const title = document.createElement('p');
 				title.className = 'encounter-title';
-				title.textContent = name;
+				title.textContent = mainCountry;
 				detailElement.appendChild(title);
 
 				if (encounters.length > 1) {
@@ -421,11 +548,41 @@ document.addEventListener('DOMContentLoaded', async () => {
 			};
 			country.clickHandler = clickHandler;
 			// Kombiniere Klick und Touch-Events
-			country.addEventListener('click', clickHandler);
+			country.addEventListener('click', (e) => {
+				// Stop event from bubbling up to parent elements
+				e.stopPropagation();
+				clickHandler();
+			});
 			if (isTouchDevice) {
 				country.addEventListener('touchend', (e) => {
 					e.preventDefault();
+					e.stopPropagation();
 					clickHandler();
+				});
+			}
+			
+			// Wenn dies ein Länder-Element mit Subregionen ist, füge Event-Listener zu allen Pfaden hinzu
+			if (country.tagName.toLowerCase() === 'g') {
+				const subPaths = country.querySelectorAll('path');
+				subPaths.forEach(path => {
+					// Stelle sicher, dass der Pfad die country-Klasse hat
+					
+					
+					// Füge die Event-Listener hinzu
+					path.addEventListener('click', (e) => {
+						const parentGroup = e.currentTarget.closest('g.country');
+						if (parentGroup && typeof parentGroup.clickHandler === 'function') {
+							parentGroup.clickHandler();
+						}
+					});
+
+					if (isTouchDevice) {
+						path.addEventListener('touchend', (e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							clickHandler();
+						});
+					}
 				});
 			}
 		}
