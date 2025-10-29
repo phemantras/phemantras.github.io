@@ -23,10 +23,11 @@ h1 {
 	margin: 0px 0px 10px 0px;
 }
 
-.black{
+.black {
 	color: rgba(0, 0, 0);
 }
-.red{
+
+.red {
 	color: #FF0000;
 	text-shadow:
 		-1px -1px 0 #000,
@@ -34,7 +35,8 @@ h1 {
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
 }
-.gold{
+
+.gold {
 	color: #FFCC00;
 	text-shadow:
 		-1px -1px 0 #000,
@@ -42,6 +44,7 @@ h1 {
 		-1px 1px 0 #000,
 		1px 1px 0 #000;
 }
+
 .title-container svg .letter {
 	fill: rgba(0, 0, 0, 0.7);
 }
@@ -296,15 +299,13 @@ svg {
 	width: 100%;
 	height: 100%;
 	touch-action: none;
-	/* Deaktiviert Standard-Touch-Gesten */
 	cursor: grab;
-	/* Zeigt an, dass die Karte verschoben werden kann */
 }
 
 .country {
-	stroke: #ffffff;
-	stroke-width: 0.5;
-	transition: fill 0.3s, stroke 0.3s;
+	stroke: #333;
+	stroke-width: 0.3;
+	transition: fill 0.1s, stroke 0.3s;
 }
 
 .grey {
@@ -321,7 +322,8 @@ svg {
 	stroke: #000000;
 }
 
-.country:hover, .country path:hover {
+.country:hover,
+.country path:hover {
 	fill: #ff9800 !important;
 	stroke: #000000;
 }
@@ -334,9 +336,7 @@ g.country path:hover {
 }
 
 /* Stelle sicher, dass der Hover-Effekt auch für Subregionen funktioniert */
-g.country path {
-	transition: fill 0.3s, stroke 0.3s;
-}
+
 
 .tooltip {
 	position: absolute;
@@ -611,7 +611,7 @@ g.country path {
 	color: #ddd;
 }
 
-.story{
+.story {
 	padding-top: 10px;
 }
 
