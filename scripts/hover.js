@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 				overlay.classList.remove('open');
 				menuButton.style.display = 'block';
 			}
+			tooltip.style.opacity = '0';
 		});
 		modal.insertBefore(closeBtn, modal.firstChild);
 	});
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		// Overlay nur entfernen, wenn kein Modal mehr offen ist
 		overlay.classList.remove('open');
 		menuButton.style.display = 'block';
+		tooltip.style.opacity = '0';
 	});
 
 	// Menüpunkt-Klick: Menü schließen, Modal öffnen, Overlay bleibt!
@@ -69,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			burgerMenu.classList.remove('open');
 			overlay.classList.add('open'); // Overlay bleibt aktiv!
 			menuButton.style.display = 'block';
+			tooltip.style.opacity = '0';
 		});
 	});
 
@@ -82,6 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			burgerMenu.classList.remove('open');
 			overlay.classList.remove('open');
 			menuButton.style.display = 'block';
+			tooltip.style.opacity = '0';
 		});
 	});
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
