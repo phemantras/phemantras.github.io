@@ -12,7 +12,7 @@ body {
 	display: flex;
 	justify-content: center;
 	height: 100vh;
-	background: -webkit-linear-gradient(#f0f0f0, #eaeaea);
+	background: -webkit-linear-gradient(#fdf5eb, #f6eee3);
 }
 
 h1 {
