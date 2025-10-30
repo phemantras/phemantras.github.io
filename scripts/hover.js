@@ -32,18 +32,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 		closeBtn.className = 'close-btn';
 		closeBtn.innerHTML = '&times;';
 		closeBtn.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
 			modal.classList.remove('open');
 			// Overlay nur entfernen, wenn kein Modal mehr offen ist
 			if (![...modals].some(sm => sm.classList.contains('open'))) {
 				overlay.classList.remove('open');
 				menuButton.style.display = 'block';
 			}
-			tooltip.style.opacity = '0';
 		});
 		modal.insertBefore(closeBtn, modal.firstChild);
 	});
 
 	menuButton.addEventListener('click', () => {
+		tooltip.style.opacity = '0';
 		burgerMenu.classList.add('open');
 		overlay.classList.add('open');
 		menuButton.style.display = 'none';
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// Menüpunkt-Klick: Menü schließen, Modal öffnen, Overlay bleibt!
 	document.querySelectorAll('.main-menu li').forEach(item => {
 		item.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
 			// Alle Submenüs schließen
 			modals.forEach(sm => sm.classList.remove('open'));
 			// Das passende öffnen
@@ -71,12 +73,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 			burgerMenu.classList.remove('open');
 			overlay.classList.add('open'); // Overlay bleibt aktiv!
 			menuButton.style.display = 'block';
-			tooltip.style.opacity = '0';
 		});
 	});
 
 	document.querySelectorAll('.main-menu li').forEach(item => {
 		item.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
 			// Alle Submenüs schließen
 			modals.forEach(sm => sm.classList.remove('open'));
 			// Das passende öffnen
@@ -85,7 +87,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 			burgerMenu.classList.remove('open');
 			overlay.classList.remove('open');
 			menuButton.style.display = 'block';
-			tooltip.style.opacity = '0';
 		});
 	});
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
@@ -138,6 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// 🔹 Funktion: Newsfeed ein- und ausfahren
 	toggleButton.addEventListener('click', () => {
+		tooltip.style.opacity = '0';
 		if (newsfeed.classList.contains('expanded')) {
 			newsfeed.classList.remove('expanded');
 			toggleButton.style.bottom = "10px"; // Zurück nach unten
@@ -201,6 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
 			listItem.addEventListener('click', () => {
+				tooltip.style.opacity = '0';
 				const countryElement = Array.from(visitedCountries).find(c => c.getAttribute('title') === encounter.country);
 				if (countryElement && typeof countryElement.clickHandler === 'function') {
 					setTimeout(() => {
@@ -482,6 +485,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             `;
 
 						toggleButton.addEventListener('click', () => {
+							tooltip.style.opacity = '0';
 							encounterDetail.classList.toggle('expanded');
 							if (encounterDetail.classList.contains('expanded')) {
 								toggleButton.textContent = "-";
@@ -554,11 +558,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 			// Kombiniere Klick und Touch-Events
 			country.addEventListener('click', (e) => {
 				// Stop event from bubbling up to parent elements
+				tooltip.style.opacity = '0';
 				e.stopPropagation();
 				clickHandler();
 			});
 			if (isTouchDevice) {
 				country.addEventListener('touchend', (e) => {
+					tooltip.style.opacity = '0';
 					e.preventDefault();
 					e.stopPropagation();
 					clickHandler();
@@ -574,6 +580,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 					
 					// Füge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
+						tooltip.style.opacity = '0';
 						const parentGroup = e.currentTarget.closest('g.country');
 						if (parentGroup && typeof parentGroup.clickHandler === 'function') {
 							parentGroup.clickHandler();
@@ -582,6 +589,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 					if (isTouchDevice) {
 						path.addEventListener('touchend', (e) => {
+							tooltip.style.opacity = '0';
 							e.preventDefault();
 							e.stopPropagation();
 							clickHandler();
@@ -605,6 +613,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const li = document.createElement('li');
 		li.textContent = name;
 		li.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
 			setTimeout(() => {
 				modals.forEach(modal => modal.classList.remove('open'));
 				element.clickHandler();
@@ -648,6 +657,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Detail-Element schließen, wenn außerhalb geklickt wird
 	document.addEventListener('click', (e) => {
+		tooltip.style.opacity = '0';
 		// Detail-Element schließen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';

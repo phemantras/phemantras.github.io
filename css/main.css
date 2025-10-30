@@ -126,8 +126,8 @@ h1 {
 .burger-menu-container {
 	position: absolute;
 	z-index: 9999;
-	top: 10px;
-	left: 10px;
+	top: 15px;
+	left: 15px;
 }
 
 .menu-button {
@@ -680,13 +680,13 @@ g.country path:hover {
 	}
 
 	.title-container svg.logo {
-		width: 160px;
+		width: 250px;
 		height: auto;
 		max-width: 90vw;
 	}
 
 	.subtitle {
-		font-size: 1.1rem;
+		font-size: 1.6rem;
 		padding-bottom: 15px;
 	}
 
@@ -729,7 +729,7 @@ g.country path:hover {
 	.burger-menu {
 		width: 220px;
 		color: #fff;
-		font-size: 1.0em;
+		font-size: 1.4em;
 		letter-spacing: 0.04em;
 		background: rgba(0, 0, 0, 0.7);
 		z-index: 101;
