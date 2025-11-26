@@ -14,6 +14,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	let allEncounters = [];
 	let encountersByCountry = {};
+	const sponsorsData = {
+		gold: [
+			{ name: 'WorldBall Foundation', logo: 'logos/gold/worldball-foundation.png' },
+			{ name: 'Ultra Travel', logo: 'logos/gold/ultra-travel.png' },
+			{ name: 'Champion Gear', logo: 'logos/gold/champion-gear.png' },
+		],
+		silver: [
+			{ name: 'Matchday Media', logo: 'logos/silver/matchday-media.png' },
+			{ name: 'Goal Logistics', logo: 'logos/silver/goal-logistics.png' },
+			{ name: 'FanPulse', logo: 'logos/silver/fanpulse.png' },
+		],
+		bronze: [
+			{ name: 'Corner Cafe', logo: 'logos/bronze/corner-cafe.png' },
+			{ name: 'Grassroots Travel', logo: 'logos/bronze/grassroots-travel.png' },
+			{ name: 'Third Half', logo: 'logos/bronze/third-half.png' },
+			{ name: 'Local Eleven', logo: 'logos/bronze/local-eleven.png' },
+		],
+	};
+	const sponsorsContainer = document.querySelector('.sponsors-container');
+	const sponsorCounter = sponsorsContainer ? sponsorsContainer.querySelector('.sponsor-counter') : null;
+	const formatCurrency = (value) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
+	const SPONSOR_TOTAL_TARGET = 53800; // hardcoded fundraising total for animation
 
 	// Detail-Element konfigurieren
 	detailElement.classList.add('detail-element');
@@ -26,6 +48,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 	detailCloseBtn.addEventListener('click', () => {
 		detailElement.style.display = 'none';
 	});
+
+	const resetSponsorCounter = () => {
+		if (!sponsorCounter) return;
+		sponsorCounter.dataset.target = SPONSOR_TOTAL_TARGET.toString();
+		sponsorCounter.textContent = formatCurrency(0);
+	};
+
+	const animateSponsorCounter = () => {
+		if (!sponsorCounter) return;
+		const target = Number(sponsorCounter.dataset.target) || SPONSOR_TOTAL_TARGET;
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const value = Math.floor(progress * target);
+			sponsorCounter.textContent = formatCurrency(value);
+			if (progress < 1) {
+				requestAnimationFrame(tick);
+			} else {
+				sponsorCounter.textContent = formatCurrency(target);
+			}
+		};
+
+		requestAnimationFrame(tick);
+	};
+
+	const renderSponsors = () => {
+		if (!sponsorsContainer) return;
+		Object.entries(sponsorsData).forEach(([tier, list]) => {
+			const grid = sponsorsContainer.querySelector(`.sponsor-grid[data-tier="${tier}"]`);
+			if (!grid) return;
+			grid.innerHTML = '';
+			list.forEach((sponsor) => {
+				const card = document.createElement('div');
+				card.className = `sponsor-card ${tier}`;
+				card.innerHTML = `
+					<div class="sponsor-logo-wrapper">
+						<img src="${sponsor.logo}" alt="${sponsor.name} logo">
+					</div>
+					<p class="sponsor-name">${sponsor.name}</p>
+				`;
+				grid.appendChild(card);
+			});
+		});
+		resetSponsorCounter();
+	};
+
+	renderSponsors();
 
 	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
@@ -60,33 +131,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 		tooltip.style.opacity = '0';
 	});
 
-	// Menüpunkt-Klick: Menü schließen, Modal öffnen, Overlay bleibt!
-	document.querySelectorAll('.main-menu li').forEach(item => {
-		item.addEventListener('click', () => {
-			tooltip.style.opacity = '0';
-			// Alle Submenüs schließen
-			modals.forEach(sm => sm.classList.remove('open'));
-			// Das passende öffnen
-			const menu = item.getAttribute('data-menu');
-			document.querySelector(`.${menu}-container`).classList.add('open');
-			// Menü schließen, Overlay bleibt!
-			burgerMenu.classList.remove('open');
-			overlay.classList.add('open'); // Overlay bleibt aktiv!
-			menuButton.style.display = 'block';
-		});
-	});
+	const openMenuModal = (menu) => {
+		tooltip.style.opacity = '0';
+		modals.forEach(sm => sm.classList.remove('open'));
+		const targetModal = document.querySelector(`.${menu}-container`);
+		if (targetModal) {
+			targetModal.classList.add('open');
+			overlay.classList.add('open');
+			if (menu === 'sponsors') {
+				resetSponsorCounter();
+				animateSponsorCounter();
+			}
+		} else {
+			overlay.classList.remove('open');
+		}
+		burgerMenu.classList.remove('open');
+		menuButton.style.display = 'block';
+	};
 
 	document.querySelectorAll('.main-menu li').forEach(item => {
 		item.addEventListener('click', () => {
-			tooltip.style.opacity = '0';
-			// Alle Submenüs schließen
-			modals.forEach(sm => sm.classList.remove('open'));
-			// Das passende öffnen
 			const menu = item.getAttribute('data-menu');
-			document.querySelector(`.${menu}-container`).classList.add('open');
-			burgerMenu.classList.remove('open');
-			overlay.classList.remove('open');
-			menuButton.style.display = 'block';
+			openMenuModal(menu);
 		});
 	});
 	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
@@ -221,7 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Statistik aktualisieren
 	if (statsContainer) {
-		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/195 Countries`;
+		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/211 Countries`;
 	}
 
 	// Gastgeberländer, die ihre Farbe nicht ändern

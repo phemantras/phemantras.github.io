@@ -17,7 +17,7 @@ body {
 
 h1 {
 	font-family: 'SCHABO', Verdana, sans-serif;
-	font-size: 2em;
+	font-size: 3.2em;
 	/* Schriftgröße */
 	text-align: center;
 	margin: 0px 0px 10px 0px;
@@ -233,6 +233,147 @@ h1 {
 	font-family: Arial, sans-serif;
 	font-size: 1em;
 	padding-bottom: 10px;
+}
+
+.sponsors-container h2 {
+	font-family: 'SCHABO', Verdana, sans-serif;
+	font-size: 2em;
+	margin: 0;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.sponsor-total {
+	text-align: center;
+	margin: 0 0 18px 0;
+	padding: 14px;
+	border-radius: 10px;
+	background: radial-gradient(circle at 30% 30%, rgba(255, 204, 0, 0.15), transparent 55%), rgba(255, 255, 255, 0.06);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sponsor-counter {
+	font-family: 'SCHABO', Georgia, sans-serif;
+	font-size: 2.8em;
+	color: #FFCC00;
+	letter-spacing: 0.08em;
+}
+
+.sponsor-hint {
+	margin: 4px 0 0 0;
+	font-size: 2em;
+	opacity: 0.9;
+}
+
+.sponsor-section {
+	margin-top: 18px;
+	padding: 14px;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	background: rgba(255, 255, 255, 0.04);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sponsor-tier-heading {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.tier-dot {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.tier-dot.gold {
+	background: linear-gradient(135deg, #f5d142, #cfa500);
+}
+
+.tier-dot.silver {
+	background: linear-gradient(135deg, #e0e0e0, #a8a8a8);
+}
+
+.tier-dot.bronze {
+	background: linear-gradient(135deg, #c4855a, #8d5b34);
+}
+
+.sponsor-section.sponsor-gold {
+	background: linear-gradient(180deg, rgba(255, 204, 0, 0.09), rgba(0, 0, 0, 0.55));
+	border-color: rgba(255, 204, 0, 0.35);
+}
+
+.sponsor-section.sponsor-silver {
+	background: linear-gradient(180deg, rgba(210, 210, 210, 0.1), rgba(0, 0, 0, 0.5));
+	border-color: rgba(200, 200, 200, 0.25);
+}
+
+.sponsor-section.sponsor-bronze {
+	background: linear-gradient(180deg, rgba(177, 113, 68, 0.12), rgba(0, 0, 0, 0.5));
+	border-color: rgba(177, 113, 68, 0.3);
+}
+
+.sponsor-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 16px;
+}
+
+.sponsor-card {
+	text-align: center;
+	padding: 12px 12px 10px 12px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: 10px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+.sponsor-card.gold {
+	border-color: rgba(255, 204, 0, 0.45);
+	box-shadow: 0 10px 24px rgba(255, 204, 0, 0.12);
+}
+
+.sponsor-card.silver {
+	border-color: rgba(210, 210, 210, 0.4);
+}
+
+.sponsor-card.bronze {
+	border-color: rgba(177, 113, 68, 0.4);
+}
+
+.sponsor-logo-wrapper {
+	height: 90px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px;
+}
+
+.sponsor-card.gold .sponsor-logo-wrapper {
+	height: 130px;
+}
+
+.sponsor-card.silver .sponsor-logo-wrapper {
+	height: 110px;
+}
+
+.sponsor-card.bronze .sponsor-logo-wrapper {
+	height: 90px;
+}
+
+.sponsor-card img {
+	max-height: 100%;
+	max-width: 100%;
+	object-fit: contain;
+}
+
+.sponsor-name {
+	margin-top: 8px;
+	font-size: 1.05em;
+	font-family: Arial, sans-serif;
+	letter-spacing: 0.03em;
 }
 
 #visited-countries-list {
@@ -641,14 +782,30 @@ g.country path:hover {
 		/* Schriftgröße */
 	}
 
-	.detail-element p {
-		font-family: Arial, sans-serif;
-		font-size: 1.0em;
-	}
+		.detail-element p {
+			font-family: Arial, sans-serif;
+			font-size: 1.0em;
+		}
 
-	.encounter-info {
-		font-size: 0.9em;
-	}
+		.sponsor-grid {
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		}
+
+		.sponsor-card.gold .sponsor-logo-wrapper {
+			height: 110px;
+		}
+
+		.sponsor-card.silver .sponsor-logo-wrapper {
+			height: 95px;
+		}
+
+		.sponsor-card.bronze .sponsor-logo-wrapper {
+			height: 80px;
+		}
+
+		.encounter-info {
+			font-size: 0.9em;
+		}
 
 	.modal {
 		width: 90%;
@@ -709,16 +866,32 @@ g.country path:hover {
 		padding: 5px;
 	}
 
-	.newsfeed-thumbnail {
-		width: 42px;
-		height: 42px;
-	}
+		.newsfeed-thumbnail {
+			width: 42px;
+			height: 42px;
+		}
 
-	.menu-button {
-		background: rgba(0, 0, 0, 0.9);
-		color: #fff;
-		border: none;
-		padding: 5px 10px;
+		.sponsor-grid {
+			grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+		}
+
+		.sponsor-card.gold .sponsor-logo-wrapper {
+			height: 95px;
+		}
+
+		.sponsor-card.silver .sponsor-logo-wrapper {
+			height: 85px;
+		}
+
+		.sponsor-card.bronze .sponsor-logo-wrapper {
+			height: 75px;
+		}
+
+		.menu-button {
+			background: rgba(0, 0, 0, 0.9);
+			color: #fff;
+			border: none;
+			padding: 5px 10px;
 		border-radius: 10px;
 		cursor: pointer;
 		font-size: 1.0em;
