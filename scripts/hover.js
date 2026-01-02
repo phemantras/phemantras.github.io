@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+﻿document.addEventListener('DOMContentLoaded', async () => {
 	const tooltip = document.getElementById('tooltip');
 	const countries = document.querySelectorAll('.country');
 	const detailElement = document.createElement('div');
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			'sponsors.ultra': 'Ultra',
 			'sponsors.supporter': 'Supporter',
 			'sponsors.fan': 'Fan',
-			'sponsors.fanNamesLabel': 'Fans who backed us',
+			'sponsors.fanNamesLabel': 'Special thanks to:',
 			newsfeedToggle: 'Latest Encounters',
 			detailLabelName: 'Name',
 			detailLabelLocation: 'Location',
@@ -90,19 +90,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 		},
 		de: {
 			'menu.about': 'Ueber uns',
-			'menu.countries': 'Länder',
+			'menu.countries': 'Laender',
 			'menu.sponsors': 'Sponsoren',
-			'subtitle.journey': 'Entdecke unsere Stories über Fans, die wir auf dem Weg nach New Jersey treffen',
+			'subtitle.journey': 'Entdecke unsere Stories ueber Fans, die wir auf dem Weg nach New Jersey treffen',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
-			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Ländern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
+			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
 			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
 			'sponsors.title': 'Sponsoren',
 			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
 			'sponsors.ultra': 'Ultra',
 			'sponsors.supporter': 'Supporter',
 			'sponsors.fan': 'Fan',
-			'sponsors.fanNamesLabel': 'Fans, die uns unterstuetzen',
+			'sponsors.fanNamesLabel': 'Danke auch an:',
 			newsfeedToggle: 'Neueste Begegnungen',
 			detailLabelName: 'Name',
 			detailLabelLocation: 'Ort',
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			detailLabelBestGame: 'Bestes Spiel',
 			detailLabelChampions: 'WM26-Sieger',
 			languageToggleLabel: 'Sprache wechseln',
-			statsLabelCountries: 'Länder',
+			statsLabelCountries: 'Laender',
 		},
 	};
 	const detectLanguage = () => {
@@ -159,6 +159,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const count = getVisitedCountries().length;
 		statsContainer.innerHTML = `<span id="countries-count">${count}</span>/211 ${t('statsLabelCountries')}`;
 	};
+	const renderVisitedCountriesList = () => {
+		if (!visitedCountriesList) return;
+		visitedCountriesList.innerHTML = '';
+		const visitedCountriesArray = Array.from(getVisitedCountries()).map(countryElement => {
+			const name = countryElement.getAttribute('title');
+			return { name, element: countryElement };
+		});
+		visitedCountriesArray.sort((a, b) => {
+			const nameA = getLocalizedCountryName(a.name, a.element);
+			const nameB = getLocalizedCountryName(b.name, b.element);
+			return nameA.localeCompare(nameB, currentLanguage === 'de' ? 'de' : 'en');
+		});
+		visitedCountriesArray.forEach(({ name, element }) => {
+			const li = document.createElement('li');
+			li.textContent = getLocalizedCountryName(name, element);
+			li.addEventListener('click', () => {
+				tooltip.style.opacity = '0';
+				setTimeout(() => {
+					modals.forEach(modal => modal.classList.remove('open'));
+					element.clickHandler();
+				}, 0);
+			});
+			visitedCountriesList.appendChild(li);
+		});
+	};
 	const applyTranslations = () => {
 		const dict = translations[currentLanguage] || translations.en;
 		document.documentElement.lang = currentLanguage;
@@ -176,10 +201,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 			newsfeedToggle.textContent = dict.newsfeedToggle;
 		}
 		if (languageToggle) {
-			languageToggle.textContent = currentLanguage === 'de' ? '🇩🇪' : '🇬🇧';
-			languageToggle.setAttribute('aria-label', dict.languageToggleLabel);
-		}
+    languageToggle.textContent = currentLanguage === 'de' ? 'DE' : 'EN';
+    languageToggle.setAttribute('aria-label', dict.languageToggleLabel);
+  }
 		updateStats();
+		renderVisitedCountriesList();
 	};
 	if (languageToggle) {
 		languageToggle.addEventListener('click', () => {
@@ -193,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	detailElement.classList.add('detail-element');
 	document.body.appendChild(detailElement);
 
-	// Schließen-Button für das Detail-Element (einmal anlegen)
+	// SchlieÃŸen-Button fÃ¼r das Detail-Element (einmal anlegen)
 	const detailCloseBtn = document.createElement('button');
 	detailCloseBtn.className = 'close-btn';
 	detailCloseBtn.innerHTML = '&times;';
@@ -277,7 +303,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	overlay.addEventListener('click', () => {
 		burgerMenu.classList.remove('open');
-		// Alle Modals schließen
+		// Alle Modals schlieÃŸen
 		modals.forEach(sm => sm.classList.remove('open'));
 		// Overlay nur entfernen, wenn kein Modal mehr offen ist
 		overlay.classList.remove('open');
@@ -308,12 +334,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 			openMenuModal(menu);
 		});
 	});
-	// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
+	// Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
 			const response = await fetch('encounters/encounters.json');
 			if (response.ok) {
-				return await response.json(); // JSON-Inhalt zurückgeben
+				return await response.json(); // JSON-Inhalt zurÃ¼ckgeben
 			} else {
 				console.error('Fehler beim Abrufen der encounters.json');
 			}
@@ -323,10 +349,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		return [];
 	};
 
-	// Länder aus der JSON-Datei abrufen
+	// LÃ¤nder aus der JSON-Datei abrufen
 	const encounteredCountries = await getEncounteredCountries();
 
-	// Länder markieren, die in der JSON aufgelistet sind
+	// LÃ¤nder markieren, die in der JSON aufgelistet sind
 	encounteredCountries.forEach((countryName) => {
 		const countryElement = Array.from(countries).find(
 			(country) => country.getAttribute('title') === countryName
@@ -338,11 +364,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 	updateStats();
+	renderVisitedCountriesList();
 
 	newsfeedToggle = document.createElement('div');
 	newsfeedToggle.classList.add('newsfeed-toggle');
 	newsfeedToggle.textContent = t('newsfeedToggle');
-	newsfeedToggle.style.bottom = "19%";
+	newsfeedToggle.style.bottom = "10px";
 	newsfeedToggle.style.left = "50%";
 	document.body.appendChild(newsfeedToggle);
 	applyTranslations();
@@ -387,14 +414,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
 			}
 		}
-		// Flache Liste für Newsfeed
+		// Flache Liste fÃ¼r Newsfeed
 		allEncounters = Object.values(encountersByCountry).flat();
 		// Nach Datum sortieren
 		allEncounters.sort((a, b) => new Date(b.date) - new Date(a.date));
 		populateNewsfeed();
 	};
 
-	// 🔹 Funktion: Newsfeed mit Encounters anzeigen
+	// ðŸ”¹ Funktion: Newsfeed mit Encounters anzeigen
 	const populateNewsfeed = () => {
 		newsfeedList.innerHTML = ''; // Liste leeren
 
@@ -402,7 +429,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
 
-			// 🔹 Thumbnail + Kurzinfo
+			// ðŸ”¹ Thumbnail + Kurzinfo
 			listItem.innerHTML = `
 		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
@@ -411,7 +438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		            </div>
 		        `;
 
-			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
+			// ðŸ”¹ Beim Klicken auf das Newsfeed-Item â†’ Land auf der Karte Ã¶ffnen
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
 				const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country);
@@ -426,13 +453,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 		});
 	};
 
-	// 🔹 Encounters abrufen und Newsfeed befüllen
+	// ðŸ”¹ Encounters abrufen und Newsfeed befÃ¼llen
 	await fetchEncounters();
 
 	// Statistik aktualisieren
 	updateStats();
 
-	// Gastgeberländer, die ihre Farbe nicht ändern
+	// GastgeberlÃ¤nder, die ihre Farbe nicht Ã¤ndern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
 
 
@@ -454,10 +481,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const rootName = root.getAttribute('title');
 
 		if (!hostCountries.includes(rootName) && root.classList && root.classList.contains('visited')) {
-			// Zufällige gedeckte Farbe generieren
+			// ZufÃ¤llige gedeckte Farbe generieren
 			const generateRandomColor = () => {
 				const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
-				const g = Math.random() * 150 + 50; // Gedecktes Grün (50-200)
+				const g = Math.random() * 150 + 50; // Gedecktes GrÃ¼n (50-200)
 				const b = Math.random() * 150 + 50; // Gedecktes Blau (50-200)
 				return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
 			};
@@ -532,7 +559,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			gradient.appendChild(stop1);
 			gradient.appendChild(stop2);
 			// Before appending/applying a generated gradient, detect if this root (or any of its
-			// subpaths) already uses a hand-authored fill referencing a url(#...) — in that case
+			// subpaths) already uses a hand-authored fill referencing a url(#...) â€” in that case
 			// we must NOT generate or apply our gradient to avoid visual overlays (fixes Germany).
 			const hasAuthorDefinedFill = (() => {
 				try {
@@ -566,7 +593,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			})();
 
 			if (hasAuthorDefinedFill) {
-				// Do not create/apply a generated gradient for this root — respect hand-authored styling.
+				// Do not create/apply a generated gradient for this root â€” respect hand-authored styling.
 				return;
 			}
 
@@ -580,7 +607,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			// Wende den Gradient auf das Root-Element (Gruppe) und alle seine Subregionen an
 			const finalGradientId = safeGradientId;
 			if (root.tagName.toLowerCase() === 'g') {
-				// Für Länder mit Subregionen — apply only to subpaths that don't already have an
+				// FÃ¼r LÃ¤nder mit Subregionen â€” apply only to subpaths that don't already have an
 				// author-defined url(...) fill to avoid overwriting/overlaying hand-authored styles.
 				root.querySelectorAll('path').forEach(path => {
 					// If the rendered/computed fill of the path already references a url(...), skip it.
@@ -632,7 +659,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			tooltip.style.opacity = '0';
 		};
 
-		// Tooltip für alle Geräte
+		// Tooltip fÃ¼r alle GerÃ¤te
 		if (isTouchDevice) {
 			country.addEventListener('touchstart', (e) => {
 				e.preventDefault();
@@ -650,10 +677,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 			country.addEventListener('mouseout', hideTooltip);
 		}
 
-		// Klick-Logik nur für visited-Länder und ihre Subregionen
+		// Klick-Logik nur fÃ¼r visited-LÃ¤nder und ihre Subregionen
 		if (country.classList.contains('visited') || country.closest('.visited')) {
 			const clickHandler = async (id = null) => {
-				// Finde das Hauptland, entweder das Element selbst oder das übergeordnete g-Element
+				// Finde das Hauptland, entweder das Element selbst oder das Ã¼bergeordnete g-Element
 				const mainElement = country.tagName.toLowerCase() === 'g' ? country : country.closest('g.country');
 				const mainCountry = mainElement ? mainElement.getAttribute('title') : name;
 				const encounters = encountersByCountry[mainCountry] || [];
@@ -672,7 +699,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 						const encounterItem = document.createElement('div');
 						encounterItem.classList.add('encounter-item');
 
-						// "+" Button für Aufklappen
+						// "+" Button fÃ¼r Aufklappen
 						const toggleButton = document.createElement('button');
 						toggleButton.textContent = "+";
 						toggleButton.classList.add('expand-btn');
@@ -780,14 +807,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 				});
 			}
 
-			// Wenn dies ein Länder-Element mit Subregionen ist, füge Event-Listener zu allen Pfaden hinzu
+			// Wenn dies ein LÃ¤nder-Element mit Subregionen ist, fÃ¼ge Event-Listener zu allen Pfaden hinzu
 			if (country.tagName.toLowerCase() === 'g') {
 				const subPaths = country.querySelectorAll('path');
 				subPaths.forEach(path => {
 					// Stelle sicher, dass der Pfad die country-Klasse hat
 
 
-					// Füge die Event-Listener hinzu
+					// FÃ¼ge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
 						tooltip.style.opacity = '0';
 						const parentGroup = e.currentTarget.closest('g.country');
@@ -807,28 +834,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 				});
 			}
 		}
-	});
-
-	const visitedCountriesArray = Array.from(getVisitedCountries()).map(countryElement => {
-		const name = countryElement.getAttribute('title');
-		return { name, element: countryElement };
-	});
-
-	// Alphabetische Sortierung der Länder nach Namen
-	visitedCountriesArray.sort((a, b) => a.name.localeCompare(b.name));
-
-	// Besuchte Länder in Menü einfügen
-	visitedCountriesArray.forEach(({ name, element }) => {
-		const li = document.createElement('li');
-		li.textContent = name;
-		li.addEventListener('click', () => {
-			tooltip.style.opacity = '0';
-			setTimeout(() => {
-				modals.forEach(modal => modal.classList.remove('open'));
-				element.clickHandler();
-			}, 0);
-		});
-		visitedCountriesList.appendChild(li);
 	});
 
 	// Panzoom initialisieren
@@ -861,17 +866,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 			panzoom.zoomIn({ animate: true });
 		});
 	} else {
-		console.error('SVG-Element nicht gefunden. Bitte überprüfe deinen Selektor oder die HTML-Struktur.');
+		console.error('SVG-Element nicht gefunden. Bitte Ã¼berprÃ¼fe deinen Selektor oder die HTML-Struktur.');
 	}
 
-	// Detail-Element schließen, wenn außerhalb geklickt wird
+	// Detail-Element schlieÃŸen, wenn auÃŸerhalb geklickt wird
 	document.addEventListener('click', (e) => {
 		tooltip.style.opacity = '0';
-		// Detail-Element schließen
+		// Detail-Element schlieÃŸen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';
 		}
-		// Modal schließen
+		// Modal schlieÃŸen
 		const openModal = [...modals].find(m => m.classList.contains('open'));
 		if (
 			openModal &&
@@ -886,3 +891,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	});
 });
+
+
+
+
+
+
