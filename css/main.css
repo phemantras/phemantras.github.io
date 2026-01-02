@@ -172,6 +172,25 @@ h1 {
 	position: relative;
 }
 
+.language-toggle {
+	position: fixed;
+	top: 70px;
+	right: 15px;
+	background: rgba(0, 0, 0, 0.9);
+	color: #fff;
+	border: none;
+	padding: 8px 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 1.3em;
+	transition: background-color 0.3s ease;
+	z-index: 10001;
+}
+
+.language-toggle:hover {
+	background: rgba(0, 0, 0, 0.8);
+}
+
 .burger-menu.open {
 	display: block;
 }
@@ -288,29 +307,35 @@ h1 {
 	display: inline-block;
 }
 
-.tier-dot.gold {
+.tier-dot.gold,
+.tier-dot.ultra {
 	background: linear-gradient(135deg, #f5d142, #cfa500);
 }
 
-.tier-dot.silver {
+.tier-dot.silver,
+.tier-dot.supporter {
 	background: linear-gradient(135deg, #e0e0e0, #a8a8a8);
 }
 
-.tier-dot.bronze {
+.tier-dot.bronze,
+.tier-dot.fan {
 	background: linear-gradient(135deg, #c4855a, #8d5b34);
 }
 
-.sponsor-section.sponsor-gold {
+.sponsor-section.sponsor-gold,
+.sponsor-section.sponsor-ultra {
 	background: linear-gradient(180deg, rgba(255, 204, 0, 0.09), rgba(0, 0, 0, 0.55));
 	border-color: rgba(255, 204, 0, 0.35);
 }
 
-.sponsor-section.sponsor-silver {
+.sponsor-section.sponsor-silver,
+.sponsor-section.sponsor-supporter {
 	background: linear-gradient(180deg, rgba(210, 210, 210, 0.1), rgba(0, 0, 0, 0.5));
 	border-color: rgba(200, 200, 200, 0.25);
 }
 
-.sponsor-section.sponsor-bronze {
+.sponsor-section.sponsor-bronze,
+.sponsor-section.sponsor-fan {
 	background: linear-gradient(180deg, rgba(177, 113, 68, 0.12), rgba(0, 0, 0, 0.5));
 	border-color: rgba(177, 113, 68, 0.3);
 }
@@ -330,16 +355,19 @@ h1 {
 	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
 }
 
-.sponsor-card.gold {
+.sponsor-card.gold,
+.sponsor-card.ultra {
 	border-color: rgba(255, 204, 0, 0.45);
 	box-shadow: 0 10px 24px rgba(255, 204, 0, 0.12);
 }
 
-.sponsor-card.silver {
+.sponsor-card.silver,
+.sponsor-card.supporter {
 	border-color: rgba(210, 210, 210, 0.4);
 }
 
-.sponsor-card.bronze {
+.sponsor-card.bronze,
+.sponsor-card.fan {
 	border-color: rgba(177, 113, 68, 0.4);
 }
 
@@ -351,15 +379,18 @@ h1 {
 	padding: 6px;
 }
 
-.sponsor-card.gold .sponsor-logo-wrapper {
+.sponsor-card.gold .sponsor-logo-wrapper,
+.sponsor-card.ultra .sponsor-logo-wrapper {
 	height: 130px;
 }
 
-.sponsor-card.silver .sponsor-logo-wrapper {
+.sponsor-card.silver .sponsor-logo-wrapper,
+.sponsor-card.supporter .sponsor-logo-wrapper {
 	height: 110px;
 }
 
-.sponsor-card.bronze .sponsor-logo-wrapper {
+.sponsor-card.bronze .sponsor-logo-wrapper,
+.sponsor-card.fan .sponsor-logo-wrapper {
 	height: 90px;
 }
 
@@ -374,6 +405,27 @@ h1 {
 	font-size: 1.05em;
 	font-family: Arial, sans-serif;
 	letter-spacing: 0.03em;
+}
+
+.fan-names-label {
+	margin: 14px 0 8px 0;
+	font-family: 'SCHABO', Arial, sans-serif;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.fan-names-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 8px 14px;
+}
+
+.fan-name {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: 8px;
+	padding: 8px 10px;
+	font-family: Arial, sans-serif;
 }
 
 #visited-countries-list {
@@ -791,15 +843,18 @@ g.country path:hover {
 			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 		}
 
-		.sponsor-card.gold .sponsor-logo-wrapper {
+		.sponsor-card.gold .sponsor-logo-wrapper,
+		.sponsor-card.ultra .sponsor-logo-wrapper {
 			height: 110px;
 		}
 
-		.sponsor-card.silver .sponsor-logo-wrapper {
+		.sponsor-card.silver .sponsor-logo-wrapper,
+		.sponsor-card.supporter .sponsor-logo-wrapper {
 			height: 95px;
 		}
 
-		.sponsor-card.bronze .sponsor-logo-wrapper {
+		.sponsor-card.bronze .sponsor-logo-wrapper,
+		.sponsor-card.fan .sponsor-logo-wrapper {
 			height: 80px;
 		}
 
@@ -875,15 +930,18 @@ g.country path:hover {
 			grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 		}
 
-		.sponsor-card.gold .sponsor-logo-wrapper {
+		.sponsor-card.gold .sponsor-logo-wrapper,
+		.sponsor-card.ultra .sponsor-logo-wrapper {
 			height: 95px;
 		}
 
-		.sponsor-card.silver .sponsor-logo-wrapper {
+		.sponsor-card.silver .sponsor-logo-wrapper,
+		.sponsor-card.supporter .sponsor-logo-wrapper {
 			height: 85px;
 		}
 
-		.sponsor-card.bronze .sponsor-logo-wrapper {
+		.sponsor-card.bronze .sponsor-logo-wrapper,
+		.sponsor-card.fan .sponsor-logo-wrapper {
 			height: 75px;
 		}
 

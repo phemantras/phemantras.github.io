@@ -10,7 +10,8 @@
             "favClub": "Real Madrid",
             "favPlayer": "Ronaldo Nazario",
             "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         },
         {
             "name": "Iro",
@@ -21,7 +22,8 @@
             "favClub": "Manchester United",
             "favPlayer": "Bruno Fernandes",
             "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         }
     ]
 }

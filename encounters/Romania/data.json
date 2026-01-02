@@ -10,7 +10,8 @@
             "favClub": "FCS Bukarest",
             "favPlayer": "Gheorghe Hagi",
             "favGame": "Romania vs. Ukraine (3:0, EURO 2024)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         },
         {
             "name": "Ovvy",
@@ -21,7 +22,8 @@
             "favClub": "FCS Bukarest",
             "favPlayer": "Gheorghe Hagi",
             "favGame": "Romania - Ukraine (3:0, EURO 2024)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         },
         {
             "name": "Balazs",
@@ -32,7 +34,8 @@
             "favClub": "Liverpool FC",
             "favPlayer": "Cristiano Ronaldo",
             "favGame": "Liverpool FC - Villarreal CF (3:0, UCL 2016)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         }
     ]
 }

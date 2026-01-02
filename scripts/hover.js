@@ -11,21 +11,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
 	const newsfeed = document.querySelector('.newsfeed');
+	const languageToggle = document.getElementById('language-toggle');
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	let newsfeedToggle = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
 	const sponsorsData = {
-		gold: [
+		ultra: [
 			{ name: 'WorldBall Foundation', logo: 'logos/gold/worldball-foundation.png' },
 			{ name: 'Ultra Travel', logo: 'logos/gold/ultra-travel.png' },
 			{ name: 'Champion Gear', logo: 'logos/gold/champion-gear.png' },
 		],
-		silver: [
+		supporter: [
 			{ name: 'Matchday Media', logo: 'logos/silver/matchday-media.png' },
 			{ name: 'Goal Logistics', logo: 'logos/silver/goal-logistics.png' },
 			{ name: 'FanPulse', logo: 'logos/silver/fanpulse.png' },
 		],
-		bronze: [
+		fan: [
 			{ name: 'Corner Cafe', logo: 'logos/bronze/corner-cafe.png' },
 			{ name: 'Grassroots Travel', logo: 'logos/bronze/grassroots-travel.png' },
 			{ name: 'Third Half', logo: 'logos/bronze/third-half.png' },
@@ -33,9 +35,158 @@ document.addEventListener('DOMContentLoaded', async () => {
 		],
 	};
 	const sponsorsContainer = document.querySelector('.sponsors-container');
-	const sponsorCounter = sponsorsContainer ? sponsorsContainer.querySelector('.sponsor-counter') : null;
-	const formatCurrency = (value) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
-	const SPONSOR_TOTAL_TARGET = 53800; // hardcoded fundraising total for animation
+	const fanNamesContainer = document.getElementById('fan-names-grid');
+	let displayNamesDe = null;
+	try {
+		displayNamesDe = new Intl.DisplayNames(['de'], { type: 'region' });
+	} catch (e) {
+		displayNamesDe = null;
+	}
+	const countryNameOverrides = {
+		en: {
+			England: 'England',
+			Wales: 'Wales',
+			'Northern Ireland': 'Northern Ireland',
+			Scotland: 'Scotland',
+			'China PR': 'China',
+			'People\'s Republic of China': 'China',
+			China: 'China',
+		},
+		de: {
+			England: 'England',
+			Wales: 'Wales',
+			'Northern Ireland': 'Nordirland',
+			Scotland: 'Schottland',
+			'China PR': 'China',
+			'People\'s Republic of China': 'China',
+			China: 'China',
+		},
+	};
+	const translations = {
+		en: {
+			'menu.about': 'About us',
+			'menu.countries': 'Countries',
+			'menu.sponsors': 'Sponsors',
+			'subtitle.journey': 'Uncover the stories of football fans we meet on our journey to New Jersey',
+			'about.title': 'About us',
+			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
+			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
+			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
+			'sponsors.title': 'Sponsors',
+			'sponsors.hint': 'Thanks for your support!',
+			'sponsors.ultra': 'Ultra',
+			'sponsors.supporter': 'Supporter',
+			'sponsors.fan': 'Fan',
+			'sponsors.fanNamesLabel': 'Fans who backed us',
+			newsfeedToggle: 'Latest Encounters',
+			detailLabelName: 'Name',
+			detailLabelLocation: 'Location',
+			detailLabelClub: 'Club',
+			detailLabelPlayer: 'Player',
+			detailLabelBestGame: 'Best game',
+			detailLabelChampions: 'WC26 Champions',
+			languageToggleLabel: 'Switch language',
+			statsLabelCountries: 'Countries',
+		},
+		de: {
+			'menu.about': 'Ueber uns',
+			'menu.countries': 'Länder',
+			'menu.sponsors': 'Sponsoren',
+			'subtitle.journey': 'Entdecke unsere Stories über Fans, die wir auf dem Weg nach New Jersey treffen',
+			'about.title': 'Ueber uns',
+			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
+			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Ländern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
+			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
+			'sponsors.title': 'Sponsoren',
+			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
+			'sponsors.ultra': 'Ultra',
+			'sponsors.supporter': 'Supporter',
+			'sponsors.fan': 'Fan',
+			'sponsors.fanNamesLabel': 'Fans, die uns unterstuetzen',
+			newsfeedToggle: 'Neueste Begegnungen',
+			detailLabelName: 'Name',
+			detailLabelLocation: 'Ort',
+			detailLabelClub: 'Verein',
+			detailLabelPlayer: 'Spieler',
+			detailLabelBestGame: 'Bestes Spiel',
+			detailLabelChampions: 'WM26-Sieger',
+			languageToggleLabel: 'Sprache wechseln',
+			statsLabelCountries: 'Länder',
+		},
+	};
+	const detectLanguage = () => {
+		const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+		return lang.startsWith('de') ? 'de' : 'en';
+	};
+	let currentLanguage = detectLanguage();
+	const getCountryCode = (element) => {
+		const rawId = (element && (element.id || element.getAttribute && element.getAttribute('id'))) || '';
+		if (!rawId) return null;
+		const letters = rawId.replace(/[^a-zA-Z]/g, '');
+		if (!letters) return null;
+		if (letters.length > 3) return null;
+		if (letters.length === 2 || letters.length === 3) return letters.toUpperCase();
+		return null;
+	};
+	const getLocalizedCountryName = (title, element) => {
+		const overrides = countryNameOverrides[currentLanguage] || {};
+		const normalizedTitle = title ? title.trim() : '';
+		if (normalizedTitle && overrides[normalizedTitle]) return overrides[normalizedTitle];
+		if (currentLanguage === 'de' && displayNamesDe) {
+			const code = getCountryCode(element);
+			if (code) {
+				const localized = displayNamesDe.of(code);
+				if (localized && typeof localized === 'string') return localized;
+			}
+		}
+		return normalizedTitle || title;
+	};
+
+	// Build a list of visited country "roots" only (groups with title or single country elements with title).
+	// Avoid including subregion <path> elements that may lack a title attribute which caused NPEs when
+	// later used to build fetch URLs.
+	const visitedCountries = (() => {
+		// Groups which represent countries and have a title
+		const groups = Array.from(document.querySelectorAll('g.country[title].visited'));
+		// Single elements (e.g. path) that have title and visited but are not inside a visited group
+		const singles = Array.from(document.querySelectorAll('.country[title].visited')).filter(el => el.tagName.toLowerCase() !== 'g');
+		const uniqueSingles = singles.filter(el => !el.closest('g.country[title].visited'));
+		return [...groups, ...uniqueSingles];
+	})();
+	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
+	const applyTranslations = () => {
+		const dict = translations[currentLanguage] || translations.en;
+		document.documentElement.lang = currentLanguage;
+		document.querySelectorAll('[data-i18n]').forEach((el) => {
+			const key = el.dataset.i18n;
+			const value = dict[key];
+			if (!value) return;
+			if (el.dataset.i18nType === 'html') {
+				el.innerHTML = value;
+			} else {
+				el.textContent = value;
+			}
+		});
+		if (newsfeedToggle) {
+			newsfeedToggle.textContent = dict.newsfeedToggle;
+		}
+		if (languageToggle) {
+			languageToggle.textContent = currentLanguage === 'de' ? '🇩🇪' : '🇬🇧';
+			languageToggle.setAttribute('aria-label', dict.languageToggleLabel);
+		}
+		if (statsContainer) {
+			const countEl = statsContainer.querySelector('#countries-count');
+			const count = countEl ? countEl.textContent : visitedCountries.length;
+			statsContainer.innerHTML = `<span id="countries-count">${count}</span>/211 ${t('statsLabelCountries')}`;
+		}
+	};
+	if (languageToggle) {
+		languageToggle.addEventListener('click', () => {
+			currentLanguage = currentLanguage === 'de' ? 'en' : 'de';
+			applyTranslations();
+		});
+	}
+	applyTranslations();
 
 	// Detail-Element konfigurieren
 	detailElement.classList.add('detail-element');
@@ -49,30 +200,32 @@ document.addEventListener('DOMContentLoaded', async () => {
 		detailElement.style.display = 'none';
 	});
 
-	const resetSponsorCounter = () => {
-		if (!sponsorCounter) return;
-		sponsorCounter.dataset.target = SPONSOR_TOTAL_TARGET.toString();
-		sponsorCounter.textContent = formatCurrency(0);
+	const fetchFanNames = async () => {
+		try {
+			const response = await fetch('fans/fans.txt');
+			if (!response.ok) return [];
+			const text = await response.text();
+			return text
+				.split(/\r?\n/)
+				.map((line) => line.trim())
+				.filter(Boolean);
+		} catch (error) {
+			console.error('Fehler beim Laden der Fan-Namen:', error);
+			return [];
+		}
 	};
 
-	const animateSponsorCounter = () => {
-		if (!sponsorCounter) return;
-		const target = Number(sponsorCounter.dataset.target) || SPONSOR_TOTAL_TARGET;
-		const duration = 1200;
-		const start = performance.now();
-
-		const tick = (now) => {
-			const progress = Math.min((now - start) / duration, 1);
-			const value = Math.floor(progress * target);
-			sponsorCounter.textContent = formatCurrency(value);
-			if (progress < 1) {
-				requestAnimationFrame(tick);
-			} else {
-				sponsorCounter.textContent = formatCurrency(target);
-			}
-		};
-
-		requestAnimationFrame(tick);
+	const renderFanNames = async () => {
+		if (!fanNamesContainer) return;
+		const names = await fetchFanNames();
+		fanNamesContainer.innerHTML = '';
+		if (!names.length) return;
+		names.forEach((name) => {
+			const nameItem = document.createElement('div');
+			nameItem.className = 'fan-name';
+			nameItem.textContent = name;
+			fanNamesContainer.appendChild(nameItem);
+		});
 	};
 
 	const renderSponsors = () => {
@@ -93,10 +246,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 				grid.appendChild(card);
 			});
 		});
-		resetSponsorCounter();
 	};
 
 	renderSponsors();
+	renderFanNames();
 
 	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
@@ -139,8 +292,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			targetModal.classList.add('open');
 			overlay.classList.add('open');
 			if (menu === 'sponsors') {
-				resetSponsorCounter();
-				animateSponsorCounter();
+				renderFanNames();
 			}
 		} else {
 			overlay.classList.remove('open');
@@ -180,38 +332,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 		);
 		if (countryElement) {
 			countryElement.classList.add('visited');
-			
+
 		}
 	});
 
-	// Build a list of visited country "roots" only (groups with title or single country elements with title).
-	// Avoid including subregion <path> elements that may lack a title attribute which caused NPEs when
-	// later used to build fetch URLs.
-	const visitedCountries = (() => {
-		// Groups which represent countries and have a title
-		const groups = Array.from(document.querySelectorAll('g.country[title].visited'));
-		// Single elements (e.g. path) that have title and visited but are not inside a visited group
-		const singles = Array.from(document.querySelectorAll('.country[title].visited')).filter(el => el.tagName.toLowerCase() !== 'g');
-		const uniqueSingles = singles.filter(el => !el.closest('g.country[title].visited'));
-		return [...groups, ...uniqueSingles];
-	})();
 
-	const toggleButton = document.createElement('div');
-	toggleButton.classList.add('newsfeed-toggle');
-	toggleButton.textContent = "👤 Latest Encounters";
-	toggleButton.style.bottom = "19%";
-	toggleButton.style.left = "50%";
-	document.body.appendChild(toggleButton);
 
-	// 🔹 Funktion: Newsfeed ein- und ausfahren
-	toggleButton.addEventListener('click', () => {
+	newsfeedToggle = document.createElement('div');
+	newsfeedToggle.classList.add('newsfeed-toggle');
+	newsfeedToggle.textContent = t('newsfeedToggle');
+	newsfeedToggle.style.bottom = "19%";
+	newsfeedToggle.style.left = "50%";
+	document.body.appendChild(newsfeedToggle);
+	applyTranslations();
+
+	// Newsfeed ein- und ausfahren
+	newsfeedToggle.addEventListener('click', () => {
 		tooltip.style.opacity = '0';
 		if (newsfeed.classList.contains('expanded')) {
 			newsfeed.classList.remove('expanded');
-			toggleButton.style.bottom = "10px"; // Zurück nach unten
+			newsfeedToggle.style.bottom = "10px";
 		} else {
 			newsfeed.classList.add('expanded');
-			toggleButton.style.bottom = "19%"; // Hoch schieben
+			newsfeedToggle.style.bottom = "19%";
 		}
 	});
 
@@ -287,7 +430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Statistik aktualisieren
 	if (statsContainer) {
-		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/211 Countries`;
+		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/211 ${t('statsLabelCountries')}`;
 	}
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
@@ -472,7 +615,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 		// Tooltip-Logik
 		const showTooltip = (e) => {
-			tooltip.textContent = name;
+			const displayName = getLocalizedCountryName(name, root);
+			tooltip.textContent = displayName;
 			tooltip.style.opacity = '1';
 
 			if (isTouchDevice) {
@@ -543,10 +687,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
                                 <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-                                <p><strong>Club:</strong> ${encounter.favClub}</p>
-                                <p><strong>Player:</strong> ${encounter.favPlayer}</p>
-                                <p><strong>Best game:</strong> ${encounter.favGame}</p>
-                                <p><strong>WC26 Champions:</strong> ${encounter.wcc}</p>
+                                <p><strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}</p>
+                                <p><strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}</p>
+                                <p><strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}</p>
+                                <p><strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}</p>
                                 <p class="story">${encounter.text}</p>
                             `;
 
@@ -589,17 +733,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 					const favPlayer = document.createElement('p');
 					const favGame = document.createElement('p');
 					const pText = document.createElement('p');
-					
-					
+
+
 					img.src = `encounters/${name}/${encounter.image}`;
 					img.alt = encounter.name;
 					img.className = 'detail-image';
-					pName.innerHTML = `<strong>Name:</strong> ${encounter.name}`;
-					pLocation.innerHTML = `<strong>Location:</strong> ${encounter.location}`;
-					favClub.innerHTML = `<strong>Club:</strong> ${encounter.favClub}`;
-					favPlayer.innerHTML = `<strong>Player:</strong> ${encounter.favPlayer}`;
-					favGame.innerHTML = `<strong>Best game:</strong> ${encounter.favGame}`;
-					wcc.innerHTML = `<strong>WC26 Champions:</strong> ${encounter.wcc}`;
+					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounter.name}`;
+					pLocation.innerHTML = `<strong>${t('detailLabelLocation')}:</strong> ${encounter.location}`;
+					favClub.innerHTML = `<strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}`;
+					favPlayer.innerHTML = `<strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}`;
+					favGame.innerHTML = `<strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}`;
+					wcc.innerHTML = `<strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}`;
 					pText.classList.add('story');
 					pText.textContent = encounter.text;
 
@@ -636,14 +780,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 					clickHandler();
 				});
 			}
-			
+
 			// Wenn dies ein Länder-Element mit Subregionen ist, füge Event-Listener zu allen Pfaden hinzu
 			if (country.tagName.toLowerCase() === 'g') {
 				const subPaths = country.querySelectorAll('path');
 				subPaths.forEach(path => {
 					// Stelle sicher, dass der Pfad die country-Klasse hat
-					
-					
+
+
 					// Füge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
 						tooltip.style.opacity = '0';

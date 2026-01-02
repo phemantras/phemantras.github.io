@@ -2,73 +2,78 @@
     "title": "Germany",
     "encounters": [
         {
-    "name": "Georg",
-    "location": "Košice",
-    "date": "2025-06-25",
-    "image": "georg.jpg",
-    "wcc": "France",
-    "favClub": "SC Freiburg",
-    "favPlayer": "Ritsu Dōan",
-    "favGame": "SC Freiburg - RB Leipzig (2:4, Cup Final 2022)",
-    "text": "Our hitchhiker we took from west to east Slovakia to see the U21 Semifinal."
-},
+            "name": "Georg",
+            "location": "Košice",
+            "date": "2025-06-25",
+            "image": "georg.jpg",
+            "wcc": "France",
+            "favClub": "SC Freiburg",
+            "favPlayer": "Ritsu Dōan",
+            "favGame": "SC Freiburg - RB Leipzig (2:4, Cup Final 2022)",
+            "text": "Our hitchhiker we took from west to east Slovakia to see the U21 Semifinal.",
+            "text-de": "Ein Anhalten, den wir vom Westen in den Osten der Slowakei mitnahmen um das U21 Halbfinale anzusehen."
+        },
         {
-    "name": "Mike & Paul",
-    "location": "Dunajská Streda",
-    "date": "2025-06-22",
-    "image": "mike.jpg",
-    "wcc": "Brazil / Spain",
-    "favClub": "Hansa Rostock",
-    "favPlayer": "Dieter Schneider / Cristiano Ronaldo",
-    "favGame": "FC Barcelona - Hansa Rostock (3:0, European Cup 1991) / Hansa Rostock - 1. FC Kaiserslautern (5:1, 2009)",
-    "text": ""
-},
+            "name": "Mike & Paul",
+            "location": "Dunajská Streda",
+            "date": "2025-06-22",
+            "image": "mike.jpg",
+            "wcc": "Brazil / Spain",
+            "favClub": "Hansa Rostock",
+            "favPlayer": "Dieter Schneider / Cristiano Ronaldo",
+            "favGame": "FC Barcelona - Hansa Rostock (3:0, European Cup 1991) / Hansa Rostock - 1. FC Kaiserslautern (5:1, 2009)",
+            "text": "",
+            "text-de": ""
+        },
         {
-    "name": "Kai & Björn",
-    "location": "Nitra",
-    "date": "2025-06-18",
-    "image": "kai.jpg",
-    "wcc": "Spain/France",
-    "favClub": "1. FC Kaiserslautern",
-    "favPlayer": "Fritz Walter",
-    "favGame": "1. FC Kaiserslautern - 1. FC Köln (3:0, 2008)",
-    "text": ""
-}
-,
+            "name": "Kai & Björn",
+            "location": "Nitra",
+            "date": "2025-06-18",
+            "image": "kai.jpg",
+            "wcc": "Spain/France",
+            "favClub": "1. FC Kaiserslautern",
+            "favPlayer": "Fritz Walter",
+            "favGame": "1. FC Kaiserslautern - 1. FC Köln (3:0, 2008)",
+            "text": "",
+            "text-de": ""
+        },
         {
-    "name": "Carlos",
-    "location": "Nitra",
-    "date": "2025-06-12",
-    "image": "ketsch.jpg",
-    "wcc": "England",
-    "favClub": "SV Waldhof Mannheim",
-    "favPlayer": "Diego Maradona",
-    "favGame": "Germany - France (1:0, World Cup 2014)",
-    "text": ""
-},
-    {
-    "name": "Sarah",
-    "location": "Nitra",
-    "date": "2025-06-12",
-    "image": "sarah.jpg",
-    "wcc": "Portugal",
-    "favClub": "Borussia M‘Gladbach",
-    "favPlayer": "Raffael",
-    "favGame": "M‘Gladbach - 1. FC Köln (5:2, 2022)",
-    "text": ""
-},
+            "name": "Carlos",
+            "location": "Nitra",
+            "date": "2025-06-12",
+            "image": "ketsch.jpg",
+            "wcc": "England",
+            "favClub": "SV Waldhof Mannheim",
+            "favPlayer": "Diego Maradona",
+            "favGame": "Germany - France (1:0, World Cup 2014)",
+            "text": "",
+            "text-de": ""
+        },
         {
-    "name": "Paddy",
-    "location": "Stuttgart",
-    "date": "2025-06-08",
-    "image": "paddy.jpg",
-    "wcc": "Spain",
-    "favClub": "SpVgg Greuther Fürth",
-    "favPlayer": "Tom Sichling",
-    "favGame": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
-    "text": ""
-}
-,{
+            "name": "Sarah",
+            "location": "Nitra",
+            "date": "2025-06-12",
+            "image": "sarah.jpg",
+            "wcc": "Portugal",
+            "favClub": "Borussia M‘Gladbach",
+            "favPlayer": "Raffael",
+            "favGame": "M‘Gladbach - 1. FC Köln (5:2, 2022)",
+            "text": "",
+            "text-de": ""
+        },
+        {
+            "name": "Paddy",
+            "location": "Stuttgart",
+            "date": "2025-06-08",
+            "image": "paddy.jpg",
+            "wcc": "Spain",
+            "favClub": "SpVgg Greuther Fürth",
+            "favPlayer": "Tom Sichling",
+            "favGame": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
+            "text": "",
+            "text-de": ""
+        },
+        {
             "name": "Michael",
             "location": "Munich",
             "date": "2025-06-04",
@@ -77,7 +82,8 @@
             "favClub": "1. FC Kaiserslautern / Liverpool FC",
             "favPlayer": "Trent Alexander Arnold",
             "favGame": "Germany vs. Portugal (4:2, EURO 2021)",
-            "text": ""
+            "text": "",
+            "text-de": ""
         }
     ]
 }
