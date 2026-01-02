@@ -145,15 +145,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// Build a list of visited country "roots" only (groups with title or single country elements with title).
 	// Avoid including subregion <path> elements that may lack a title attribute which caused NPEs when
 	// later used to build fetch URLs.
-	const visitedCountries = (() => {
+	const getVisitedCountries = () => {
 		// Groups which represent countries and have a title
 		const groups = Array.from(document.querySelectorAll('g.country[title].visited'));
 		// Single elements (e.g. path) that have title and visited but are not inside a visited group
 		const singles = Array.from(document.querySelectorAll('.country[title].visited')).filter(el => el.tagName.toLowerCase() !== 'g');
 		const uniqueSingles = singles.filter(el => !el.closest('g.country[title].visited'));
 		return [...groups, ...uniqueSingles];
-	})();
+	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
+	const updateStats = () => {
+		if (!statsContainer) return;
+		const count = getVisitedCountries().length;
+		statsContainer.innerHTML = `<span id="countries-count">${count}</span>/211 ${t('statsLabelCountries')}`;
+	};
 	const applyTranslations = () => {
 		const dict = translations[currentLanguage] || translations.en;
 		document.documentElement.lang = currentLanguage;
@@ -174,11 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			languageToggle.textContent = currentLanguage === 'de' ? '🇩🇪' : '🇬🇧';
 			languageToggle.setAttribute('aria-label', dict.languageToggleLabel);
 		}
-		if (statsContainer) {
-			const countEl = statsContainer.querySelector('#countries-count');
-			const count = countEl ? countEl.textContent : visitedCountries.length;
-			statsContainer.innerHTML = `<span id="countries-count">${count}</span>/211 ${t('statsLabelCountries')}`;
-		}
+		updateStats();
 	};
 	if (languageToggle) {
 		languageToggle.addEventListener('click', () => {
@@ -336,7 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	});
 
-
+	updateStats();
 
 	newsfeedToggle = document.createElement('div');
 	newsfeedToggle.classList.add('newsfeed-toggle');
@@ -361,7 +362,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const fetchEncounters = async () => {
 		let id = 0;
 		encountersByCountry = {}; // leeren
-		for (const country of visitedCountries) {
+		for (const country of getVisitedCountries()) {
 			const countryName = country && country.getAttribute ? country.getAttribute('title') : null;
 			if (!countryName) {
 				// skip elements without a title (defensive)
@@ -413,7 +414,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
-				const countryElement = Array.from(visitedCountries).find(c => c.getAttribute('title') === encounter.country);
+				const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country);
 				if (countryElement && typeof countryElement.clickHandler === 'function') {
 					setTimeout(() => {
 						countryElement.clickHandler(encounter.id);
@@ -429,9 +430,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	await fetchEncounters();
 
 	// Statistik aktualisieren
-	if (statsContainer) {
-		statsContainer.innerHTML = `<span id="countries-count">${visitedCountries.length}</span>/211 ${t('statsLabelCountries')}`;
-	}
+	updateStats();
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
@@ -810,7 +809,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	});
 
-	const visitedCountriesArray = Array.from(visitedCountries).map(countryElement => {
+	const visitedCountriesArray = Array.from(getVisitedCountries()).map(countryElement => {
 		const name = countryElement.getAttribute('title');
 		return { name, element: countryElement };
 	});
