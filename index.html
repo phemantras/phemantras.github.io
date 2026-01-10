@@ -14,7 +14,8 @@
 </head>
 
 <body>
-  <div class="title-container">
+  <div class="start-screen">
+    <div class="title-container">
     <svg class="logo" id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1270.88 485.88">
       <defs>
         <style>
@@ -59,28 +60,30 @@
     <div class="subtitle"><span class="black">#world</span><span class="red">cup</span><span class="gold">2026</span>
     </div>
     <div class="subtitle" data-i18n="subtitle.journey">Uncover the stories of football fans we meet on our journey to New Jersey</div>
+    </div>
+
+    <div class="modal-grid">
+      <button class="modal-card" data-target="map-modal">
+        <span class="card-label" data-i18n="menu.friendbook">Das Freundesbuch</span>
+        <span class="card-subtitle">Fans, Stories & Begegnungen</span>
+      </button>
+      <button class="modal-card" data-target="about-container">
+        <span class="card-label" data-i18n="menu.about">About us</span>
+        <span class="card-subtitle">Unsere Reise</span>
+      </button>
+      <button class="modal-card" data-target="sponsors-container">
+        <span class="card-label" data-i18n="menu.sponsors">Spenden</span>
+        <span class="card-subtitle">Support Crew</span>
+      </button>
+    </div>
   </div>
 
-  <div class="stats-container"></div>
-  <div class="newsfeed">
-    <ul id="newsfeed-list"></ul>
-  </div>
-
-  <div class="burger-menu-container">
-    <button class="menu-button">☰</button>
-    <div class="burger-menu-overlay"></div>
-    <nav class="burger-menu">
-      <ul class="main-menu">
-        <li data-menu="about" data-i18n="menu.about">About us</li>
-        <li data-menu="countries" data-i18n="menu.countries">Countries</li>
-        <li data-menu="sponsors" data-i18n="menu.sponsors">Sponsors</li>
-        <li data-menu="hashtags"><a class="btn" href="https://www.instagram.com/franconja_26/" target="_blank"><span
-              class="fa fa-instagram"></span><span>&nbsp;&nbsp;&nbsp;franconja_26</span>
-          </a></li>
-      </ul>
-    </nav>
-    <button id="language-toggle" class="language-toggle" aria-label="Switch language">🇩🇪</button>
-    <div class="modal about-container">
+  <a class="instagram-link" href="https://www.instagram.com/franconja_26/" target="_blank" rel="noopener">
+    <span class="fa fa-instagram"></span><span class="instagram-handle">franconja_26</span>
+  </a>
+  <button id="language-toggle" class="language-toggle" aria-label="Switch language">EN</button>
+  <div class="modal-overlay"></div>
+  <div class="modal about-container" id="about-container">
       <h1 data-i18n="about.title">About us</h1>
       <img src="images/about_us.jpg" class="detail-image" />
       <p data-i18n="about.p1">
@@ -100,12 +103,7 @@
         UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the
         2026 World Cup atmosphere from start to finish.</p>
     </div>
-
-    <div class="modal countries-container">
-      <ul id="visited-countries-list"></ul>
-    </div>
-
-    <div class="modal sponsors-container">
+    <div class="modal sponsors-container" id="sponsors-container">
       <h1 data-i18n="sponsors.title">Sponsors</h1>
       <p class="sponsor-hint" data-i18n="sponsors.hint">Thanks for your support!</p>
 
@@ -135,9 +133,12 @@
         <div class="fan-names-grid" id="fan-names-grid"></div>
       </div>
     </div>
-
-  </div>
-  <div class="map-container">
+  <div class="modal map-modal" id="map-modal">
+    <div class="stats-container"></div>
+    <div class="newsfeed">
+      <ul id="newsfeed-list"></ul>
+    </div>
+    <div class="map-container">
     <svg id="worldmap" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/"
       xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:ns4="http://creativecommons.org/ns#"
       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" viewBox="0 83 2711.3 1193.7" version="1.0" height="415"
@@ -3288,6 +3289,7 @@ clip-path="url(#usa-clip)" />
     
     <div class="tooltip" id="tooltip"></div>
   </div>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.6.0/dist/panzoom.min.js"></script>
   <script src="scripts/hover.js"></script>
 </body>

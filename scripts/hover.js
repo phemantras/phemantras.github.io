@@ -2,11 +2,12 @@
 	const tooltip = document.getElementById('tooltip');
 	const countries = document.querySelectorAll('.country');
 	const detailElement = document.createElement('div');
+	const startScreen = document.querySelector('.start-screen');
 	const titleContainer = document.querySelector('.title-container');
-	const menuButton = document.querySelector('.menu-button');
-	const burgerMenu = document.querySelector('.burger-menu');
-	const overlay = document.querySelector('.burger-menu-overlay');
+	const overlay = document.querySelector('.modal-overlay');
 	const modals = document.querySelectorAll('.modal');
+	const mapModal = document.getElementById('map-modal');
+	const modalCards = document.querySelectorAll('.modal-card');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
@@ -66,13 +67,14 @@
 		en: {
 			'menu.about': 'About us',
 			'menu.countries': 'Countries',
-			'menu.sponsors': 'Sponsors',
+			'menu.sponsors': 'Donations',
+			'menu.friendbook': 'Digital Friendbook',
 			'subtitle.journey': 'Uncover the stories of football fans we meet on our journey to New Jersey',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
 			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
 			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
-			'sponsors.title': 'Sponsors',
+			'sponsors.title': 'Donations',
 			'sponsors.hint': 'Thanks for your support!',
 			'sponsors.ultra': 'Ultra',
 			'sponsors.supporter': 'Supporter',
@@ -91,13 +93,14 @@
 		de: {
 			'menu.about': 'Ueber uns',
 			'menu.countries': 'Laender',
-			'menu.sponsors': 'Sponsoren',
+			'menu.sponsors': 'Spenden',
+			'menu.friendbook': 'Digitales Freundesbuch',
 			'subtitle.journey': 'Entdecke unsere Stories ueber Fans, die wir auf dem Weg nach New Jersey treffen',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
 			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
 			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
-			'sponsors.title': 'Sponsoren',
+			'sponsors.title': 'Spenden',
 			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
 			'sponsors.ultra': 'Ultra',
 			'sponsors.supporter': 'Supporter',
@@ -176,8 +179,8 @@
 			li.textContent = getLocalizedCountryName(name, element);
 			li.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
+				openModal('map-modal');
 				setTimeout(() => {
-					modals.forEach(modal => modal.classList.remove('open'));
 					element.clickHandler();
 				}, 0);
 			});
@@ -278,63 +281,58 @@
 	renderSponsors();
 	renderFanNames();
 
+	const closeAllModals = () => {
+		modals.forEach(m => m.classList.remove('open'));
+		if (overlay) overlay.classList.remove('open');
+		if (startScreen) startScreen.classList.remove('hidden');
+		if (newsfeed) newsfeed.classList.remove('expanded');
+		detailElement.style.display = 'none';
+	};
+
+	const openModal = (targetId) => {
+		const targetModal = document.getElementById(targetId);
+		if (!targetModal) return;
+		tooltip.style.opacity = '0';
+		modals.forEach(sm => sm.classList.remove('open'));
+		targetModal.classList.add('open');
+		if (overlay) overlay.classList.add('open');
+		if (startScreen) startScreen.classList.add('hidden');
+		if (targetId === 'sponsors-container') {
+			renderFanNames();
+		}
+		if (targetId === 'map-modal' && newsfeed) {
+			newsfeed.classList.remove('expanded');
+		}
+	};
+
 	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
 		closeBtn.className = 'close-btn';
 		closeBtn.innerHTML = '&times;';
 		closeBtn.addEventListener('click', () => {
 			tooltip.style.opacity = '0';
-			modal.classList.remove('open');
-			// Overlay nur entfernen, wenn kein Modal mehr offen ist
-			if (![...modals].some(sm => sm.classList.contains('open'))) {
-				overlay.classList.remove('open');
-				menuButton.style.display = 'block';
-			}
+			closeAllModals();
 		});
 		modal.insertBefore(closeBtn, modal.firstChild);
 	});
 
-	menuButton.addEventListener('click', () => {
-		tooltip.style.opacity = '0';
-		burgerMenu.classList.add('open');
-		overlay.classList.add('open');
-		menuButton.style.display = 'none';
-	});
-
-	overlay.addEventListener('click', () => {
-		burgerMenu.classList.remove('open');
-		// Alle Modals schlieÃŸen
-		modals.forEach(sm => sm.classList.remove('open'));
-		// Overlay nur entfernen, wenn kein Modal mehr offen ist
-		overlay.classList.remove('open');
-		menuButton.style.display = 'block';
-		tooltip.style.opacity = '0';
-	});
-
-	const openMenuModal = (menu) => {
-		tooltip.style.opacity = '0';
-		modals.forEach(sm => sm.classList.remove('open'));
-		const targetModal = document.querySelector(`.${menu}-container`);
-		if (targetModal) {
-			targetModal.classList.add('open');
-			overlay.classList.add('open');
-			if (menu === 'sponsors') {
-				renderFanNames();
+	modalCards.forEach(card => {
+		card.addEventListener('click', () => {
+			const target = card.getAttribute('data-target');
+			if (target) {
+				openModal(target);
 			}
-		} else {
-			overlay.classList.remove('open');
-		}
-		burgerMenu.classList.remove('open');
-		menuButton.style.display = 'block';
-	};
-
-	document.querySelectorAll('.main-menu li').forEach(item => {
-		item.addEventListener('click', () => {
-			const menu = item.getAttribute('data-menu');
-			openMenuModal(menu);
 		});
 	});
-	// Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
+
+	if (overlay) {
+		overlay.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
+			closeAllModals();
+		});
+	}
+
+// Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
 			const response = await fetch('encounters/encounters.json');
@@ -366,25 +364,28 @@
 	updateStats();
 	renderVisitedCountriesList();
 
-	newsfeedToggle = document.createElement('div');
-	newsfeedToggle.classList.add('newsfeed-toggle');
-	newsfeedToggle.textContent = t('newsfeedToggle');
-	newsfeedToggle.style.bottom = "10px";
-	newsfeedToggle.style.left = "50%";
-	document.body.appendChild(newsfeedToggle);
-	applyTranslations();
+	if (newsfeed) {
+		newsfeedToggle = document.createElement('div');
+		newsfeedToggle.classList.add('newsfeed-toggle');
+		newsfeedToggle.textContent = t('newsfeedToggle');
+		if (mapModal) {
+			mapModal.appendChild(newsfeedToggle);
+		}
+		applyTranslations();
 
-	// Newsfeed ein- und ausfahren
-	newsfeedToggle.addEventListener('click', () => {
-		tooltip.style.opacity = '0';
-		if (newsfeed.classList.contains('expanded')) {
+		// Newsfeed ein- und ausfahren
+		newsfeedToggle.addEventListener('click', () => {
+			tooltip.style.opacity = '0';
+			if (newsfeed.classList.contains('expanded')) {
 			newsfeed.classList.remove('expanded');
 			newsfeedToggle.style.bottom = "10px";
 		} else {
 			newsfeed.classList.add('expanded');
-			newsfeedToggle.style.bottom = "19%";
+			newsfeedToggle.style.bottom = "36%";
 		}
-	});
+			
+		});
+	}
 
 	const fetchEncounters = async () => {
 		let id = 0;
@@ -441,6 +442,7 @@
 			// ðŸ”¹ Beim Klicken auf das Newsfeed-Item â†’ Land auf der Karte Ã¶ffnen
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
+				openModal('map-modal');
 				const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country);
 				if (countryElement && typeof countryElement.clickHandler === 'function') {
 					setTimeout(() => {
@@ -846,17 +848,6 @@
 			step: 1.0,
 		});
 
-		mapContainer.addEventListener('panzoomchange', () => {
-			const zoomLevel = panzoom.getScale();
-			const defaultZoom = 1;
-
-			if (zoomLevel !== defaultZoom) {
-				titleContainer.style.display = 'none';
-			} else {
-				titleContainer.style.display = 'block';
-			}
-		});
-
 		mapContainer.parentElement.addEventListener('wheel', (event) => {
 			event.preventDefault();
 			panzoom.zoomWithWheel(event);
@@ -869,31 +860,21 @@
 		console.error('SVG-Element nicht gefunden. Bitte Ã¼berprÃ¼fe deinen Selektor oder die HTML-Struktur.');
 	}
 
-	// Detail-Element schlieÃŸen, wenn auÃŸerhalb geklickt wird
+	// Detail-Element schliessen, wenn ausserhalb geklickt wird
 	document.addEventListener('click', (e) => {
 		tooltip.style.opacity = '0';
-		// Detail-Element schlieÃŸen
+		// Detail-Element schliessen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';
 		}
-		// Modal schlieÃŸen
-		const openModal = [...modals].find(m => m.classList.contains('open'));
+		// Modal schliessen
+		const openModalEl = [...modals].find(m => m.classList.contains('open'));
 		if (
-			openModal &&
+			openModalEl &&
 			!e.target.closest('.modal') &&
-			!e.target.closest('.burger-menu')
+			!e.target.closest('.modal-card')
 		) {
-			openModal.classList.remove('open');
-			if (![...modals].some(m => m.classList.contains('open'))) {
-				overlay.classList.remove('open');
-				menuButton.style.display = 'block';
-			}
+			closeAllModals();
 		}
 	});
 });
-
-
-
-
-
-
