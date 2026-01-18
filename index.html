@@ -62,18 +62,24 @@
     <div class="subtitle" data-i18n="subtitle.journey">Uncover the stories of football fans we meet on our journey to New Jersey</div>
     </div>
 
+    <button class="donate-button" data-target="donate-modal" data-i18n="donate.cta">Donate now!</button>
+
     <div class="modal-grid">
       <button class="modal-card" data-target="map-modal">
         <span class="card-label" data-i18n="menu.friendbook">Das Freundesbuch</span>
-        <span class="card-subtitle">Fans, Stories & Begegnungen</span>
+        <span class="card-subtitle" data-i18n="menu.friendbooksub">Fans, Stories & Begegnungen</span>
       </button>
       <button class="modal-card" data-target="about-container">
         <span class="card-label" data-i18n="menu.about">About us</span>
-        <span class="card-subtitle">Unsere Reise</span>
+        <span class="card-subtitle" data-i18n="menu.aboutsub">Unsere Reise</span>
       </button>
       <button class="modal-card" data-target="sponsors-container">
-        <span class="card-label" data-i18n="menu.sponsors">Spenden</span>
-        <span class="card-subtitle">Support Crew</span>
+        <span class="card-label" data-i18n="menu.sponsors">Supporter-Wall</span>
+        <span class="card-subtitle" data-i18n="menu.sponsorssub">IHR unterstützt den Zirndorfer Fußball</span>
+      </button>
+      <button class="modal-card" data-target="projects-container">
+        <span class="card-label" data-i18n="menu.projects">Projects</span>
+        <span class="card-subtitle" data-i18n="menu.projectssub">Where the money goes</span>
       </button>
     </div>
   </div>
@@ -83,6 +89,15 @@
   </a>
   <button id="language-toggle" class="language-toggle" aria-label="Switch language">EN</button>
   <div class="modal-overlay"></div>
+  <div class="modal donate-modal" id="donate-modal">
+    <h1 data-i18n="donate.title">Support franconja</h1>
+    <p class="card-subtitle" data-i18n="donate.p1">Every euro will go into the projects of the Zirndorf football clubs! Franconja does not take any money.</p>
+      
+    <div class="donate-actions">
+      <a class="donate-link" data-i18n="donate.private" href="https://www.paypal.com" target="_blank" rel="noopener">Privatpersonen</a>
+      <a class="donate-link" data-i18n="donate.business" href="mailto:franconja26@gmail.com?subject=Bitte%20nehmt%20Kontakt%20mit%20mir%20auf/Please%20contact%20me&body=Liebes%20franconja-Team%2C%0Aich%20m%C3%B6chte%20mit%20meinem%20Unternehmen%20gerne%20an%20eurer%20Aktion%20teilnehmen.%0ABitte%20nehmt%20Kontakt%20mit%20mir%20auf!%20(unzutreffendes%20bitte%20streichen)%3A%0AMail%3A%0ATelefon%3A%0Ainstagram%3A%0A%0AFreundliche%20Gr%C3%BC%C3%9Fe%0A%0ADear%20franconja%2C%0Amy%20company%20wants%20to%20support%20your%20project.%20%0APlease%20contact%20me%20(cross%20unnecessary)%0AMail%3A%0ATelefon%3A%0Ainstagram%3A%0A%0AKind%20regards" aria-label="E-Mail an franconja senden">Unternehmen</a>
+    </div>
+  </div>
   <div class="modal about-container" id="about-container">
       <h1 data-i18n="about.title">About us</h1>
       <img src="images/about_us.jpg" class="detail-image" />
@@ -102,6 +117,39 @@
         We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the
         UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the
         2026 World Cup atmosphere from start to finish.</p>
+    </div>
+    <div class="modal projects-container" id="projects-container">
+      <h1 data-i18n="projects.title">Projects</h1>
+      <div class="projects-list">
+        <div class="project-card">
+          <img src="images/about_us.jpg" alt="Project 1" class="project-image" />
+          <div class="project-content">
+            <p><strong>Project One</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/logo.jpg" alt="Project 2" class="project-image" />
+          <div class="project-content">
+            <p><strong>Project Two</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/logo-schatten.svg" alt="Project 3" class="project-image" />
+          <div class="project-content">
+            <p><strong>Project Three</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/logo-ohne-schatten.svg" alt="Project 4" class="project-image" />
+          <div class="project-content">
+            <p><strong>Project Four</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="modal sponsors-container" id="sponsors-container">
       <h1 data-i18n="sponsors.title">Sponsors</h1>

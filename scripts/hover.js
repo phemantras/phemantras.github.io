@@ -8,6 +8,8 @@
 	const modals = document.querySelectorAll('.modal');
 	const mapModal = document.getElementById('map-modal');
 	const modalCards = document.querySelectorAll('.modal-card');
+	const donateButton = document.querySelector('.donate-button');
+	const modalTriggers = document.querySelectorAll('.modal-card');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
@@ -66,14 +68,25 @@
 	const translations = {
 		en: {
 			'menu.about': 'About us',
+			'menu.aboutsub': 'Find out more about the purpose of franconja',
 			'menu.countries': 'Countries',
-			'menu.sponsors': 'Donations',
+			'menu.sponsors': 'Supporter wall',
+			'menu.sponsorssub': 'YOU support football in Zirndorf',
 			'menu.friendbook': 'Digital Friendbook',
+			'menu.friendbooksub': 'People, Stories & Encounters we\'ve met on our journey',
+			'menu.projects': 'Projects',
+			'menu.projectssub': 'Where the money goes',
+			'donate.p1':'Every euro will go into the projects of the Zirndorf football clubs (See projects)! Franconja does not take any money.',
+			'donate.cta': 'Donate now!',
+			'donate.title': 'Support franconja',
+			'donate.private': 'Private individuals',
+			'donate.business': 'Companies',
 			'subtitle.journey': 'Uncover the stories of football fans we meet on our journey to New Jersey',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
 			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
 			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
+			'projects.title': 'Projects',
 			'sponsors.title': 'Donations',
 			'sponsors.hint': 'Thanks for your support!',
 			'sponsors.ultra': 'Ultra',
@@ -92,14 +105,25 @@
 		},
 		de: {
 			'menu.about': 'Ueber uns',
+			'menu.aboutsub': 'Findet mehr ueber den Zweck von franconja heraus',
 			'menu.countries': 'Laender',
-			'menu.sponsors': 'Spenden',
+			'menu.sponsors': 'Supporter-Wall',
+			'menu.sponsorssub': 'IHR unterstuetzt den Zirndorfer Fussball',
 			'menu.friendbook': 'Digitales Freundesbuch',
+			'menu.friendbooksub': 'Menschen, Stories & Begegnungen',
+			'menu.projects': 'Projekte',
+			'menu.projectssub': 'Wohin das Geld fließt',
+			'donate.p1':'Jeder Euro fließt in die Projekte der Zirndorfer Fussballvereine (Siehe Projekte)! Franconja selbst nimmt kein Geld.',
+			'donate.cta': 'Jetzt Spenden',
+			'donate.title': 'Unterstütze franconja',
+			'donate.private': 'Privatpersonen',
+			'donate.business': 'Unternehmen',
 			'subtitle.journey': 'Entdecke unsere Stories ueber Fans, die wir auf dem Weg nach New Jersey treffen',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
 			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
 			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
+			'projects.title': 'Projekte',
 			'sponsors.title': 'Spenden',
 			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
 			'sponsors.ultra': 'Ultra',
@@ -226,7 +250,9 @@
 	const detailCloseBtn = document.createElement('button');
 	detailCloseBtn.className = 'close-btn';
 	detailCloseBtn.innerHTML = '&times;';
-	detailCloseBtn.addEventListener('click', () => {
+	detailCloseBtn.addEventListener('click', (event) => {
+		// Nur das Encounter-Detail schließen, Friendbook offen lassen.
+		event.stopPropagation();
 		detailElement.style.display = 'none';
 	});
 
@@ -301,7 +327,10 @@
 			renderFanNames();
 		}
 		if (targetId === 'map-modal' && newsfeed) {
-			newsfeed.classList.remove('expanded');
+			newsfeed.classList.add('expanded');
+			if (newsfeedToggle) {
+				newsfeedToggle.style.bottom = "33%";
+			}
 		}
 	};
 
@@ -316,14 +345,18 @@
 		modal.insertBefore(closeBtn, modal.firstChild);
 	});
 
-	modalCards.forEach(card => {
-		card.addEventListener('click', () => {
-			const target = card.getAttribute('data-target');
+	modalTriggers.forEach(trigger => {
+		trigger.addEventListener('click', () => {
+			const target = trigger.getAttribute('data-target');
 			if (target) {
 				openModal(target);
 			}
 		});
 	});
+
+	if (donateButton) {
+		donateButton.addEventListener('click', () => openModal('donate-modal'));
+	}
 
 	if (overlay) {
 		overlay.addEventListener('click', () => {
@@ -371,6 +404,8 @@
 		if (mapModal) {
 			mapModal.appendChild(newsfeedToggle);
 		}
+		newsfeed.classList.add('expanded');
+		newsfeedToggle.style.bottom = "33%";
 		applyTranslations();
 
 		// Newsfeed ein- und ausfahren
@@ -381,7 +416,7 @@
 			newsfeedToggle.style.bottom = "10px";
 		} else {
 			newsfeed.classList.add('expanded');
-			newsfeedToggle.style.bottom = "36%";
+			newsfeedToggle.style.bottom = "33%";
 		}
 			
 		});
@@ -652,8 +687,13 @@
 				// Die Position bleibt durch die CSS-Klasse festgelegt.
 			} else {
 				tooltip.classList.remove('touch');
-				tooltip.style.left = `${e.pageX + 10}px`;
-				tooltip.style.top = `${e.pageY + 10}px`;
+				const rect = mapModal ? mapModal.getBoundingClientRect() : null;
+				const offset = 12;
+				// Position relativ zum Friendbook-Modal, damit der Tooltip nicht versetzt ist.
+				const left = rect ? (e.clientX - rect.left + offset) : (e.pageX + offset);
+				const top = rect ? (e.clientY - rect.top + offset) : (e.pageY + offset);
+				tooltip.style.left = `${left}px`;
+				tooltip.style.top = `${top}px`;
 			}
 		};
 
@@ -872,7 +912,9 @@
 		if (
 			openModalEl &&
 			!e.target.closest('.modal') &&
-			!e.target.closest('.modal-card')
+			!e.target.closest('.modal-card') &&
+			!e.target.closest('.detail-element') &&
+			!e.target.closest('.donate-button')
 		) {
 			closeAllModals();
 		}
