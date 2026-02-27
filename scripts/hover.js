@@ -19,26 +19,243 @@
 	let newsfeedToggle = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
-	const sponsorsData = {
-		ultra: [
-			{ name: 'WorldBall Foundation', logo: 'logos/gold/worldball-foundation.png' },
-			{ name: 'Ultra Travel', logo: 'logos/gold/ultra-travel.png' },
-			{ name: 'Champion Gear', logo: 'logos/gold/champion-gear.png' },
-		],
-		supporter: [
-			{ name: 'Matchday Media', logo: 'logos/silver/matchday-media.png' },
-			{ name: 'Goal Logistics', logo: 'logos/silver/goal-logistics.png' },
-			{ name: 'FanPulse', logo: 'logos/silver/fanpulse.png' },
-		],
-		fan: [
-			{ name: 'Corner Cafe', logo: 'logos/bronze/corner-cafe.png' },
-			{ name: 'Grassroots Travel', logo: 'logos/bronze/grassroots-travel.png' },
-			{ name: 'Third Half', logo: 'logos/bronze/third-half.png' },
-			{ name: 'Local Eleven', logo: 'logos/bronze/local-eleven.png' },
-		],
-	};
+	const sponsorsData = { main: [], ultra: [], supporter: [], fan: [] };
 	const sponsorsContainer = document.querySelector('.sponsors-container');
+	const bottomLogosContainer = document.getElementById('bottom-logos');
 	const fanNamesContainer = document.getElementById('fan-names-grid');
+	const projectsTabsContainer = document.getElementById('projects-club-tabs');
+	const projectsContentContainer = document.getElementById('projects-club-content');
+	let projectGalleryRequestId = 0;
+	const projectGalleryCache = {};
+	let projectLightbox = null;
+	let projectLightboxImages = [];
+	let projectLightboxIndex = 0;
+	const clubProjects = [
+		{
+			id: 'ww',
+			name: 'ASV Wintersdorf-Weinzierlein',
+			logo: 'images/logos/clubs/ww.png',
+			projects: [
+				{ de: 'Materialpaket Training: Ballpumpe + 2 Materialwaegen', en: 'Training equipment package: ball pump + 2 material carts' },
+				{ de: 'Kabinenpaket: Duschen + Duschtuer + Kabinenlueftung', en: 'Locker room package: shower + shower door + ventilation' },
+				{ de: 'Jugendpaket: Trikotsatz + neue Trainingsanzuege', en: 'Youth package: jersey set + new tracksuits' },
+				{ de: 'Infrastrukturpaket: Garagentor + Beregnungs-/Sicherungskasten + Materialcontainer', en: 'Infrastructure package: garage gate + irrigation/safety cabinet + material container' },
+				{ de: 'Sportplatzpaket: Sitzgelegenheiten + Schankhuette + Auswechselbank + Rasenflaechen', en: 'Pitch package: seating + kiosk hut + substitute bench + pitch areas' },
+			],
+		},
+		{
+			id: 'asv',
+			name: 'ASV Zirndorf',
+			logo: 'images/logos/clubs/asv.png',
+			projects: [
+				{ de: 'Flutlicht C Platz modernisieren', en: 'Upgrade floodlights at C pitch' },
+				{ de: 'Platzpflege verbessern: Maehroboter', en: 'Improve pitch maintenance: robotic mower' },
+				{ de: 'Jugendinfrastruktur: Verkaufshuette', en: 'Youth infrastructure: sales hut' },
+				{ de: 'Jugendausstattung: 2 Jugendtore + 4 Kleinfeldmarkierungen', en: 'Youth equipment: 2 youth goals + 4 small-field markers' },
+				{ de: 'Trainingsmaterial erweitern: 40 Baelle', en: 'Expand training material: 40 balls' },
+			],
+		},
+		{
+			id: 'svw',
+			name: 'SV Weiherhof',
+			logo: 'images/logos/clubs/svw.png',
+			projects: [
+				{ de: 'Funino-Paket: 8 Funino-Tore', en: 'Funino package: 8 Funino goals' },
+				{ de: 'Herrenpaket: 20 Baelle + Trikotsatz', en: 'Senior team package: 20 balls + jersey set' },
+				{ de: 'Jugendpaket: 30 Baelle', en: 'Youth package: 30 balls' },
+				{ de: 'Platzpflegepaket: Bodenfraese/Einachser mit Anbaugeraeten', en: 'Pitch maintenance package: tiller/walking tractor with attachments' },
+				{ de: 'Vereinsmaterial und Training weiter ausbauen', en: 'Further expand club equipment and training setup' },
+			],
+		},
+		{
+			id: 'tsv',
+			name: 'TSV Zirndorf',
+			logo: 'images/logos/clubs/tsv.png',
+			projects: [
+				{ de: 'Flutlicht A+B Platz modernisieren', en: 'Upgrade floodlights at A+B pitch' },
+				{ de: 'Verkaufsraum und Kueche renovieren', en: 'Renovate sales room and kitchen' },
+				{ de: 'Feriencamp fuer die Fussballjugend staerken', en: 'Strengthen holiday camp for youth football' },
+				{ de: 'Jugendtraining verbessern: neue Minitore', en: 'Improve youth training: new mini goals' },
+				{ de: 'Jugendfoerderung als dauerhaften Schwerpunkt ausbauen', en: 'Expand youth development as a long-term focus' },
+			],
+		},
+	];
+	const mainSponsorLinks = {
+		cmap_logo: 'https://cmap.shop',
+		'hilpert-media': 'https://hilpert-media.de',
+		printmedia: 'http://my-print-store.de/',
+	};
+	const logoDirectories = {
+		main: 'images/logos/sponsors',
+		ultra: 'images/logos/ultra',
+		supporter: 'images/logos/supporter',
+		fan: 'images/logos/fan',
+	};
+
+	const imagePattern = /\.(png|jpe?g|svg|webp|gif|avif)$/i;
+
+	const getNameFromFilename = (fileName) =>
+		fileName
+			.replace(/\.[^/.]+$/, '')
+			.replace(/[_-]+/g, ' ')
+			.replace(/\s+/g, ' ')
+			.trim();
+
+	const getSlugFromFilename = (fileName) => fileName.replace(/\.[^/.]+$/, '').toLowerCase();
+
+	const getGitHubRepoFromHostname = () => {
+		const host = window.location.hostname.toLowerCase();
+		if (host.endsWith('.github.io')) {
+			const owner = host.split('.')[0];
+			return { owner, repo: `${owner}.github.io` };
+		}
+		return { owner: 'phemantras', repo: 'phemantras.github.io' };
+	};
+
+	const fetchFilesViaGitHubApi = async (dir) => {
+		const repo = getGitHubRepoFromHostname();
+		if (!repo) return [];
+		const apiUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${dir}`;
+		const response = await fetch(apiUrl);
+		if (!response.ok) return [];
+		const data = await response.json();
+		if (!Array.isArray(data)) return [];
+		return data
+			.filter((item) => item && item.type === 'file' && imagePattern.test(item.name))
+			.map((item) => item.name)
+			.sort((a, b) => a.localeCompare(b, 'de'));
+	};
+
+	const fetchFilesViaDirectoryListing = async (dir) => {
+		const response = await fetch(`${dir}/`);
+		if (!response.ok) return [];
+		const html = await response.text();
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(html, 'text/html');
+		const names = Array.from(doc.querySelectorAll('a'))
+			.map((a) => (a.getAttribute('href') || '').trim())
+			.filter(Boolean)
+			.map((href) => {
+				const cleaned = href.split('?')[0].split('#')[0];
+				return cleaned.endsWith('/') ? '' : decodeURIComponent(cleaned.split('/').pop());
+			})
+			.filter((name) => imagePattern.test(name))
+			.sort((a, b) => a.localeCompare(b, 'de'));
+		return [...new Set(names)];
+	};
+
+	const loadLogoFiles = async (dir) => {
+		try {
+			const githubFiles = await fetchFilesViaGitHubApi(dir);
+			if (githubFiles.length) return githubFiles;
+		} catch (error) {
+			console.warn(`GitHub API listing failed for ${dir}:`, error);
+		}
+		try {
+			return await fetchFilesViaDirectoryListing(dir);
+		} catch (error) {
+			console.warn(`Directory listing failed for ${dir}:`, error);
+			return [];
+		}
+	};
+
+	const buildSponsorEntries = (tier, files) =>
+		files.map((fileName) => {
+			const slug = getSlugFromFilename(fileName);
+			return {
+				name: getNameFromFilename(fileName),
+				logo: `${logoDirectories[tier]}/${fileName}`,
+				link: tier === 'main' ? mainSponsorLinks[slug] || null : null,
+			};
+		});
+
+	const loadSponsorsData = async () => {
+		const [mainFiles, ultraFiles, supporterFiles, fanFiles] = await Promise.all([
+			loadLogoFiles(logoDirectories.main),
+			loadLogoFiles(logoDirectories.ultra),
+			loadLogoFiles(logoDirectories.supporter),
+			loadLogoFiles(logoDirectories.fan),
+		]);
+		sponsorsData.main = buildSponsorEntries('main', mainFiles);
+		sponsorsData.ultra = buildSponsorEntries('ultra', ultraFiles);
+		sponsorsData.supporter = buildSponsorEntries('supporter', supporterFiles);
+		sponsorsData.fan = buildSponsorEntries('fan', fanFiles);
+	};
+
+	const loadProjectImages = async (clubId) => {
+		if (projectGalleryCache[clubId]) return projectGalleryCache[clubId];
+		const dir = `images/projects/${clubId}`;
+		const files = await loadLogoFiles(dir);
+		const images = files.map((fileName) => ({
+			src: `${dir}/${fileName}`,
+			name: getNameFromFilename(fileName),
+		}));
+		projectGalleryCache[clubId] = images;
+		return images;
+	};
+
+	const ensureProjectLightbox = () => {
+		if (projectLightbox || !projectsContentContainer) return;
+		projectLightbox = document.createElement('div');
+		projectLightbox.className = 'project-lightbox';
+		projectLightbox.innerHTML = `
+			<button type="button" class="project-lightbox-close" aria-label="Close image">&times;</button>
+			<div class="project-lightbox-content">
+				<button type="button" class="project-lightbox-nav prev" aria-label="Previous image">&#8592;</button>
+				<img class="project-lightbox-image" alt="">
+				<button type="button" class="project-lightbox-nav next" aria-label="Next image">&#8594;</button>
+			</div>
+		`;
+		projectLightbox.addEventListener('click', (event) => {
+			if (event.target === projectLightbox) {
+				projectLightbox.classList.remove('open');
+			}
+		});
+		const closeButton = projectLightbox.querySelector('.project-lightbox-close');
+		if (closeButton) {
+			closeButton.addEventListener('click', (event) => {
+				event.stopPropagation();
+				projectLightbox.classList.remove('open');
+			});
+		}
+		const prevButton = projectLightbox.querySelector('.project-lightbox-nav.prev');
+		const nextButton = projectLightbox.querySelector('.project-lightbox-nav.next');
+		if (prevButton) {
+			prevButton.addEventListener('click', (event) => {
+				event.stopPropagation();
+				if (!projectLightboxImages.length) return;
+				projectLightboxIndex = (projectLightboxIndex - 1 + projectLightboxImages.length) % projectLightboxImages.length;
+				updateProjectLightboxImage();
+			});
+		}
+		if (nextButton) {
+			nextButton.addEventListener('click', (event) => {
+				event.stopPropagation();
+				if (!projectLightboxImages.length) return;
+				projectLightboxIndex = (projectLightboxIndex + 1) % projectLightboxImages.length;
+				updateProjectLightboxImage();
+			});
+		}
+		projectsContentContainer.appendChild(projectLightbox);
+	};
+
+	const updateProjectLightboxImage = () => {
+		if (!projectLightbox || !projectLightboxImages.length) return;
+		const imageEl = projectLightbox.querySelector('.project-lightbox-image');
+		if (!imageEl) return;
+		const activeImage = projectLightboxImages[projectLightboxIndex];
+		imageEl.src = activeImage.src;
+		imageEl.alt = activeImage.name || '';
+	};
+
+	const openProjectLightbox = (images, startIndex = 0) => {
+		ensureProjectLightbox();
+		if (!projectLightbox || !images.length) return;
+		projectLightboxImages = images;
+		projectLightboxIndex = Math.max(0, Math.min(startIndex, images.length - 1));
+		updateProjectLightboxImage();
+		projectLightbox.classList.add('open');
+	};
 	let displayNamesDe = null;
 	try {
 		displayNamesDe = new Intl.DisplayNames(['de'], { type: 'region' });
@@ -87,11 +304,12 @@
 			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
 			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
 			'projects.title': 'Projects',
-			'sponsors.title': 'Donations',
+			'sponsors.title': 'Supporter-Wall',
 			'sponsors.hint': 'Thanks for your support!',
-			'sponsors.ultra': 'Ultra',
-			'sponsors.supporter': 'Supporter',
-			'sponsors.fan': 'Fan',
+			'sponsors.main': 'Main sponsors',
+			'sponsors.ultra': 'Ultras',
+			'sponsors.supporter': 'Supporters',
+			'sponsors.fan': 'Fans',
 			'sponsors.fanNamesLabel': 'Special thanks to:',
 			newsfeedToggle: 'Latest Encounters',
 			detailLabelName: 'Name',
@@ -124,11 +342,12 @@
 			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
 			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
 			'projects.title': 'Projekte',
-			'sponsors.title': 'Spenden',
+			'sponsors.title': 'Supporter-Wall',
 			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
-			'sponsors.ultra': 'Ultra',
-			'sponsors.supporter': 'Supporter',
-			'sponsors.fan': 'Fan',
+			'sponsors.main': 'Hauptsponsoren',
+			'sponsors.ultra': 'Ultras',
+			'sponsors.supporter': 'Supporters',
+			'sponsors.fan': 'Fans',
 			'sponsors.fanNamesLabel': 'Danke auch an:',
 			newsfeedToggle: 'Neueste Begegnungen',
 			detailLabelName: 'Name',
@@ -146,6 +365,7 @@
 		return lang.startsWith('de') ? 'de' : 'en';
 	};
 	let currentLanguage = detectLanguage();
+	let currentProjectClubId = clubProjects[0]?.id || null;
 	const getCountryCode = (element) => {
 		const rawId = (element && (element.id || element.getAttribute && element.getAttribute('id'))) || '';
 		if (!rawId) return null;
@@ -233,6 +453,7 @@
   }
 		updateStats();
 		renderVisitedCountriesList();
+		renderProjects();
 	};
 	if (languageToggle) {
 		languageToggle.addEventListener('click', () => {
@@ -293,10 +514,12 @@
 			list.forEach((sponsor) => {
 				const card = document.createElement('div');
 				card.className = `sponsor-card ${tier}`;
+				const wrapperTag = sponsor.link ? 'a' : 'div';
+				const linkAttrs = sponsor.link ? ` href="${sponsor.link}" target="_blank" rel="noopener noreferrer"` : '';
 				card.innerHTML = `
-					<div class="sponsor-logo-wrapper">
+					<${wrapperTag} class="sponsor-logo-wrapper"${linkAttrs}>
 						<img src="${sponsor.logo}" alt="${sponsor.name} logo">
-					</div>
+					</${wrapperTag}>
 					<p class="sponsor-name">${sponsor.name}</p>
 				`;
 				grid.appendChild(card);
@@ -304,8 +527,100 @@
 		});
 	};
 
+	function renderProjects() {
+		if (!projectsTabsContainer || !projectsContentContainer) return;
+		const listEl = projectsContentContainer.querySelector('.projects-club-list');
+		if (!listEl || !clubProjects.length) return;
+
+		const renderProjectGallery = async (clubId) => {
+			const currentRequestId = ++projectGalleryRequestId;
+			let galleryEl = projectsContentContainer.querySelector('.projects-gallery');
+			if (!galleryEl) {
+				galleryEl = document.createElement('div');
+				galleryEl.className = 'projects-gallery';
+				projectsContentContainer.appendChild(galleryEl);
+			}
+			galleryEl.innerHTML = '';
+			const images = await loadProjectImages(clubId);
+			if (currentRequestId !== projectGalleryRequestId) return;
+			if (!images.length) return;
+			images.forEach((image, index) => {
+				const thumbButton = document.createElement('button');
+				thumbButton.type = 'button';
+				thumbButton.className = 'project-thumb';
+				thumbButton.setAttribute('aria-label', image.name);
+				thumbButton.innerHTML = `<img src="${image.src}" alt="${image.name}">`;
+				thumbButton.addEventListener('click', () => openProjectLightbox(images, index));
+				galleryEl.appendChild(thumbButton);
+			});
+		};
+
+		const setActiveClub = async (clubId) => {
+			const activeClub = clubProjects.find((club) => club.id === clubId) || clubProjects[0];
+			currentProjectClubId = activeClub.id;
+			Array.from(projectsTabsContainer.querySelectorAll('.project-club-tab')).forEach((btn) => {
+				btn.classList.toggle('active', btn.dataset.clubId === activeClub.id);
+			});
+			listEl.innerHTML = '';
+			activeClub.projects.forEach((project) => {
+				const li = document.createElement('li');
+				li.textContent = currentLanguage === 'de' ? project.de : project.en;
+				listEl.appendChild(li);
+			});
+			await renderProjectGallery(activeClub.id);
+		};
+
+		projectsTabsContainer.innerHTML = '';
+		clubProjects.forEach((club) => {
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'project-club-tab';
+			button.dataset.clubId = club.id;
+			button.setAttribute('aria-label', club.name);
+			button.innerHTML = `
+				<img src="${club.logo}" alt="${club.name} Logo">
+				<span class="club-label">${club.name}</span>
+			`;
+			button.addEventListener('click', async () => {
+				await setActiveClub(club.id);
+			});
+			projectsTabsContainer.appendChild(button);
+		});
+
+		void setActiveClub(currentProjectClubId || clubProjects[0].id);
+	}
+
+	const renderBottomLogos = () => {
+		if (!bottomLogosContainer) return;
+		bottomLogosContainer.innerHTML = '';
+		sponsorsData.main.forEach((sponsor) => {
+			const target = sponsor.link || sponsor.logo;
+			const wrapper = document.createElement('a');
+			wrapper.href = target;
+			if (sponsor.link) {
+				wrapper.target = '_blank';
+				wrapper.rel = 'noopener noreferrer';
+			}
+			const img = document.createElement('img');
+			img.src = sponsor.logo;
+			img.alt = sponsor.name;
+			wrapper.appendChild(img);
+			bottomLogosContainer.appendChild(wrapper);
+		});
+	};
+
 	renderSponsors();
+	renderBottomLogos();
+	renderProjects();
 	renderFanNames();
+	loadSponsorsData()
+		.then(() => {
+			renderSponsors();
+			renderBottomLogos();
+		})
+		.catch((error) => {
+			console.warn('Sponsor logos could not be loaded dynamically:', error);
+		});
 
 	const closeAllModals = () => {
 		modals.forEach(m => m.classList.remove('open'));

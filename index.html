@@ -112,7 +112,9 @@
   </div>
   <div class="modal about-container" id="about-container">
       <h1 data-i18n="about.title">About us</h1>
-      <img src="images/about_us.jpg" class="detail-image" />
+      <div class="about-video-placeholder" aria-label="Video placeholder">
+        Hochformat-Video Platzhalter
+      </div>
       <p data-i18n="about.p1">
         We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique
         journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the
@@ -129,48 +131,31 @@
         We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the
         UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the
         2026 World Cup atmosphere from start to finish.</p>
+      <img src="images/about_us.jpg" class="detail-image" />
     </div>
     <div class="modal projects-container" id="projects-container">
       <h1 data-i18n="projects.title">Projects</h1>
-      <div class="projects-list">
-        <div class="project-card">
-          <img src="images/about_us.jpg" alt="Project 1" class="project-image" />
-          <div class="project-content">
-            <p><strong>Project One</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="images/logo.jpg" alt="Project 2" class="project-image" />
-          <div class="project-content">
-            <p><strong>Project Two</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="images/logo-schatten.svg" alt="Project 3" class="project-image" />
-          <div class="project-content">
-            <p><strong>Project Three</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <img src="images/logo-ohne-schatten.svg" alt="Project 4" class="project-image" />
-          <div class="project-content">
-            <p><strong>Project Four</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id eros sit amet mi faucibus cursus.</p>
-          </div>
-        </div>
+      <div class="projects-tabs" id="projects-club-tabs"></div>
+      <div class="projects-panel" id="projects-club-content">
+        <ul class="projects-club-list"></ul>
       </div>
     </div>
     <div class="modal sponsors-container" id="sponsors-container">
       <h1 data-i18n="sponsors.title">Sponsors</h1>
       <p class="sponsor-hint" data-i18n="sponsors.hint">Thanks for your support!</p>
 
+      <div class="sponsor-section sponsor-main">
+        <div class="sponsor-tier-heading">
+          <span class="tier-dot main"></span>
+          <h2 data-i18n="sponsors.main">Hauptsponsoren</h2>
+        </div>
+        <div class="sponsor-grid sponsor-grid-main" data-tier="main"></div>
+      </div>
+
       <div class="sponsor-section sponsor-ultra">
         <div class="sponsor-tier-heading">
           <span class="tier-dot ultra"></span>
-          <h2 data-i18n="sponsors.ultra">Ultra</h2>
+          <h2 data-i18n="sponsors.ultra">Ultras</h2>
         </div>
         <div class="sponsor-grid" data-tier="ultra"></div>
       </div>
@@ -178,7 +163,7 @@
       <div class="sponsor-section sponsor-supporter">
         <div class="sponsor-tier-heading">
           <span class="tier-dot supporter"></span>
-          <h2 data-i18n="sponsors.supporter">Supporter</h2>
+          <h2 data-i18n="sponsors.supporter">Supporters</h2>
         </div>
         <div class="sponsor-grid" data-tier="supporter"></div>
       </div>
@@ -186,10 +171,9 @@
       <div class="sponsor-section sponsor-fan">
         <div class="sponsor-tier-heading">
           <span class="tier-dot fan"></span>
-          <h2 data-i18n="sponsors.fan">Fan</h2>
+          <h2 data-i18n="sponsors.fan">Fans</h2>
         </div>
         <div class="sponsor-grid" data-tier="fan"></div>
-        <p class="fan-names-label" data-i18n="sponsors.fanNamesLabel">Fans who backed us</p>
         <div class="fan-names-grid" id="fan-names-grid"></div>
       </div>
     </div>
@@ -3346,13 +3330,10 @@ clip-path="url(#usa-clip)" />
 </g>
 </svg>
 
-    <div class="tooltip" id="tooltip"></div>
+  <div class="tooltip" id="tooltip"></div>
   </div>
 </div>
-  <div class="bottom-logos">
-    <img src="images/hilpert-media.svg" alt="Hilpert Media">
-    <img src="images/cmap_logo.svg" alt="CMAP">
-  </div>
+  <div class="bottom-logos" id="bottom-logos"></div>
   <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@4.6.0/dist/panzoom.min.js"></script>
   <script src="scripts/hover.js"></script>
 </body>
