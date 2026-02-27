@@ -689,6 +689,7 @@
 	const closeAllModals = () => {
 		modals.forEach(m => m.classList.remove('open'));
 		if (overlay) overlay.classList.remove('open');
+		document.body.classList.remove('modal-open');
 		if (startScreen) startScreen.classList.remove('hidden');
 		if (newsfeed) newsfeed.classList.remove('expanded');
 		detailElement.style.display = 'none';
@@ -701,6 +702,7 @@
 		modals.forEach(sm => sm.classList.remove('open'));
 		targetModal.classList.add('open');
 		if (overlay) overlay.classList.add('open');
+		document.body.classList.add('modal-open');
 		if (startScreen) startScreen.classList.add('hidden');
 		if (targetId === 'sponsors-container') {
 			renderFanNames();

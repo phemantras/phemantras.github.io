@@ -14,9 +14,13 @@ body {
 	color: #f5f5f5;
 }
 
+body.modal-open {
+	overflow: hidden;
+}
+
 h1 {
 	font-family: 'SCHABO', Verdana, sans-serif;
-	font-size: 3.2em;
+	font-size: 3em;
 	/* Schriftgröße */
 	text-align: center;
 	margin: 0px 0px 10px 0px;
@@ -481,6 +485,8 @@ button:focus:not(:focus-visible) {
 	border-radius: 16px;
 	padding: 24px;
 	overflow-y: auto;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
 	z-index: 9997;
 	opacity: 0;
 	visibility: hidden;
@@ -663,10 +669,10 @@ button:focus:not(:focus-visible) {
 }
 
 .projects-container {
-	height: 90vh;
+	height: auto;
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	overflow: visible;
 }
 
 .projects-intro {
@@ -737,9 +743,9 @@ button:focus:not(:focus-visible) {
 	border-radius: 12px;
 	background: rgba(255, 255, 255, 0.06);
 	border: 1px solid rgba(255, 255, 255, 0.16);
-	flex: 1 1 auto;
-	overflow-y: auto;
-	min-height: 0;
+	flex: 0 0 auto;
+	overflow: visible;
+	min-height: auto;
 }
 
 .projects-club-title {
@@ -961,7 +967,30 @@ button:focus:not(:focus-visible) {
 	}
 
 	.projects-container {
-		height: 84vh;
+		height: auto;
+		min-height: auto;
+		overflow: visible;
+	}
+
+	.projects-panel {
+		max-height: none;
+		overflow: visible;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.projects-gallery {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.sponsor-logo-wrapper,
+	.sponsor-card.gold .sponsor-logo-wrapper,
+	.sponsor-card.ultra .sponsor-logo-wrapper,
+	.sponsor-card.main .sponsor-logo-wrapper,
+	.sponsor-card.silver .sponsor-logo-wrapper,
+	.sponsor-card.supporter .sponsor-logo-wrapper,
+	.sponsor-card.bronze .sponsor-logo-wrapper,
+	.sponsor-card.fan .sponsor-logo-wrapper {
+		height: 100px;
 	}
 
 	.modal-card {
@@ -1031,21 +1060,21 @@ button:focus:not(:focus-visible) {
 
 .sponsor-card.gold .sponsor-logo-wrapper,
 .sponsor-card.ultra .sponsor-logo-wrapper {
-	height: 130px;
+	height: 100px;
 }
 
 .sponsor-card.main .sponsor-logo-wrapper {
-	height: 130px;
+	height: 100px;
 }
 
 .sponsor-card.silver .sponsor-logo-wrapper,
 .sponsor-card.supporter .sponsor-logo-wrapper {
-	height: 110px;
+	height: 100px;
 }
 
 .sponsor-card.bronze .sponsor-logo-wrapper,
 .sponsor-card.fan .sponsor-logo-wrapper {
-	height: 90px;
+	height: 100px;
 }
 
 .sponsor-card img {
@@ -1055,7 +1084,6 @@ button:focus:not(:focus-visible) {
 }
 
 .sponsor-name {
-	margin-top: 8px;
 	font-size: 1.05em;
 	font-family: Arial, sans-serif;
 	letter-spacing: 0.03em;
@@ -1673,14 +1701,26 @@ g.country path:hover {
 
 	.modal:not(.map-modal) {
 		top: 10vh;
-		left: 10vw;
-		width: 80vw;
+		left: 5vw;
+		width: 90vw;
 		height: auto;
-		max-width: 80vw;
+		max-width: 90vw;
 		max-height: 80vh;
 		min-height: 60vh;
 		transform: none;
 		padding: 16px;
+	}
+
+	.projects-container {
+		height: auto;
+		min-height: auto;
+		overflow: visible;
+	}
+
+	.projects-panel {
+		max-height: none;
+		overflow: visible;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.modal.donate-modal {
