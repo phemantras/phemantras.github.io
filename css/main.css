@@ -951,7 +951,9 @@ button:focus:not(:focus-visible) {
 		width: min(92vw, 520px);
 		min-width: 0;
 		text-align: center;
-		padding: 18px 20px;
+		padding: 14px 18px;
+		font-size: 1.55rem;
+		margin: 2px 0 34px;
 	}
 
 	.projects-tabs {
@@ -960,6 +962,14 @@ button:focus:not(:focus-visible) {
 
 	.projects-container {
 		height: 84vh;
+	}
+
+	.modal-card {
+		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+	}
+
+	.modal-card:hover {
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
 	}
 }
 
@@ -1585,15 +1595,16 @@ g.country path:hover {
 
 @media (orientation: portrait) {
 	.start-screen {
-		justify-content: center;
-		padding-top: 0;
+		justify-content: flex-start;
+		padding-top: 74px;
 		padding-bottom: 6vh;
 	}
 
 	.instagram-link,
 	.facebook-link {
-		font-size: 53px;
-		padding: 14px 18px;
+		font-size: 38px;
+		padding: 10px 12px;
+		position: absolute;
 	}
 
 	.facebook-link {
@@ -1602,31 +1613,38 @@ g.country path:hover {
 	}
 
 	.instagram-link {
-		left: 90px;
+		left: 60px;
 		top: 18px;
 	}
 
 	.instagram-handle {
-		font-size: 2.3rem;
+		font-size: 1.55rem;
 	}
 
 	.language-toggle {
 		top: 16px;
 		right: 16px;
-		padding: 16px 20px;
-		font-size: 1.6em;
-		border-radius: 16px;
+		padding: 10px 12px;
+		font-size: 1.1em;
+		border-radius: 12px;
+		position: absolute;
 	}
 
 	.bottom-logos {
-		bottom: 24px;
-		gap: 30px;
-		padding: 16px 26px;
-		border-radius: 22px;
+		position: static;
+		left: auto;
+		bottom: auto;
+		transform: none;
+		gap: 16px;
+		padding: 8px 12px;
+		border-radius: 14px;
+		margin: 24px auto 16px;
+		width: max-content;
+		max-width: 92vw;
 	}
 
 	.bottom-logos img {
-		height: 68px;
+		height: 36px;
 	}
 
 	.title-container {
@@ -1649,8 +1667,8 @@ g.country path:hover {
 	}
 
 	.modal-card {
-		padding: 54px 16px 24px;
-		min-height: 210px;
+		padding: 44px 12px 16px;
+		min-height: 168px;
 	}
 
 	.modal:not(.map-modal) {
