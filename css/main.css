@@ -69,7 +69,7 @@ button:focus:not(:focus-visible) {
 */
 .title-container {
 	position: relative;
-	width: min(520px, 90vw);
+	width: min(700px, 90vw);
 	margin: 0 auto 30px;
 	z-index: 3;
 	text-align: center;
@@ -145,23 +145,43 @@ button:focus:not(:focus-visible) {
 }
 
 .donate-button {
-	margin-bottom: 12px;
-	padding: 12px 18px;
-	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.12);
-	background: linear-gradient(135deg, rgba(255, 204, 0, 0.9), #ff9900eb);
-	color: #fffade7a;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 8px 0 20px;
+	padding: 20px 34px;
+	min-width: 340px;
+	border-radius: 18px;
+	border: 2px solid rgba(80, 48, 0, 0.45);
+	background:
+		linear-gradient(160deg, #ffd451 0%, #ffbe2f 40%, #f39b1d 100%);
+	color: #ffffff;
 	font-family: 'SCHABO', Arial, sans-serif;
-	font-size: 1.4rem;
-	letter-spacing: 0.04em;
+	font-size: clamp(1.9rem, 2.6vw, 2.35rem);
+	letter-spacing: 0.03em;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 	cursor: pointer;
-	box-shadow: 0 14px 36px rgba(0, 0, 0, 0.25);
-	transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	box-shadow:
+		0 16px 32px rgba(0, 0, 0, 0.28),
+		inset 0 1px 0 rgba(255, 255, 255, 0.45);
+	transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .donate-button:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+	transform: translateY(-3px) scale(1.01);
+	filter: brightness(1.02);
+	box-shadow:
+		0 20px 38px rgba(0, 0, 0, 0.34),
+		inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.donate-button:active {
+	transform: translateY(-1px) scale(0.995);
+}
+
+.donate-button:focus-visible {
+	outline: 3px solid rgba(34, 22, 0, 0.55);
+	outline-offset: 3px;
 }
 
 .modal-grid {
@@ -298,10 +318,9 @@ button:focus:not(:focus-visible) {
 	}
 }
 
-.instagram-link {
+.instagram-link,
+.facebook-link {
 	position: fixed;
-	left: 18px;
-	top: 18px;
 	color: #000;
 	border-radius: 12px;
 	padding: 10px 14px;
@@ -314,7 +333,18 @@ button:focus:not(:focus-visible) {
 	transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.instagram-link:hover {
+.instagram-link {
+	top: 18px;
+	left: 64px;
+}
+
+.facebook-link {
+	top: 18px;
+	left: 18px;
+}
+
+.instagram-link:hover,
+.facebook-link:hover {
 	transform: translateY(-3px);
 	background: rgba(255, 255, 255, 0.1);
 }
@@ -444,7 +474,7 @@ button:focus:not(:focus-visible) {
 	width: 92%;
 	max-width: 720px;
 	height: auto;
-	max-height: 86%;
+	max-height: 90%;
 	background: rgba(12, 15, 23, 0.96);
 	color: #fff;
 	box-shadow: 0px 28px 80px rgba(0, 0, 0, 0.6);
@@ -461,6 +491,12 @@ button:focus:not(:focus-visible) {
 
 .modal:not(.map-modal) {
 	min-height: 60vh;
+}
+
+.modal.donate-modal {
+	width: min(560px, 92vw);
+	min-height: 0;
+	box-sizing: border-box;
 }
 
 .modal.open {
@@ -622,15 +658,24 @@ button:focus:not(:focus-visible) {
 }
 
 .projects-container h1 {
-	margin-top: 0;
+	margin-top: 15px;
 	flex: 0 0 auto;
 }
 
 .projects-container {
-	height: min(82vh, 760px);
+	height: 90vh;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+}
+
+.projects-intro {
+	margin: 0 2px 2px;
+	font-family: Arial, sans-serif;
+	font-size: 1.02rem;
+	line-height: 1.35;
+	color: rgba(255, 255, 255, 0.9);
+	flex: 0 0 auto;
 }
 
 .projects-list {
@@ -643,7 +688,7 @@ button:focus:not(:focus-visible) {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 10px;
-	margin-top: 8px;
+	margin-top: 6px;
 	flex: 0 0 auto;
 }
 
@@ -723,10 +768,12 @@ button:focus:not(:focus-visible) {
 }
 
 .projects-gallery {
-	margin-top: 14px;
+	margin-top: 12px;
+	margin-bottom: 12px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
 	gap: 10px;
+	flex: 0 0 auto;
 }
 
 .project-thumb {
@@ -884,7 +931,7 @@ button:focus:not(:focus-visible) {
 	text-align: center;
 	padding: 14px 16px;
 	border-radius: 12px;
-	font-size: 2rem;
+	font-size: 2.2rem;
 	font-weight: bold;
 	text-decoration: none;
 	color: #0c0f17;
@@ -901,8 +948,10 @@ button:focus:not(:focus-visible) {
 
 @media (max-width : 768px) {
 	.donate-button {
-		width: 100%;
+		width: min(92vw, 520px);
+		min-width: 0;
 		text-align: center;
+		padding: 18px 20px;
 	}
 
 	.projects-tabs {
@@ -1517,7 +1566,7 @@ g.country path:hover {
 	}
 
 	.modal {
-		max-height: 80%;
+		max-height: 90%;
 		padding: 14px;
 	}
 
@@ -1539,6 +1588,45 @@ g.country path:hover {
 		justify-content: center;
 		padding-top: 0;
 		padding-bottom: 6vh;
+	}
+
+	.instagram-link,
+	.facebook-link {
+		font-size: 53px;
+		padding: 14px 18px;
+	}
+
+	.facebook-link {
+		left: 18px;
+		top: 18px;
+	}
+
+	.instagram-link {
+		left: 90px;
+		top: 18px;
+	}
+
+	.instagram-handle {
+		font-size: 2.3rem;
+	}
+
+	.language-toggle {
+		top: 16px;
+		right: 16px;
+		padding: 16px 20px;
+		font-size: 1.6em;
+		border-radius: 16px;
+	}
+
+	.bottom-logos {
+		bottom: 24px;
+		gap: 30px;
+		padding: 16px 26px;
+		border-radius: 22px;
+	}
+
+	.bottom-logos img {
+		height: 68px;
 	}
 
 	.title-container {
@@ -1577,8 +1665,28 @@ g.country path:hover {
 		padding: 16px;
 	}
 
+	.modal.donate-modal {
+		top: 50%;
+		left: 50%;
+		width: 80vw;
+		max-width: 80vw;
+		height: auto;
+		max-height: 80vh;
+		min-height: 0;
+		box-sizing: border-box;
+		transform: translate(-50%, -50%) scale(0.9);
+	}
+
+	.modal.donate-modal.open {
+		transform: translate(-50%, -50%) scale(1);
+	}
+
 	.modal.open:not(.map-modal) {
 		transform: none;
+	}
+
+	.modal.donate-modal.open:not(.map-modal) {
+		transform: translate(-50%, -50%) scale(1);
 	}
 
 	.map-modal {

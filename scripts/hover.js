@@ -15,6 +15,7 @@
 	const newsfeedList = document.getElementById('newsfeed-list');
 	const newsfeed = document.querySelector('.newsfeed');
 	const languageToggle = document.getElementById('language-toggle');
+	const donateBusinessLink = document.querySelector('.donate-link[data-i18n="donate.business"]');
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	let newsfeedToggle = null;
 	let allEncounters = [];
@@ -25,6 +26,7 @@
 	const fanNamesContainer = document.getElementById('fan-names-grid');
 	const projectsTabsContainer = document.getElementById('projects-club-tabs');
 	const projectsContentContainer = document.getElementById('projects-club-content');
+	const projectsGalleryContainer = document.getElementById('projects-gallery');
 	let projectGalleryRequestId = 0;
 	const projectGalleryCache = {};
 	let projectLightbox = null;
@@ -293,12 +295,13 @@
 			'menu.friendbooksub': 'People, Stories & Encounters we\'ve met on our journey',
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where the money goes',
+			'projects.intro': 'Here you can see exactly which club projects are being supported and where every donation is going.',
 			'donate.p1':'Every euro will go into the projects of the Zirndorf football clubs (See projects)! Franconja does not take any money.',
 			'donate.cta': 'Donate now!',
 			'donate.title': 'Support franconja',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
-			'subtitle.journey': 'Uncover the stories of football fans we meet on our journey to New Jersey',
+			'subtitle.journey': 'Learn everything here about our World Cup journey, our digital friendbook, and the fundraising campaign for Zirndorf football clubs.',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
 			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
@@ -331,12 +334,13 @@
 			'menu.friendbooksub': 'Menschen, Stories & Begegnungen',
 			'menu.projects': 'Projekte',
 			'menu.projectssub': 'Wohin das Geld fließt',
+			'projects.intro': 'Hier seht ihr transparent, welche Vereinsprojekte unterstuetzt werden und wofuer jede Spende eingesetzt wird.',
 			'donate.p1':'Jeder Euro fließt in die Projekte der Zirndorfer Fussballvereine (Siehe Projekte)! Franconja selbst nimmt kein Geld.',
 			'donate.cta': 'Jetzt Spenden',
 			'donate.title': 'Unterstütze franconja',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
-			'subtitle.journey': 'Entdecke unsere Stories ueber Fans, die wir auf dem Weg nach New Jersey treffen',
+			'subtitle.journey': 'Erfahrt hier alles zur unserer WM-Reise, unserem digitalen Friendbook und der Spendenaktion fuer die Zirndorfer Fussballvereine',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
 			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
@@ -401,6 +405,46 @@
 		return [...groups, ...uniqueSingles];
 	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
+	const buildBusinessMailtoHref = () => {
+		const mailContentByLanguage = {
+			de: {
+				subject: 'Bitte nehmt Kontakt mit mir auf',
+				body: [
+					'Liebes franconja-Team,',
+					'ich moechte mit meinem Unternehmen gerne an eurer Aktion teilnehmen.',
+					'Bitte nehmt Kontakt mit mir auf! (unzutreffendes bitte streichen):',
+					'Mail:',
+					'Telefon:',
+					'instagram:',
+					'',
+					'Mit dem Senden dieser E-Mail stimme ich der Verarbeitung der oben angegebenen Daten zum Zweck der Kontaktaufnahme zu.',
+					'',
+					'Freundliche Gruesse',
+				].join('\n'),
+			},
+			en: {
+				subject: 'Please contact me',
+				body: [
+					'Dear franconja,',
+					'my company wants to support your project.',
+					'Please contact me (cross unnecessary)',
+					'Mail:',
+					'Telefon:',
+					'instagram:',
+					'',
+					'By sending this email, I consent to the processing of the data provided above for the purpose of being contacted.',
+					'',
+					'Kind regards',
+				].join('\n'),
+			},
+		};
+		const mail = mailContentByLanguage[currentLanguage] || mailContentByLanguage.en;
+		return `mailto:franconja26@gmail.com?subject=${encodeURIComponent(mail.subject)}&body=${encodeURIComponent(mail.body)}`;
+	};
+	const updateBusinessMailtoLink = () => {
+		if (!donateBusinessLink) return;
+		donateBusinessLink.setAttribute('href', buildBusinessMailtoHref());
+	};
 	const updateStats = () => {
 		if (!statsContainer) return;
 		const count = getVisitedCountries().length;
@@ -451,6 +495,7 @@
     languageToggle.textContent = currentLanguage === 'de' ? 'DE' : 'EN';
     languageToggle.setAttribute('aria-label', dict.languageToggleLabel);
   }
+		updateBusinessMailtoLink();
 		updateStats();
 		renderVisitedCountriesList();
 		renderProjects();
@@ -528,20 +573,15 @@
 	};
 
 	function renderProjects() {
-		if (!projectsTabsContainer || !projectsContentContainer) return;
+		if (!projectsTabsContainer || !projectsContentContainer || !projectsGalleryContainer) return;
 		const listEl = projectsContentContainer.querySelector('.projects-club-list');
 		if (!listEl || !clubProjects.length) return;
 
-		const renderProjectGallery = async (clubId) => {
+		const renderProjectGallery = async () => {
 			const currentRequestId = ++projectGalleryRequestId;
-			let galleryEl = projectsContentContainer.querySelector('.projects-gallery');
-			if (!galleryEl) {
-				galleryEl = document.createElement('div');
-				galleryEl.className = 'projects-gallery';
-				projectsContentContainer.appendChild(galleryEl);
-			}
-			galleryEl.innerHTML = '';
-			const images = await loadProjectImages(clubId);
+			projectsGalleryContainer.innerHTML = '';
+			const imageSets = await Promise.all(clubProjects.map((club) => loadProjectImages(club.id)));
+			const images = imageSets.flat();
 			if (currentRequestId !== projectGalleryRequestId) return;
 			if (!images.length) return;
 			images.forEach((image, index) => {
@@ -551,7 +591,7 @@
 				thumbButton.setAttribute('aria-label', image.name);
 				thumbButton.innerHTML = `<img src="${image.src}" alt="${image.name}">`;
 				thumbButton.addEventListener('click', () => openProjectLightbox(images, index));
-				galleryEl.appendChild(thumbButton);
+				projectsGalleryContainer.appendChild(thumbButton);
 			});
 		};
 
@@ -567,7 +607,6 @@
 				li.textContent = currentLanguage === 'de' ? project.de : project.en;
 				listEl.appendChild(li);
 			});
-			await renderProjectGallery(activeClub.id);
 		};
 
 		projectsTabsContainer.innerHTML = '';
@@ -587,6 +626,7 @@
 			projectsTabsContainer.appendChild(button);
 		});
 
+		void renderProjectGallery();
 		void setActiveClub(currentProjectClubId || clubProjects[0].id);
 	}
 
