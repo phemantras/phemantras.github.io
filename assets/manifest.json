@@ -1,0 +1,24 @@
+{
+  "images/projects": [
+    "ballpumpe.png",
+    "bank.jpeg",
+    "container_aussen.jpeg",
+    "container_innen.jpeg",
+    "garagentor.jpeg",
+    "Materialwagen.png",
+    "sicherungskasten.jpeg",
+    "sitzgelegenheit.png"
+  ],
+  "images/logos/sponsors": [
+    "cmap.svg",
+    "Hilpert-Media.svg",
+    "Printmedia.png"
+  ],
+  "images/logos/ultra": [],
+  "images/logos/supporter": [
+    "B\u00e4ckerei_Beck.png",
+    "Enzo_Pulera.jpg",
+    "Schemm_Consulting.png"
+  ],
+  "images/logos/fan": []
+}

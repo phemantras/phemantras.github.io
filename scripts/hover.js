@@ -95,6 +95,7 @@
 	};
 
 	const imagePattern = /\.(png|jpe?g|svg|webp|gif|avif)$/i;
+	let assetManifestPromise = null;
 
 	const getNameFromFilename = (fileName) =>
 		fileName
@@ -146,7 +147,30 @@
 		return [...new Set(names)];
 	};
 
+	const loadAssetManifest = async () => {
+		if (!assetManifestPromise) {
+			assetManifestPromise = fetch('assets/manifest.json')
+				.then((response) => (response.ok ? response.json() : null))
+				.catch(() => null);
+		}
+		return assetManifestPromise;
+	};
+
+	const getManifestFilesForDir = async (dir) => {
+		const manifest = await loadAssetManifest();
+		if (!manifest || typeof manifest !== 'object') return null;
+		if (!Object.prototype.hasOwnProperty.call(manifest, dir)) return null;
+		const files = manifest[dir];
+		if (!Array.isArray(files)) return [];
+		return files
+			.filter((name) => typeof name === 'string' && imagePattern.test(name))
+			.sort((a, b) => a.localeCompare(b, 'de'));
+	};
+
 	const loadLogoFiles = async (dir) => {
+		const manifestFiles = await getManifestFilesForDir(dir);
+		if (manifestFiles !== null) return manifestFiles;
+
 		try {
 			const githubFiles = await fetchFilesViaGitHubApi(dir);
 			if (githubFiles.length) return githubFiles;
