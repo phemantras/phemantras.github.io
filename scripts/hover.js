@@ -184,15 +184,16 @@
 		sponsorsData.fan = buildSponsorEntries('fan', fanFiles);
 	};
 
-	const loadProjectImages = async (clubId) => {
-		if (projectGalleryCache[clubId]) return projectGalleryCache[clubId];
-		const dir = `images/projects/${clubId}`;
+	const loadProjectImages = async () => {
+		const cacheKey = 'all';
+		if (projectGalleryCache[cacheKey]) return projectGalleryCache[cacheKey];
+		const dir = 'images/projects';
 		const files = await loadLogoFiles(dir);
 		const images = files.map((fileName) => ({
 			src: `${dir}/${fileName}`,
 			name: getNameFromFilename(fileName),
 		}));
-		projectGalleryCache[clubId] = images;
+		projectGalleryCache[cacheKey] = images;
 		return images;
 	};
 
@@ -580,8 +581,7 @@
 		const renderProjectGallery = async () => {
 			const currentRequestId = ++projectGalleryRequestId;
 			projectsGalleryContainer.innerHTML = '';
-			const imageSets = await Promise.all(clubProjects.map((club) => loadProjectImages(club.id)));
-			const images = imageSets.flat();
+			const images = await loadProjectImages();
 			if (currentRequestId !== projectGalleryRequestId) return;
 			if (!images.length) return;
 			images.forEach((image, index) => {
