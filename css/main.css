@@ -95,18 +95,18 @@ button:focus:not(:focus-visible) {
 }
 
 .subtitle {
-	font-family: 'SCHABO', Georgia, sans-serif;
-	font-size: 2.0rem;
-	font-weight: bold;
+	font-family: Arial, sans-serif;
+	font-size: 1.8rem;
+	font-weight: 700;
 	text-align: center;
 	color: rgba(0, 0, 0, 0.85);
-	letter-spacing: 0.02em;
 	padding-bottom: 15px;
+	text-shadow: none;
 	/*color: #0A3161;*/
 }
 
 .start-screen {
-	min-height: 100vh;
+	min-height: 93vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -159,11 +159,10 @@ button:focus:not(:focus-visible) {
 	border: 2px solid rgba(80, 48, 0, 0.45);
 	background:
 		linear-gradient(160deg, #ffd451 0%, #ffbe2f 40%, #f39b1d 100%);
-	color: #ffffff;
+	color: #000;
 	font-family: 'SCHABO', Arial, sans-serif;
 	font-size: clamp(1.9rem, 2.6vw, 2.35rem);
 	letter-spacing: 0.03em;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 	cursor: pointer;
 	box-shadow:
 		0 16px 32px rgba(0, 0, 0, 0.28),
@@ -257,7 +256,8 @@ button:focus:not(:focus-visible) {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 110px;
-	height: auto;
+	height: 110px;
+	object-fit: contain;
 	filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
 	transition: transform 0.25s ease, filter 0.25s ease;
 	pointer-events: none;
@@ -269,10 +269,14 @@ button:focus:not(:focus-visible) {
 }
 
 .card-label {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-family: 'SCHABO', Verdana, sans-serif;
 	font-size: 1.65rem;
+	line-height: 1.1;
 	letter-spacing: 0.01em;
+	min-height: 2.2em;
 	margin-bottom: 0;
 }
 
@@ -314,6 +318,7 @@ button:focus:not(:focus-visible) {
 .bottom-logos a {
 	display: inline-flex;
 	align-items: center;
+	cursor: pointer;
 }
 
 @media (orientation: portrait) {
@@ -338,13 +343,13 @@ button:focus:not(:focus-visible) {
 }
 
 .instagram-link {
-	top: 18px;
+	top: 10px;
 	left: 64px;
 }
 
 .facebook-link {
-	top: 18px;
-	left: 18px;
+	top: 10px;
+	left: 10px;
 }
 
 .instagram-link:hover,
@@ -1058,6 +1063,10 @@ button:focus:not(:focus-visible) {
 	padding: 6px;
 }
 
+a.sponsor-logo-wrapper {
+	cursor: pointer;
+}
+
 .sponsor-card.gold .sponsor-logo-wrapper,
 .sponsor-card.ultra .sponsor-logo-wrapper {
 	height: 100px;
@@ -1546,7 +1555,7 @@ g.country path:hover {
 	}
 
 	.subtitle {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 		padding-bottom: 15px;
 	}
 
@@ -1581,7 +1590,7 @@ g.country path:hover {
 	}
 
 	.subtitle {
-		font-size: 1.4rem;
+		font-size: 1.3rem;
 		padding-bottom: 12px;
 	}
 
@@ -1625,7 +1634,6 @@ g.country path:hover {
 	.start-screen {
 		justify-content: flex-start;
 		padding-top: 74px;
-		padding-bottom: 6vh;
 	}
 
 	.instagram-link,
@@ -1636,13 +1644,13 @@ g.country path:hover {
 	}
 
 	.facebook-link {
-		left: 18px;
-		top: 18px;
+		left: 10px;
+		top: 10px;
 	}
 
 	.instagram-link {
-		left: 60px;
-		top: 18px;
+		left: 50px;
+		top: 10px;
 	}
 
 	.instagram-handle {
@@ -1666,7 +1674,7 @@ g.country path:hover {
 		gap: 16px;
 		padding: 8px 12px;
 		border-radius: 14px;
-		margin: 24px auto 16px;
+		margin: 1px auto 16px;
 		width: max-content;
 		max-width: 92vw;
 	}
@@ -1677,11 +1685,11 @@ g.country path:hover {
 
 	.title-container {
 		width: min(95vw, 900px);
-		margin-bottom: 22px;
+		margin-bottom: 2px;
 	}
 
 	.title-container svg.logo {
-		width: 100%;
+		width: 70%;
 		max-width: min(88vw, 760px);
 		height: auto;
 	}
@@ -1689,14 +1697,41 @@ g.country path:hover {
 	.modal-grid {
 		width: 94vw;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 18px;
+		gap: 14px;
 		margin-top: 18px;
 		align-content: center;
 	}
 
 	.modal-card {
-		padding: 44px 12px 16px;
-		min-height: 168px;
+		padding: 38px 10px 12px;
+		min-height: 150px;
+		justify-content: flex-end;
+	}
+
+	.modal-card .card-header {
+		margin-top: auto;
+	}
+
+	.modal-card .card-label {
+		font-size: 1.3rem;
+		line-height: 1.05;
+		min-height: 2.1em;
+	}
+
+	.modal-card .card-subtitle {
+		font-size: 0.85rem;
+		line-height: 1.2;
+		margin-top: 4px;
+	}
+
+	.modal-card .card-icon {
+		width: 86px;
+		height: 86px;
+		top: -26px;
+	}
+
+	.modal-grid .modal-card:nth-child(n+3) {
+		margin-top: 14px;
 	}
 
 	.modal:not(.map-modal) {

@@ -84,8 +84,16 @@
 	];
 	const mainSponsorLinks = {
 		cmap_logo: 'https://cmap.shop',
+		cmap: 'https://cmap.shop',
 		'hilpert-media': 'https://hilpert-media.de',
 		printmedia: 'http://my-print-store.de/',
+	};
+	const mainSponsorOrder = ['printmedia', 'hilpert-media', 'cmap'];
+	const mainSponsorDisplayNames = {
+		printmedia: 'Printmedia',
+		'hilpert-media': 'Hippert Media',
+		cmap: 'CMAP',
+		cmap_logo: 'CMAP',
 	};
 	const logoDirectories = {
 		main: 'images/logos/sponsors',
@@ -185,15 +193,26 @@
 		}
 	};
 
-	const buildSponsorEntries = (tier, files) =>
-		files.map((fileName) => {
+	const buildSponsorEntries = (tier, files) => {
+		const entries = files.map((fileName) => {
 			const slug = getSlugFromFilename(fileName);
 			return {
-				name: getNameFromFilename(fileName),
+				name: tier === 'main' ? (mainSponsorDisplayNames[slug] || getNameFromFilename(fileName)) : getNameFromFilename(fileName),
 				logo: `${logoDirectories[tier]}/${fileName}`,
 				link: tier === 'main' ? mainSponsorLinks[slug] || null : null,
+				slug,
 			};
 		});
+		if (tier !== 'main') return entries;
+		return entries.sort((a, b) => {
+			const aIndex = mainSponsorOrder.indexOf(a.slug);
+			const bIndex = mainSponsorOrder.indexOf(b.slug);
+			const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
+			const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
+			if (aRank !== bRank) return aRank - bRank;
+			return a.name.localeCompare(b.name, 'de');
+		});
+	};
 
 	const loadSponsorsData = async () => {
 		const [mainFiles, ultraFiles, supporterFiles, fanFiles] = await Promise.all([
@@ -312,27 +331,27 @@
 	const translations = {
 		en: {
 			'menu.about': 'About us',
-			'menu.aboutsub': 'Find out more about the purpose of franconja',
+			'menu.aboutsub': 'What are we planning?',
 			'menu.countries': 'Countries',
-			'menu.sponsors': 'Supporter wall',
-			'menu.sponsorssub': 'YOU support football in Zirndorf',
+			'menu.sponsors': 'Supporter Wall',
+			'menu.sponsorssub': 'Who is taking part in the fundraising campaign?',
 			'menu.friendbook': 'Digital Friendbook',
-			'menu.friendbooksub': 'People, Stories & Encounters we\'ve met on our journey',
-			'menu.projects': 'Projects',
-			'menu.projectssub': 'Where the money goes',
+			'menu.friendbooksub': 'Our encounters with football fans from all over the world',
+			'menu.projects': 'Supported Projects',
+			'menu.projectssub': 'Where do the donations go?',
 			'projects.intro': 'Here you can see exactly which club projects are being supported and where every donation is going.',
 			'donate.p1':'Every euro will go into the projects of the Zirndorf football clubs (See projects)! Franconja does not take any money.',
 			'donate.cta': 'Donate now!',
 			'donate.title': 'Support franconja',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
-			'subtitle.journey': 'Learn everything here about our World Cup journey, our digital friendbook, and the fundraising campaign for Zirndorf football clubs.',
+			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>.',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
 			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
 			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
 			'projects.title': 'Projects',
-			'sponsors.title': 'Supporter-Wall',
+			'sponsors.title': 'Supporter Wall',
 			'sponsors.hint': 'Thanks for your support!',
 			'sponsors.main': 'Main sponsors',
 			'sponsors.ultra': 'Ultras',
@@ -351,27 +370,27 @@
 		},
 		de: {
 			'menu.about': 'Ueber uns',
-			'menu.aboutsub': 'Findet mehr ueber den Zweck von franconja heraus',
+			'menu.aboutsub': 'Was haben wir vor?',
 			'menu.countries': 'Laender',
-			'menu.sponsors': 'Supporter-Wall',
-			'menu.sponsorssub': 'IHR unterstuetzt den Zirndorfer Fussball',
-			'menu.friendbook': 'Digitales Freundesbuch',
-			'menu.friendbooksub': 'Menschen, Stories & Begegnungen',
-			'menu.projects': 'Projekte',
-			'menu.projectssub': 'Wohin das Geld fließt',
+			'menu.sponsors': 'Supporter Wall',
+			'menu.sponsorssub': 'Wer beteiligt sich an der Spendenaktion?',
+			'menu.friendbook': 'Digitales Friendbook',
+			'menu.friendbooksub': 'Unsere Begegnungen mit Fussball Fans aus aller Welt',
+			'menu.projects': 'Unterstuetzte Projekte',
+			'menu.projectssub': 'Wohin gehen die Spenden?',
 			'projects.intro': 'Hier seht ihr transparent, welche Vereinsprojekte unterstuetzt werden und wofuer jede Spende eingesetzt wird.',
 			'donate.p1':'Jeder Euro fließt in die Projekte der Zirndorfer Fussballvereine (Siehe Projekte)! Franconja selbst nimmt kein Geld.',
 			'donate.cta': 'Jetzt Spenden',
 			'donate.title': 'Unterstütze franconja',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
-			'subtitle.journey': 'Erfahrt hier alles zur unserer WM-Reise, unserem digitalen Friendbook und der Spendenaktion fuer die Zirndorfer Fussballvereine',
+			'subtitle.journey': 'Alles zu unserer Reise zur Fussball Weltmeisterschaft 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>.',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
 			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
 			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
 			'projects.title': 'Projekte',
-			'sponsors.title': 'Supporter-Wall',
+			'sponsors.title': 'Supporter Wall',
 			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
 			'sponsors.main': 'Hauptsponsoren',
 			'sponsors.ultra': 'Ultras',
