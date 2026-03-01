@@ -18,6 +18,7 @@
 	const donateBusinessLink = document.querySelector('.donate-link[data-i18n="donate.business"]');
 	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 	let newsfeedToggle = null;
+	let mapPanzoom = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
 	const sponsorsData = { main: [], ultra: [], supporter: [], fan: [] };
@@ -35,14 +36,15 @@
 	const clubProjects = [
 		{
 			id: 'ww',
-			name: 'ASV Wintersdorf-Weinzierlein',
+			name: 'ASV Weinzierlein',
 			logo: 'images/logos/clubs/ww.png',
 			projects: [
-				{ de: 'Materialpaket Training: Ballpumpe + 2 Materialwaegen', en: 'Training equipment package: ball pump + 2 material carts' },
-				{ de: 'Kabinenpaket: Duschen + Duschtuer + Kabinenlueftung', en: 'Locker room package: shower + shower door + ventilation' },
-				{ de: 'Jugendpaket: Trikotsatz + neue Trainingsanzuege', en: 'Youth package: jersey set + new tracksuits' },
-				{ de: 'Infrastrukturpaket: Garagentor + Beregnungs-/Sicherungskasten + Materialcontainer', en: 'Infrastructure package: garage gate + irrigation/safety cabinet + material container' },
-				{ de: 'Sportplatzpaket: Sitzgelegenheiten + Schankhuette + Auswechselbank + Rasenflaechen', en: 'Pitch package: seating + kiosk hut + substitute bench + pitch areas' },
+				{ de: 'Anschaffung Ballpumpe und Materialwaegen', en: 'Purchase of a ball pump and material carts' },
+				{ de: 'Erneuerung Kabinenlueftung', en: 'Renewal of locker room ventilation' },
+				{ de: 'Kauf von Trikotsatz fuer Jugend', en: 'Purchase of a youth jersey set' },
+				{ de: 'Anschaffung neuer Trainingsanzuege fuer Jugend', en: 'Purchase of new tracksuits for youth teams' },
+				{ de: 'Renovierung Duschen', en: 'Renovation of showers' },
+				{ de: 'Sanierung Rasenflaechen', en: 'Renovation of pitch turf areas' },
 			],
 		},
 		{
@@ -50,11 +52,12 @@
 			name: 'ASV Zirndorf',
 			logo: 'images/logos/clubs/asv.png',
 			projects: [
-				{ de: 'Flutlicht C Platz modernisieren', en: 'Upgrade floodlights at C pitch' },
-				{ de: 'Platzpflege verbessern: Maehroboter', en: 'Improve pitch maintenance: robotic mower' },
-				{ de: 'Jugendinfrastruktur: Verkaufshuette', en: 'Youth infrastructure: sales hut' },
-				{ de: 'Jugendausstattung: 2 Jugendtore + 4 Kleinfeldmarkierungen', en: 'Youth equipment: 2 youth goals + 4 small-field markers' },
-				{ de: 'Trainingsmaterial erweitern: 40 Baelle', en: 'Expand training material: 40 balls' },
+				{ de: 'Anschaffung Tore fuer Jugend', en: 'Purchase of goals for youth teams' },
+				{ de: 'Anschaffung neuer Fussbaelle', en: 'Purchase of new footballs' },
+				{ de: 'Kauf von Kleinfeld Markierungen', en: 'Purchase of small-sided field markings' },
+				{ de: 'Modernisierung Flutlicht', en: 'Modernization of floodlights' },
+				{ de: 'Anschaffung Maehroboter', en: 'Purchase of a robotic mower' },
+				{ de: 'Kauf von Verkaufshuette fuer Jugend', en: 'Purchase of a sales hut for youth teams' },
 			],
 		},
 		{
@@ -62,11 +65,10 @@
 			name: 'SV Weiherhof',
 			logo: 'images/logos/clubs/svw.png',
 			projects: [
-				{ de: 'Funino-Paket: 8 Funino-Tore', en: 'Funino package: 8 Funino goals' },
-				{ de: 'Herrenpaket: 20 Baelle + Trikotsatz', en: 'Senior team package: 20 balls + jersey set' },
-				{ de: 'Jugendpaket: 30 Baelle', en: 'Youth package: 30 balls' },
-				{ de: 'Platzpflegepaket: Bodenfraese/Einachser mit Anbaugeraeten', en: 'Pitch maintenance package: tiller/walking tractor with attachments' },
-				{ de: 'Vereinsmaterial und Training weiter ausbauen', en: 'Further expand club equipment and training setup' },
+				{ de: 'Anschaffung Funino Tore fuer Jugend', en: 'Purchase of Funino goals for youth teams' },
+				{ de: 'Kauf von Fussbaellen fuer Herren und Jugend Mannschaften', en: 'Purchase of footballs for senior and youth teams' },
+				{ de: 'Anschaffung Bodenfraese mit Anbaugeraeten', en: 'Purchase of a tiller with attachments' },
+				{ de: 'Kauf von Trikotsaetze fuer Herren Mannschaft', en: 'Purchase of jersey sets for the senior team' },
 			],
 		},
 		{
@@ -74,11 +76,10 @@
 			name: 'TSV Zirndorf',
 			logo: 'images/logos/clubs/tsv.png',
 			projects: [
-				{ de: 'Flutlicht A+B Platz modernisieren', en: 'Upgrade floodlights at A+B pitch' },
-				{ de: 'Verkaufsraum und Kueche renovieren', en: 'Renovate sales room and kitchen' },
-				{ de: 'Feriencamp fuer die Fussballjugend staerken', en: 'Strengthen holiday camp for youth football' },
-				{ de: 'Jugendtraining verbessern: neue Minitore', en: 'Improve youth training: new mini goals' },
-				{ de: 'Jugendfoerderung als dauerhaften Schwerpunkt ausbauen', en: 'Expand youth development as a long-term focus' },
+				{ de: 'Anschaffung Minitore fuer Jugend', en: 'Purchase of mini goals for youth teams' },
+				{ de: 'Modernisierung Flutlicht', en: 'Modernization of floodlights' },
+				{ de: 'Renovierung Verkaufsraum und Kueche', en: 'Renovation of sales room and kitchen' },
+				{ de: 'Durchfuehrung Jugend Feriencamp', en: 'Organization of a youth holiday camp' },
 			],
 		},
 	];
@@ -88,10 +89,18 @@
 		'hilpert-media': 'https://hilpert-media.de',
 		printmedia: 'http://my-print-store.de/',
 	};
+	const supporterLinks = {
+		enzo_pulera: 'https://example.com/enzo-pulera',
+		schemm_consulting: 'https://example.com/schemm-consulting',
+		'bäckerei_beck': 'https://example.com/baeckerei-beck',
+		baeckerei_beck: 'https://example.com/baeckerei-beck',
+	};
+	const fallbackSponsorLink = 'https://example.com';
 	const mainSponsorOrder = ['printmedia', 'hilpert-media', 'cmap'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'bäckerei_beck', 'baeckerei_beck'];
 	const mainSponsorDisplayNames = {
 		printmedia: 'Printmedia',
-		'hilpert-media': 'Hippert Media',
+		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
 		cmap_logo: 'CMAP',
 	};
@@ -196,22 +205,42 @@
 	const buildSponsorEntries = (tier, files) => {
 		const entries = files.map((fileName) => {
 			const slug = getSlugFromFilename(fileName);
+			let link = fallbackSponsorLink;
+			if (tier === 'main') {
+				link = mainSponsorLinks[slug] || fallbackSponsorLink;
+			} else if (tier === 'supporter') {
+				link = supporterLinks[slug] || fallbackSponsorLink;
+			} else if (tier === 'fan') {
+				link = fallbackSponsorLink;
+			}
 			return {
 				name: tier === 'main' ? (mainSponsorDisplayNames[slug] || getNameFromFilename(fileName)) : getNameFromFilename(fileName),
 				logo: `${logoDirectories[tier]}/${fileName}`,
-				link: tier === 'main' ? mainSponsorLinks[slug] || null : null,
+				link,
 				slug,
 			};
 		});
-		if (tier !== 'main') return entries;
-		return entries.sort((a, b) => {
-			const aIndex = mainSponsorOrder.indexOf(a.slug);
-			const bIndex = mainSponsorOrder.indexOf(b.slug);
-			const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
-			const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
-			if (aRank !== bRank) return aRank - bRank;
-			return a.name.localeCompare(b.name, 'de');
-		});
+		if (tier === 'main') {
+			return entries.sort((a, b) => {
+				const aIndex = mainSponsorOrder.indexOf(a.slug);
+				const bIndex = mainSponsorOrder.indexOf(b.slug);
+				const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
+				const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
+				if (aRank !== bRank) return aRank - bRank;
+				return a.name.localeCompare(b.name, 'de');
+			});
+		}
+		if (tier === 'supporter') {
+			return entries.sort((a, b) => {
+				const aIndex = supporterOrder.indexOf(a.slug);
+				const bIndex = supporterOrder.indexOf(b.slug);
+				const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
+				const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
+				if (aRank !== bRank) return aRank - bRank;
+				return a.name.localeCompare(b.name, 'de');
+			});
+		}
+		return entries;
 	};
 
 	const loadSponsorsData = async () => {
@@ -224,7 +253,7 @@
 		sponsorsData.main = buildSponsorEntries('main', mainFiles);
 		sponsorsData.ultra = buildSponsorEntries('ultra', ultraFiles);
 		sponsorsData.supporter = buildSponsorEntries('supporter', supporterFiles);
-		sponsorsData.fan = buildSponsorEntries('fan', fanFiles);
+		sponsorsData.fan = [];
 	};
 
 	const loadProjectImages = async () => {
@@ -339,23 +368,23 @@
 			'menu.friendbooksub': 'Our encounters with football fans from all over the world',
 			'menu.projects': 'Supported Projects',
 			'menu.projectssub': 'Where do the donations go?',
-			'projects.intro': 'Here you can see exactly which club projects are being supported and where every donation is going.',
-			'donate.p1':'Every euro will go into the projects of the Zirndorf football clubs (See projects)! Franconja does not take any money.',
-			'donate.cta': 'Donate now!',
-			'donate.title': 'Support franconja',
+			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
+			'donate.p1':'100% of donations go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
+			'donate.cta': 'Your donation to our clubs',
+			'donate.title': 'Donate to clubs',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
 			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>.',
 			'about.title': 'About us',
-			'about.p1': 'We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would be hosted across the USA, Mexico, and Canada, we\'ve dreamed of making this event a once-in-a-lifetime experience by immersing ourselves fully throughout the entire competition.',
-			'about.p2': 'Our mission is to <strong>connect with football fans from all 211 FIFA countries around the world</strong> as we travel, <strong>visit every stadium</strong> hosting the 2026 World Cup, and passionately <strong>follow the German national team</strong> all the way to the final. This journey is about more than just football - it\'s about the global community, culture, and unforgettable stories we\'ll share along the way.',
-			'about.p3': 'We are kicking off our adventure at the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Each step brings us closer to our ultimate goal of being part of the 2026 World Cup atmosphere from start to finish.',
-			'projects.title': 'Projects',
+			'about.p1': 'We are Andy & Andy, two football fans from Zirndorf (near Nuremberg), preparing for a special journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would take place in the USA, Mexico, and Canada, we have dreamed of following the World Cup live from start to finish.',
+			'about.p2': 'Our mission: <strong>meet football fans from all 211 FIFA countries</strong>, <strong>visit as many World Cup stadiums as possible</strong>, and passionately <strong>support the German national team</strong> all the way to the final. This journey is about more than football - it is about community, cultural exchange, and unforgettable stories we will share.',
+			'about.p3': 'We started with the UEFA Nations League Final Four in Germany in June 2025, followed by the UEFA Under-21 Championship in Slovakia. Every step brings us closer to our big goal: experiencing the 2026 World Cup completely live.',
+			'projects.title': 'Football Club Projects',
 			'sponsors.title': 'Supporter Wall',
-			'sponsors.hint': 'Thanks for your support!',
-			'sponsors.main': 'Main sponsors',
+			'sponsors.hint': 'Thank you for your support and donations to the football clubs of Zirndorf.',
+			'sponsors.main': 'Sponsors',
 			'sponsors.ultra': 'Ultras',
-			'sponsors.supporter': 'Supporters',
+			'sponsors.supporter': 'Supporter',
 			'sponsors.fan': 'Fans',
 			'sponsors.fanNamesLabel': 'Special thanks to:',
 			newsfeedToggle: 'Latest Encounters',
@@ -378,23 +407,23 @@
 			'menu.friendbooksub': 'Unsere Begegnungen mit Fussball Fans aus aller Welt',
 			'menu.projects': 'Unterstuetzte Projekte',
 			'menu.projectssub': 'Wohin gehen die Spenden?',
-			'projects.intro': 'Hier seht ihr transparent, welche Vereinsprojekte unterstuetzt werden und wofuer jede Spende eingesetzt wird.',
-			'donate.p1':'Jeder Euro fließt in die Projekte der Zirndorfer Fussballvereine (Siehe Projekte)! Franconja selbst nimmt kein Geld.',
-			'donate.cta': 'Jetzt Spenden',
-			'donate.title': 'Unterstütze franconja',
+			'projects.intro': 'Die Zirndorfer Fussballvereine stehen vor grossen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende oeffentliche Zuschuesse.<br><br>Mit unserer Spendenaktion moechten wir die Vereine dabei unterstuetzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Massnahmen bei den Vereinen geplant sind.<br><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
+			'donate.p1':'100 % der Spenden gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
+			'donate.cta': 'Deine Spende an unsere Vereine',
+			'donate.title': 'Spende an Vereine',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
 			'subtitle.journey': 'Alles zu unserer Reise zur Fussball Weltmeisterschaft 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>.',
 			'about.title': 'Ueber uns',
-			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans und Freunde aus Nuernberg (Franken, Deutschland), die sich auf eine besondere Reise zur WM 2026 machen. Seit der Ankuendigung 2018, dass das Turnier in den USA, Mexiko und Kanada ausgetragen wird, traeumen wir davon, dieses Ereignis als einmalige Erfahrung zu erleben und ganz in den Wettbewerb einzutauchen.',
-			'about.p2': 'Unsere Mission ist es, <strong>mit Fussballfans aus allen 211 FIFA-Laendern der Welt in Kontakt zu kommen</strong>, <strong>jedes Stadion</strong> der WM 2026 zu besuchen und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale zu begleiten. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, Kultur und unvergessliche Geschichten, die wir teilen werden.',
-			'about.p3': 'Wir starten unser Abenteuer beim UEFA Nations League Final Four in Deutschland im Juni 2025, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns naeher an unser Ziel, die WM 2026 von Anfang bis Ende mitzuerleben.',
-			'projects.title': 'Projekte',
+			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans aus Zirndorf (bei Nuernberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ankuendigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, traeumen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
+			'about.p2': 'Unsere Mission: <strong>Fussballfans aus allen 211 FIFA-Laendern treffen</strong>, <strong>moeglichst viele WM-Stadien besuchen</strong> und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale unterstuetzen. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, kulturellen Austausch und unvergessliche Geschichten, die wir teilen werden.',
+			'about.p3': 'Gestartet sind wir mit dem UEFA Nations League Final Four im Juni 2025 in Deutschland, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns unserem grossen Ziel naeher: die WM 2026 komplett live zu erleben.',
+			'projects.title': 'Projekte der Fussballvereine',
 			'sponsors.title': 'Supporter Wall',
-			'sponsors.hint': 'Danke fuer eure Unterstuetzung!',
-			'sponsors.main': 'Hauptsponsoren',
+			'sponsors.hint': 'Vielen Dank fuer eure Unterstuetzung und Spenden an die Zirndorfer Fussballvereine.',
+			'sponsors.main': 'Sponsoren',
 			'sponsors.ultra': 'Ultras',
-			'sponsors.supporter': 'Supporters',
+			'sponsors.supporter': 'Supporter',
 			'sponsors.fan': 'Fans',
 			'sponsors.fanNamesLabel': 'Danke auch an:',
 			newsfeedToggle: 'Neueste Begegnungen',
@@ -583,15 +612,7 @@
 
 	const renderFanNames = async () => {
 		if (!fanNamesContainer) return;
-		const names = await fetchFanNames();
 		fanNamesContainer.innerHTML = '';
-		if (!names.length) return;
-		names.forEach((name) => {
-			const nameItem = document.createElement('div');
-			nameItem.className = 'fan-name';
-			nameItem.textContent = name;
-			fanNamesContainer.appendChild(nameItem);
-		});
 	};
 
 	const renderSponsors = () => {
@@ -730,6 +751,13 @@
 			newsfeed.classList.add('expanded');
 			if (newsfeedToggle) {
 				newsfeedToggle.style.bottom = "33%";
+			}
+			// Apply mobile start view after modal layout is visible.
+			if (window.matchMedia('(max-width: 768px)').matches && mapPanzoom) {
+				setTimeout(() => {
+					mapPanzoom.zoom(1.3, { animate: false, force: true });
+					mapPanzoom.pan(-1.16068, -66.5507, { animate: false, force: true });
+				}, 60);
 			}
 		}
 	};
@@ -1281,20 +1309,26 @@
 	// Panzoom initialisieren
 	const mapContainer = document.querySelector('.map-container svg');
 	if (mapContainer) {
-		const panzoom = new Panzoom(mapContainer, {
+		mapPanzoom = new Panzoom(mapContainer, {
 			maxScale: 9,
 			minScale: 1,
 			contain: 'outside',
 			step: 1.0,
 		});
 
+		// Mobile initial view preset for world map.
+		if (window.matchMedia('(max-width: 768px)').matches && mapPanzoom) {
+			mapPanzoom.zoom(1.3, { animate: false, force: true });
+			mapPanzoom.pan(-1.16068, -66.5507, { animate: false, force: true });
+		}
+
 		mapContainer.parentElement.addEventListener('wheel', (event) => {
 			event.preventDefault();
-			panzoom.zoomWithWheel(event);
+			mapPanzoom.zoomWithWheel(event);
 		});
 
 		mapContainer.addEventListener('dblclick', () => {
-			panzoom.zoomIn({ animate: true });
+			mapPanzoom.zoomIn({ animate: true });
 		});
 	} else {
 		console.error('SVG-Element nicht gefunden. Bitte Ã¼berprÃ¼fe deinen Selektor oder die HTML-Struktur.');

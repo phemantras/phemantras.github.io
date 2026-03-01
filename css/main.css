@@ -162,7 +162,8 @@ button:focus:not(:focus-visible) {
 	color: #000;
 	font-family: 'SCHABO', Arial, sans-serif;
 	font-size: clamp(1.9rem, 2.6vw, 2.35rem);
-	letter-spacing: 0.03em;
+	letter-spacing: normal;
+	text-shadow: none;
 	cursor: pointer;
 	box-shadow:
 		0 16px 32px rgba(0, 0, 0, 0.28),
@@ -203,6 +204,14 @@ button:focus:not(:focus-visible) {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 		margin-top: 80px;
 	}
+
+	.modal-card {
+		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+	}
+
+	.modal-card:hover {
+		box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3);
+	}
 }
 
 @media (orientation: portrait) {
@@ -224,7 +233,7 @@ button:focus:not(:focus-visible) {
 	gap: 10px;
 	color: #f5f5f5;
 	cursor: pointer;
-	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
 	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 	height: 100%;
 	position: relative;
@@ -238,7 +247,7 @@ button:focus:not(:focus-visible) {
 
 .modal-card:hover {
 	transform: translateY(-6px) scale(1.01);
-	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+	box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3);
 	border-color: rgba(255, 255, 255, 0.16);
 }
 
@@ -611,8 +620,34 @@ button:focus:not(:focus-visible) {
 
 .sponsor-hint {
 	margin: 4px 0 0 0;
-	font-size: 2em;
+	font-size: 1.3em;
 	opacity: 0.9;
+}
+
+.sponsor-toc {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+.sponsor-toc a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px 10px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	background: rgba(255, 255, 255, 0.08);
+	color: #fff;
+	font-family: Arial, sans-serif;
+	font-size: 0.9rem;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.sponsor-toc a:hover {
+	background: rgba(255, 255, 255, 0.16);
 }
 
 .sponsor-section {
@@ -622,6 +657,7 @@ button:focus:not(:focus-visible) {
 	border: 1px solid rgba(255, 255, 255, 0.08);
 	background: rgba(255, 255, 255, 0.04);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	scroll-margin-top: 14px;
 }
 
 .sponsor-tier-heading {
@@ -781,24 +817,70 @@ button:focus:not(:focus-visible) {
 .projects-gallery {
 	margin-top: 12px;
 	margin-bottom: 12px;
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
-	gap: 10px;
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: 8px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	justify-content: flex-start;
+	padding: 10px 18px 12px;
+	scrollbar-width: thin;
+	scroll-snap-type: x proximity;
+	perspective: 900px;
+	-webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+	mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
 	flex: 0 0 auto;
 }
 
 .project-thumb {
 	padding: 0;
 	border: 1px solid rgba(255, 255, 255, 0.16);
-	border-radius: 10px;
+	border-radius: 12px;
 	background: rgba(255, 255, 255, 0.06);
 	overflow: hidden;
 	cursor: pointer;
+	width: 138px;
+	height: 94px;
+	flex: 0 0 auto;
+	position: relative;
+	margin-left: 0;
+	box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+	scroll-snap-align: center;
+	transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+	opacity: 0.8;
+	transform-origin: center center;
+	transform: scale(0.9);
+}
+
+.project-thumb:nth-child(3n+1) {
+	transform: rotateY(24deg) scale(0.84);
+}
+
+.project-thumb:nth-child(3n+2) {
+	transform: rotateY(0deg) scale(1);
+	opacity: 1;
+	z-index: 2;
+}
+
+.project-thumb:nth-child(3n+3) {
+	transform: rotateY(-24deg) scale(0.84);
+}
+
+.project-thumb:first-child {
+	margin-left: 0;
+}
+
+.project-thumb:hover {
+	transform: translateY(-4px) scale(1.03) rotateY(0deg);
+	z-index: 3;
+	opacity: 1;
+	box-shadow: 0 16px 26px rgba(0, 0, 0, 0.44);
 }
 
 .project-thumb img {
 	width: 100%;
-	height: 90px;
+	height: 100%;
 	display: block;
 	object-fit: cover;
 }
@@ -926,7 +1008,7 @@ button:focus:not(:focus-visible) {
 }
 
 .donate-modal h1 {
-	margin-top: 0;
+	margin-top: 25px;
 	text-align: center;
 }
 
@@ -943,7 +1025,6 @@ button:focus:not(:focus-visible) {
 	padding: 14px 16px;
 	border-radius: 12px;
 	font-size: 2.2rem;
-	font-weight: bold;
 	text-decoration: none;
 	color: #0c0f17;
 	background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(230, 230, 230, 0.95));
@@ -984,7 +1065,13 @@ button:focus:not(:focus-visible) {
 	}
 
 	.projects-gallery {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		padding: 6px 10px 8px;
+	}
+
+	.project-thumb {
+		width: 110px;
+		height: 72px;
+		margin-left: 0;
 	}
 
 	.sponsor-logo-wrapper,
@@ -999,11 +1086,11 @@ button:focus:not(:focus-visible) {
 	}
 
 	.modal-card {
-		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 	}
 
 	.modal-card:hover {
-		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+		box-shadow: 0 12px 22px rgba(0, 0, 0, 0.26);
 	}
 }
 
@@ -1534,7 +1621,44 @@ g.country path:hover {
 	}
 
 	.sponsor-grid {
-		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+		gap: 8px;
+	}
+
+	.sponsor-card {
+		padding: 8px 6px 6px 6px;
+		border-radius: 8px;
+	}
+
+	.sponsor-logo-wrapper,
+	.sponsor-card.gold .sponsor-logo-wrapper,
+	.sponsor-card.ultra .sponsor-logo-wrapper,
+	.sponsor-card.main .sponsor-logo-wrapper,
+	.sponsor-card.silver .sponsor-logo-wrapper,
+	.sponsor-card.supporter .sponsor-logo-wrapper,
+	.sponsor-card.bronze .sponsor-logo-wrapper,
+	.sponsor-card.fan .sponsor-logo-wrapper {
+		height: 56px;
+		padding: 2px;
+	}
+
+	.sponsor-name {
+		font-size: 0.75em;
+		letter-spacing: 0;
+		line-height: 1.1;
+	}
+
+	.sponsor-toc {
+		position: sticky;
+		top: 0;
+		z-index: 3;
+		padding: 6px 0 8px;
+		background: linear-gradient(180deg, rgba(18, 21, 31, 0.95), rgba(18, 21, 31, 0.78));
+	}
+
+	.sponsor-toc a {
+		font-size: 0.78rem;
+		padding: 5px 8px;
 	}
 
 	.modal {

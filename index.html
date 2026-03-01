@@ -60,7 +60,7 @@
     <div class="subtitle" data-i18n="subtitle.journey" data-i18n-type="html">Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>.</div>
     </div>
 
-    <button class="donate-button" data-target="donate-modal" data-i18n="donate.cta">Donate now!</button>
+    <button class="donate-button" data-target="donate-modal" data-i18n="donate.cta">Your donation to our clubs</button>
 
         <div class="modal-grid">
       <button class="modal-card" data-target="about-container">
@@ -103,8 +103,8 @@
   <button id="language-toggle" class="language-toggle" aria-label="Switch language">EN</button>
   <div class="modal-overlay"></div>
   <div class="modal donate-modal" id="donate-modal">
-    <h1 data-i18n="donate.title">Support franconja</h1>
-    <p class="card-subtitle" data-i18n="donate.p1">Every euro will go into the projects of the Zirndorf football clubs! Franconja does not take any money.</p>
+    <h1 data-i18n="donate.title">Donate to clubs</h1>
+    <p class="card-subtitle" data-i18n="donate.p1">100% of donations go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.</p>
       
     <div class="donate-actions">
       <a class="donate-link" data-i18n="donate.private" href="https://www.goodcrowd.org/franconja-von-franken-zur-wm-2026" target="_blank" rel="noopener">Privatpersonen</a>
@@ -135,8 +135,8 @@
       <img src="images/about_us.jpg" class="detail-image" />
     </div>
     <div class="modal projects-container" id="projects-container">
-      <h1 data-i18n="projects.title">Projects</h1>
-      <p class="projects-intro" data-i18n="projects.intro">Here you can see exactly which club projects are being supported and where every donation is going.</p>
+      <h1 data-i18n="projects.title">Football Club Projects</h1>
+      <p class="projects-intro" data-i18n="projects.intro" data-i18n-type="html">The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.</p>
       <div class="projects-gallery" id="projects-gallery"></div>
       <div class="projects-tabs" id="projects-club-tabs"></div>
       <div class="projects-panel" id="projects-club-content">
@@ -146,38 +146,33 @@
     <div class="modal sponsors-container" id="sponsors-container">
       <h1 data-i18n="sponsors.title">Sponsors</h1>
       <p class="sponsor-hint" data-i18n="sponsors.hint">Thanks for your support!</p>
+      <nav class="sponsor-toc" aria-label="Sponsor sections">
+        <a href="#sponsor-main" data-i18n="sponsors.main">Sponsors</a>
+        <a href="#sponsor-supporter" data-i18n="sponsors.supporter">Supporter</a>
+        <a href="#sponsor-fan" data-i18n="sponsors.fan">Fans</a>
+      </nav>
 
-      <div class="sponsor-section sponsor-main">
+      <div class="sponsor-section sponsor-main" id="sponsor-main">
         <div class="sponsor-tier-heading">
           <span class="tier-dot main"></span>
-          <h2 data-i18n="sponsors.main">Hauptsponsoren</h2>
+          <h2 data-i18n="sponsors.main">Sponsoren</h2>
         </div>
         <div class="sponsor-grid sponsor-grid-main" data-tier="main"></div>
       </div>
 
-      <div class="sponsor-section sponsor-ultra">
-        <div class="sponsor-tier-heading">
-          <span class="tier-dot ultra"></span>
-          <h2 data-i18n="sponsors.ultra">Ultras</h2>
-        </div>
-        <div class="sponsor-grid" data-tier="ultra"></div>
-      </div>
-
-      <div class="sponsor-section sponsor-supporter">
+      <div class="sponsor-section sponsor-supporter" id="sponsor-supporter">
         <div class="sponsor-tier-heading">
           <span class="tier-dot supporter"></span>
-          <h2 data-i18n="sponsors.supporter">Supporters</h2>
+          <h2 data-i18n="sponsors.supporter">Supporter</h2>
         </div>
         <div class="sponsor-grid" data-tier="supporter"></div>
       </div>
 
-      <div class="sponsor-section sponsor-fan">
+      <div class="sponsor-section sponsor-fan" id="sponsor-fan">
         <div class="sponsor-tier-heading">
           <span class="tier-dot fan"></span>
           <h2 data-i18n="sponsors.fan">Fans</h2>
         </div>
-        <div class="sponsor-grid" data-tier="fan"></div>
-        <div class="fan-names-grid" id="fan-names-grid"></div>
       </div>
     </div>
   <div class="modal map-modal" id="map-modal">
