@@ -622,6 +622,7 @@ button:focus:not(:focus-visible) {
 	margin: 4px 0 0 0;
 	font-size: 1.3em;
 	opacity: 0.9;
+	font-family: Arial, sans-serif;
 }
 
 .sponsor-toc {
