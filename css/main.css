@@ -1824,6 +1824,7 @@ g.country path:hover {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 14px;
 		margin-top: 18px;
+		margin-bottom: 25px;
 		align-content: center;
 	}
 
@@ -1831,6 +1832,7 @@ g.country path:hover {
 		padding: 38px 10px 12px;
 		min-height: 150px;
 		justify-content: flex-end;
+		gap: 0;
 	}
 
 	.modal-card .card-header {
