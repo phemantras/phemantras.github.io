@@ -1,21 +1,16 @@
 {
   "images/projects": [
-    "ballpumpe.png",
     "bank.jpeg",
-    "container_aussen.jpeg",
-    "container_innen.jpeg",
     "Dusche.jpg",
-    "garagentor.jpeg",
     "Materialwagen.png",
-    "platz gesperrt.jpg",
     "rasensprenger.jpg",
-    "sicherungskasten.jpeg",
-    "sitzgelegenheit.png",
     "tor1.jpg",
-    "tor2.jpg"
+    "tor2.jpg",
+    "platz gesperrt.jpg"
   ],
   "images/logos/sponsors": [
     "cmap.svg",
+    "hausverwaltung-brückner.svg",
     "Hilpert-Media.svg",
     "Printmedia.png"
   ],

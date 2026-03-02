@@ -238,6 +238,7 @@ button:focus:not(:focus-visible) {
 	height: 100%;
 	position: relative;
 	overflow: visible;
+	justify-content: flex-end;
 }
 
 .modal-card:focus-visible {
@@ -255,8 +256,11 @@ button:focus:not(:focus-visible) {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 8px;
+	justify-content: flex-end;
+	gap: 6px;
+	padding-bottom: 0;
 	width: 100%;
+	flex: 1;
 }
 
 .card-icon {
@@ -279,7 +283,7 @@ button:focus:not(:focus-visible) {
 
 .card-label {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: center;
 	font-family: 'SCHABO', Verdana, sans-serif;
 	font-size: 1.65rem;
@@ -287,6 +291,7 @@ button:focus:not(:focus-visible) {
 	letter-spacing: 0.01em;
 	min-height: 2.2em;
 	margin-bottom: 0;
+	margin-top: auto;
 }
 
 .card-subtitle {
@@ -297,9 +302,17 @@ button:focus:not(:focus-visible) {
 }
 
 .modal-card .card-subtitle {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
 	color: rgba(255, 255, 255, 0.82);
 	font-weight: 500;
 	line-height: 1.25;
+	min-height: calc(1.25em * 2);
+	max-width: 22ch;
+	margin-left: auto;
+	margin-right: auto;
+	text-wrap: balance;
 }
 
 .bottom-logos {
@@ -1020,6 +1033,34 @@ button:focus:not(:focus-visible) {
 	margin-top: 12px;
 }
 
+.donate-jersey-text {
+	margin-top: 6px;
+	margin-bottom: 10px;
+}
+
+.donate-jersey-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+	margin: 0 0 10px 0;
+}
+
+.donate-jersey-gallery img {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.donate-note {
+	margin: 10px 0 0;
+	font-family: Arial, sans-serif;
+	font-size: 0.82rem;
+	line-height: 1.35;
+	color: rgba(255, 255, 255, 0.7);
+}
+
 .donate-link {
 	display: block;
 	text-align: center;
@@ -1051,6 +1092,14 @@ button:focus:not(:focus-visible) {
 
 	.projects-tabs {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.donate-jersey-gallery {
+		gap: 8px;
+	}
+
+	.donate-note {
+		font-size: 0.76rem;
 	}
 
 	.projects-container {
@@ -1109,7 +1158,7 @@ button:focus:not(:focus-visible) {
 
 .sponsor-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 16px;
 }
 
@@ -1120,6 +1169,13 @@ button:focus:not(:focus-visible) {
 	border: 1px solid rgba(0, 0, 0, 0.18);
 	border-radius: 10px;
 	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+
+.sponsor-card.is-link {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .sponsor-card.gold,
@@ -1149,10 +1205,6 @@ button:focus:not(:focus-visible) {
 	align-items: center;
 	justify-content: center;
 	padding: 6px;
-}
-
-a.sponsor-logo-wrapper {
-	cursor: pointer;
 }
 
 .sponsor-card.gold .sponsor-logo-wrapper,
@@ -1622,7 +1674,7 @@ g.country path:hover {
 	}
 
 	.sponsor-grid {
-		grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 8px;
 	}
 
@@ -1644,9 +1696,12 @@ g.country path:hover {
 	}
 
 	.sponsor-name {
-		font-size: 0.75em;
+		font-size: 0.74em;
 		letter-spacing: 0;
 		line-height: 1.1;
+		white-space: normal;
+		overflow-wrap: anywhere;
+		word-break: break-word;
 	}
 
 	.sponsor-toc {
@@ -1801,7 +1856,7 @@ g.country path:hover {
 		border-radius: 14px;
 		margin: 1px auto 16px;
 		width: max-content;
-		max-width: 92vw;
+		max-width: 95vw;
 	}
 
 	.bottom-logos img {
@@ -1842,13 +1897,18 @@ g.country path:hover {
 	.modal-card .card-label {
 		font-size: 1.3rem;
 		line-height: 1.05;
-		min-height: 2.1em;
+		min-height: auto;
+	}
+
+	.modal-card .card-subtitle[data-i18n="menu.aboutsub"] {
+		max-width: 14ch;
 	}
 
 	.modal-card .card-subtitle {
 		font-size: 0.85rem;
 		line-height: 1.2;
 		margin-top: 4px;
+		min-height: auto;
 	}
 
 	.modal-card .card-icon {

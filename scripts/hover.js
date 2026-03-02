@@ -84,21 +84,27 @@
 		},
 	];
 	const mainSponsorLinks = {
+		'hausverwaltung-brückner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-brückner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-brueckner': 'https://www.hausverwaltung-brueckner.de',
 		cmap_logo: 'https://cmap.shop',
 		cmap: 'https://cmap.shop',
 		'hilpert-media': 'https://hilpert-media.de',
 		printmedia: 'http://my-print-store.de/',
 	};
 	const supporterLinks = {
-		enzo_pulera: 'https://example.com/enzo-pulera',
-		schemm_consulting: 'https://example.com/schemm-consulting',
-		'bäckerei_beck': 'https://example.com/baeckerei-beck',
-		baeckerei_beck: 'https://example.com/baeckerei-beck',
+		enzo_pulera: 'https://share.google/9vnt4oWQMqib09kkB',
+		schemm_consulting: 'https://www.schemm-finance.de/',
+		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
+		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 	};
 	const fallbackSponsorLink = 'https://example.com';
-	const mainSponsorOrder = ['printmedia', 'hilpert-media', 'cmap'];
+	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
 	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'bäckerei_beck', 'baeckerei_beck'];
 	const mainSponsorDisplayNames = {
+		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
+		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
+		'hausverwaltung-brueckner': 'Hausver­waltung Brückner',
 		printmedia: 'Printmedia',
 		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
@@ -179,9 +185,8 @@
 		if (!Object.prototype.hasOwnProperty.call(manifest, dir)) return null;
 		const files = manifest[dir];
 		if (!Array.isArray(files)) return [];
-		return files
-			.filter((name) => typeof name === 'string' && imagePattern.test(name))
-			.sort((a, b) => a.localeCompare(b, 'de'));
+	return files
+		.filter((name) => typeof name === 'string' && imagePattern.test(name));
 	};
 
 	const loadLogoFiles = async (dir) => {
@@ -205,11 +210,11 @@
 	const buildSponsorEntries = (tier, files) => {
 		const entries = files.map((fileName) => {
 			const slug = getSlugFromFilename(fileName);
-			let link = fallbackSponsorLink;
+			let link = null;
 			if (tier === 'main') {
-				link = mainSponsorLinks[slug] || fallbackSponsorLink;
+				link = Object.prototype.hasOwnProperty.call(mainSponsorLinks, slug) ? mainSponsorLinks[slug] : fallbackSponsorLink;
 			} else if (tier === 'supporter') {
-				link = supporterLinks[slug] || fallbackSponsorLink;
+				link = Object.prototype.hasOwnProperty.call(supporterLinks, slug) ? supporterLinks[slug] : fallbackSponsorLink;
 			} else if (tier === 'fan') {
 				link = fallbackSponsorLink;
 			}
@@ -364,17 +369,19 @@
 			'menu.countries': 'Countries',
 			'menu.sponsors': 'Supporter Wall',
 			'menu.sponsorssub': 'Who is taking part in the fundraising campaign?',
-			'menu.friendbook': 'Digital Friendbook',
-			'menu.friendbooksub': 'Our encounters with football fans from all over the world',
-			'menu.projects': 'Supported Projects',
+			'menu.friendbook': 'Friendbook',
+			'menu.friendbooksub': 'Encounters with football fans from all over the world',
+			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
 			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
 			'donate.p1':'100% of donations go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.cta': 'Your donation to our clubs',
+			'donate.p2': 'For donations of €15 or more, you will receive the Franconja jersey as a bonus!*',
+			'donate.note': '*Pickup in 90513 Zirndorf or shipment possible if shipping costs are covered; please message us via email, Instagram, or Facebook.',
+			'donate.cta': 'Donate now & secure your T-Shirt',
 			'donate.title': 'Donate to clubs',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
-			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>.',
+			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans from Zirndorf (near Nuremberg), preparing for a special journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would take place in the USA, Mexico, and Canada, we have dreamed of following the World Cup live from start to finish.',
 			'about.p2': 'Our mission: <strong>meet football fans from all 211 FIFA countries</strong>, <strong>visit as many World Cup stadiums as possible</strong>, and passionately <strong>support the German national team</strong> all the way to the final. This journey is about more than football - it is about community, cultural exchange, and unforgettable stories we will share.',
@@ -403,17 +410,19 @@
 			'menu.countries': 'Laender',
 			'menu.sponsors': 'Supporter Wall',
 			'menu.sponsorssub': 'Wer beteiligt sich an der Spendenaktion?',
-			'menu.friendbook': 'Digitales Friendbook',
-			'menu.friendbooksub': 'Unsere Begegnungen mit Fussball Fans aus aller Welt',
-			'menu.projects': 'Unterstuetzte Projekte',
+			'menu.friendbook': 'Friendbook',
+			'menu.friendbooksub': 'Begegnungen mit Fussball Fans aus aller Welt',
+			'menu.projects': 'Projekte',
 			'menu.projectssub': 'Wohin gehen die Spenden?',
 			'projects.intro': 'Die Zirndorfer Fussballvereine stehen vor grossen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende oeffentliche Zuschuesse.<br><br>Mit unserer Spendenaktion moechten wir die Vereine dabei unterstuetzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Massnahmen bei den Vereinen geplant sind.<br><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
 			'donate.p1':'100 % der Spenden gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
-			'donate.cta': 'Deine Spende an unsere Vereine',
+			'donate.p2': 'Ab einer Spende von 15€ gibts das Franconja Trikot dazu!*',
+			'donate.note': '*Abholung in 90513 Zirndorf oder gegen Übernahme der Versandkosten, bitte Nachricht per Mail, Insta, FB.',
+			'donate.cta': 'Jetzt spenden & T-Shirt sichern',
 			'donate.title': 'Spende an Vereine',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
-			'subtitle.journey': 'Alles zu unserer Reise zur Fussball Weltmeisterschaft 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>.',
+			'subtitle.journey': 'Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>',
 			'about.title': 'Ueber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans aus Zirndorf (bei Nuernberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ankuendigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, traeumen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
 			'about.p2': 'Unsere Mission: <strong>Fussballfans aus allen 211 FIFA-Laendern treffen</strong>, <strong>moeglichst viele WM-Stadien besuchen</strong> und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale unterstuetzen. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, kulturellen Austausch und unvergessliche Geschichten, die wir teilen werden.',
@@ -622,14 +631,18 @@
 			if (!grid) return;
 			grid.innerHTML = '';
 			list.forEach((sponsor) => {
-				const card = document.createElement('div');
-				card.className = `sponsor-card ${tier}`;
-				const wrapperTag = sponsor.link ? 'a' : 'div';
-				const linkAttrs = sponsor.link ? ` href="${sponsor.link}" target="_blank" rel="noopener noreferrer"` : '';
+				const card = document.createElement(sponsor.link ? 'a' : 'div');
+				card.className = `sponsor-card ${tier}${sponsor.link ? ' is-link' : ''}`;
+				if (sponsor.link) {
+					card.href = sponsor.link;
+					card.target = '_blank';
+					card.rel = 'noopener noreferrer';
+					card.setAttribute('aria-label', `${sponsor.name} Website`);
+				}
 				card.innerHTML = `
-					<${wrapperTag} class="sponsor-logo-wrapper"${linkAttrs}>
+					<div class="sponsor-logo-wrapper">
 						<img src="${sponsor.logo}" alt="${sponsor.name} logo">
-					</${wrapperTag}>
+					</div>
 					<p class="sponsor-name">${sponsor.name}</p>
 				`;
 				grid.appendChild(card);
@@ -698,10 +711,9 @@
 		if (!bottomLogosContainer) return;
 		bottomLogosContainer.innerHTML = '';
 		sponsorsData.main.forEach((sponsor) => {
-			const target = sponsor.link || sponsor.logo;
-			const wrapper = document.createElement('a');
-			wrapper.href = target;
+			const wrapper = document.createElement(sponsor.link ? 'a' : 'div');
 			if (sponsor.link) {
+				wrapper.href = sponsor.link;
 				wrapper.target = '_blank';
 				wrapper.rel = 'noopener noreferrer';
 			}
