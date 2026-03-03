@@ -281,6 +281,20 @@ button:focus:not(:focus-visible) {
 	filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.55));
 }
 
+/* Disable tile hover animation on touch input devices */
+@media (hover: none), (pointer: coarse) {
+	.modal-card:hover {
+		transform: none !important;
+		box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24) !important;
+		border-color: rgba(255, 255, 255, 0.08) !important;
+	}
+
+	.modal-card:hover .card-icon {
+		transform: translateX(-50%) !important;
+		filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45)) !important;
+	}
+}
+
 .card-label {
 	display: flex;
 	align-items: flex-end;
