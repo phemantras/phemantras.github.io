@@ -611,7 +611,7 @@
 
 	const fetchFanNames = async () => {
 		try {
-			const response = await fetch('fans/fans.txt');
+			const response = await fetch('fans.txt');
 			if (!response.ok) return [];
 			const text = await response.text();
 			return text
@@ -627,6 +627,16 @@
 	const renderFanNames = async () => {
 		if (!fanNamesContainer) return;
 		fanNamesContainer.innerHTML = '';
+		const fanNames = await fetchFanNames();
+		if (!fanNames.length) return;
+		const fragment = document.createDocumentFragment();
+		fanNames.forEach((name) => {
+			const nameEl = document.createElement('div');
+			nameEl.className = 'fan-name';
+			nameEl.textContent = name;
+			fragment.appendChild(nameEl);
+		});
+		fanNamesContainer.appendChild(fragment);
 	};
 
 	const renderSponsors = () => {
