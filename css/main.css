@@ -265,7 +265,7 @@ button:focus:not(:focus-visible) {
 
 .card-icon {
 	position: absolute;
-	top: -36px;
+	top: -28px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 110px;
@@ -308,7 +308,7 @@ button:focus:not(:focus-visible) {
 	color: rgba(255, 255, 255, 0.82);
 	font-weight: 500;
 	line-height: 1.25;
-	min-height: calc(1.25em * 2);
+	min-height: calc(1.25em * 3);
 	max-width: 22ch;
 	margin-left: auto;
 	margin-right: auto;
@@ -596,15 +596,21 @@ button:focus:not(:focus-visible) {
 	aspect-ratio: 9 / 16;
 	margin: 0 auto 14px;
 	border-radius: 14px;
-	border: 1px dashed rgba(255, 255, 255, 0.45);
-	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	background: rgba(0, 0, 0, 0.45);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-family: Arial, sans-serif;
-	font-size: 1rem;
-	text-align: center;
-	padding: 10px;
+	padding: 0;
+	overflow: hidden;
+}
+
+.about-video {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	background: #000;
 }
 
 .sponsors-container h2 {
@@ -1038,6 +1044,10 @@ button:focus:not(:focus-visible) {
 	margin-bottom: 10px;
 }
 
+.donate-jersey-text:empty {
+	display: none;
+}
+
 .donate-jersey-gallery {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1046,8 +1056,10 @@ button:focus:not(:focus-visible) {
 }
 
 .donate-jersey-gallery img {
-	width: 100%;
+	width: 85%;
 	height: auto;
+	display: block;
+	margin: 0 auto;
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	background: rgba(255, 255, 255, 0.04);
@@ -1856,7 +1868,7 @@ g.country path:hover {
 		border-radius: 14px;
 		margin: 1px auto 16px;
 		width: max-content;
-		max-width: 95vw;
+		max-width: 98vw;
 	}
 
 	.bottom-logos img {
@@ -1908,13 +1920,13 @@ g.country path:hover {
 		font-size: 0.85rem;
 		line-height: 1.2;
 		margin-top: 4px;
-		min-height: auto;
+		min-height: calc(1.2em * 3);
 	}
 
 	.modal-card .card-icon {
 		width: 86px;
 		height: 86px;
-		top: -26px;
+		top: -20px;
 	}
 
 	.modal-grid .modal-card:nth-child(n+3) {

@@ -11,6 +11,20 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="css/main.css" rel="stylesheet">
+  <style>
+    html.i18n-pending [data-i18n] {
+      visibility: hidden;
+    }
+  </style>
+  <script>
+    (() => {
+      const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().startsWith('de') ? 'de' : 'en';
+      const root = document.documentElement;
+      root.lang = lang;
+      root.setAttribute('data-user-lang', lang);
+      if (lang === 'de') root.classList.add('i18n-pending');
+    })();
+  </script>
 </head>
 
 <body>
@@ -57,39 +71,39 @@
       </g>
 
     </svg>
-    <div class="subtitle" data-i18n="subtitle.journey" data-i18n-type="html">Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>.</div>
+    <div class="subtitle" data-i18n="subtitle.journey" data-i18n-type="html">Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion f&uuml;r die Zirndorfer Fu&szlig;ballvereine</strong>.</div>
     </div>
 
-    <button class="donate-button" data-target="donate-modal" data-i18n="donate.cta">Your donation to our clubs</button>
+    <button class="donate-button" data-target="donate-modal" data-i18n="donate.cta">Spende jetzt und sicher dir dein shirt</button>
 
         <div class="modal-grid">
       <button class="modal-card" data-target="about-container">
         <div class="card-header">
           <img class="card-icon" src="images/about.png" alt="About Icon">
-          <span class="card-label" data-i18n="menu.about">About us</span>
+          <span class="card-label" data-i18n="menu.about">&Uuml;ber uns</span>
         </div>
-        <span class="card-subtitle" data-i18n="menu.aboutsub">What are we planning?</span>
+        <span class="card-subtitle" data-i18n="menu.aboutsub">Was haben wir vor?</span>
       </button>
       <button class="modal-card" data-target="projects-container">
         <div class="card-header">
           <img class="card-icon" src="images/projects.png" alt="Projects Icon">
-          <span class="card-label" data-i18n="menu.projects">Supported Projects</span>
+          <span class="card-label" data-i18n="menu.projects">Projekte</span>
         </div>
-        <span class="card-subtitle" data-i18n="menu.projectssub">Where do the donations go?</span>
+        <span class="card-subtitle" data-i18n="menu.projectssub">Wohin gehen die Spenden?</span>
       </button>
       <button class="modal-card" data-target="sponsors-container">
         <div class="card-header">
           <img class="card-icon" src="images/support.png" alt="Support Icon">
           <span class="card-label" data-i18n="menu.sponsors">Supporter Wall</span>
         </div>
-        <span class="card-subtitle" data-i18n="menu.sponsorssub">Who is taking part in the fundraising campaign?</span>
+        <span class="card-subtitle" data-i18n="menu.sponsorssub">Wer beteiligt sich an der Spendenaktion?</span>
       </button>
       <button class="modal-card" data-target="map-modal">
         <div class="card-header">
           <img class="card-icon" src="images/friendbook.png" alt="Friendbook Icon">
-          <span class="card-label" data-i18n="menu.friendbook">Digital Friendbook</span>
+          <span class="card-label" data-i18n="menu.friendbook">Friendbook</span>
         </div>
-        <span class="card-subtitle" data-i18n="menu.friendbooksub">Our encounters with football fans from all over the world</span>
+        <span class="card-subtitle" data-i18n="menu.friendbooksub">Begegnungen mit Fu&szlig;ball Fans aus aller Welt</span>
       </button>
     </div>
   </div>
@@ -104,8 +118,8 @@
   <div class="modal-overlay"></div>
   <div class="modal donate-modal" id="donate-modal">
     <h1 data-i18n="donate.title">Donate to clubs</h1>
-    <p class="card-subtitle" data-i18n="donate.p1">100% of donations go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.</p>
-    <p class="card-subtitle donate-jersey-text" data-i18n="donate.p2">For donations of €15 or more, you will receive the Franconja jersey as a bonus!*</p>
+    <p class="card-subtitle" data-i18n="donate.p1">For donations of &euro;15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.</p>
+    <p class="card-subtitle donate-jersey-text" data-i18n="donate.p2"></p>
     <div class="donate-jersey-gallery" aria-label="Franconja jersey preview">
       <img src="images/jersey_front.png" alt="Franconja jersey front">
       <img src="images/jersey_back.png" alt="Franconja jersey back">
@@ -115,12 +129,15 @@
       <a class="donate-link" data-i18n="donate.private" href="https://www.goodcrowd.org/franconja-von-franken-zur-wm-2026" target="_blank" rel="noopener">Privatpersonen</a>
       <a class="donate-link" data-i18n="donate.business" href="mailto:franconja26@gmail.com" aria-label="E-Mail an franconja senden">Unternehmen</a>
     </div>
-    <p class="donate-note" data-i18n="donate.note">*Pickup in 90513 Zirndorf or shipment possible if shipping costs are covered; please message us via email, Instagram, or Facebook.</p>
+    <p class="donate-note" data-i18n="donate.note">*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.</p>
   </div>
   <div class="modal about-container" id="about-container">
       <h1 data-i18n="about.title">About us</h1>
-      <div class="about-video-placeholder" aria-label="Video placeholder">
-        Hochformat-Video Platzhalter
+      <div class="about-video-placeholder" aria-label="About video">
+        <video class="about-video" controls preload="none" playsinline poster="images/FrancoNJa_v2_poster.jpg">
+          <source src="images/FrancoNJa_v2_web.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
       <p data-i18n="about.p1">
         We are Andy & Andy, two football fans and friends from Nuremberg, Franconia, Germany, embarking on a unique

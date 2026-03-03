@@ -39,12 +39,12 @@
 			name: 'ASV Weinzierlein',
 			logo: 'images/logos/clubs/ww.png',
 			projects: [
-				{ de: 'Anschaffung Ballpumpe und Materialwaegen', en: 'Purchase of a ball pump and material carts' },
+				{ de: 'Anschaffung Ballpumpe und Materialw\u00e4gen', en: 'Purchase of a ball pump and material carts' },
 				{ de: 'Erneuerung Kabinenlueftung', en: 'Renewal of locker room ventilation' },
-				{ de: 'Kauf von Trikotsatz fuer Jugend', en: 'Purchase of a youth jersey set' },
-				{ de: 'Anschaffung neuer Trainingsanzuege fuer Jugend', en: 'Purchase of new tracksuits for youth teams' },
+				{ de: 'Kauf von Trikotsatz f\u00fcr Jugend', en: 'Purchase of a youth jersey set' },
+				{ de: 'Anschaffung neuer Trainingsanz\u00fcge f\u00fcr Jugend', en: 'Purchase of new tracksuits for youth teams' },
 				{ de: 'Renovierung Duschen', en: 'Renovation of showers' },
-				{ de: 'Sanierung Rasenflaechen', en: 'Renovation of pitch turf areas' },
+				{ de: 'Sanierung Rasenfl\u00e4chen', en: 'Renovation of pitch turf areas' },
 			],
 		},
 		{
@@ -52,12 +52,12 @@
 			name: 'ASV Zirndorf',
 			logo: 'images/logos/clubs/asv.png',
 			projects: [
-				{ de: 'Anschaffung Tore fuer Jugend', en: 'Purchase of goals for youth teams' },
-				{ de: 'Anschaffung neuer Fussbaelle', en: 'Purchase of new footballs' },
+				{ de: 'Anschaffung Tore f\u00fcr Jugend', en: 'Purchase of goals for youth teams' },
+				{ de: 'Anschaffung neuer Fu\u00dfb\u00e4lle', en: 'Purchase of new footballs' },
 				{ de: 'Kauf von Kleinfeld Markierungen', en: 'Purchase of small-sided field markings' },
 				{ de: 'Modernisierung Flutlicht', en: 'Modernization of floodlights' },
-				{ de: 'Anschaffung Maehroboter', en: 'Purchase of a robotic mower' },
-				{ de: 'Kauf von Verkaufshuette fuer Jugend', en: 'Purchase of a sales hut for youth teams' },
+				{ de: 'Anschaffung M\u00e4hroboter', en: 'Purchase of a robotic mower' },
+				{ de: 'Kauf von Verkaufsh\u00fctte f\u00fcr Jugend', en: 'Purchase of a sales hut for youth teams' },
 			],
 		},
 		{
@@ -65,10 +65,10 @@
 			name: 'SV Weiherhof',
 			logo: 'images/logos/clubs/svw.png',
 			projects: [
-				{ de: 'Anschaffung Funino Tore fuer Jugend', en: 'Purchase of Funino goals for youth teams' },
-				{ de: 'Kauf von Fussbaellen fuer Herren und Jugend Mannschaften', en: 'Purchase of footballs for senior and youth teams' },
-				{ de: 'Anschaffung Bodenfraese mit Anbaugeraeten', en: 'Purchase of a tiller with attachments' },
-				{ de: 'Kauf von Trikotsaetze fuer Herren Mannschaft', en: 'Purchase of jersey sets for the senior team' },
+				{ de: 'Anschaffung Funino Tore f\u00fcr Jugend', en: 'Purchase of Funino goals for youth teams' },
+				{ de: 'Kauf von Fu\u00dfb\u00e4llen f\u00fcr Herren- und Jugendmannschaften', en: 'Purchase of footballs for senior and youth teams' },
+				{ de: 'Anschaffung Bodenfr\u00e4se mit Anbauger\u00e4ten', en: 'Purchase of a tiller with attachments' },
+				{ de: 'Kauf von Trikots\u00e4tzen f\u00fcr Herrenmannschaft', en: 'Purchase of jersey sets for the senior team' },
 			],
 		},
 		{
@@ -76,7 +76,7 @@
 			name: 'TSV Zirndorf',
 			logo: 'images/logos/clubs/tsv.png',
 			projects: [
-				{ de: 'Anschaffung Minitore fuer Jugend', en: 'Purchase of mini goals for youth teams' },
+				{ de: 'Anschaffung Minitore f\u00fcr Jugend', en: 'Purchase of mini goals for youth teams' },
 				{ de: 'Modernisierung Flutlicht', en: 'Modernization of floodlights' },
 				{ de: 'Renovierung Verkaufsraum und Kueche', en: 'Renovation of sales room and kitchen' },
 				{ de: 'Durchfuehrung Jugend Feriencamp', en: 'Organization of a youth holiday camp' },
@@ -374,10 +374,10 @@
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
 			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.p1':'100% of donations go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.p2': 'For donations of €15 or more, you will receive the Franconja jersey as a bonus!*',
-			'donate.note': '*Pickup in 90513 Zirndorf or shipment possible if shipping costs are covered; please message us via email, Instagram, or Facebook.',
-			'donate.cta': 'Donate now & secure your T-Shirt',
+			'donate.p1':'For donations of €15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
+			'donate.p2': '',
+			'donate.note': '*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.',
+			'donate.cta': 'Donate now and secure your T-Shirt',
 			'donate.title': 'Donate to clubs',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
@@ -405,31 +405,31 @@
 			statsLabelCountries: 'Countries',
 		},
 		de: {
-			'menu.about': 'Ueber uns',
+			'menu.about': '\u00dcber uns',
 			'menu.aboutsub': 'Was haben wir vor?',
-			'menu.countries': 'Laender',
+			'menu.countries': 'L\u00e4nder',
 			'menu.sponsors': 'Supporter Wall',
 			'menu.sponsorssub': 'Wer beteiligt sich an der Spendenaktion?',
 			'menu.friendbook': 'Friendbook',
-			'menu.friendbooksub': 'Begegnungen mit Fussball Fans aus aller Welt',
+			'menu.friendbooksub': 'Begegnungen mit Fu\u00dfball Fans aus aller Welt',
 			'menu.projects': 'Projekte',
 			'menu.projectssub': 'Wohin gehen die Spenden?',
-			'projects.intro': 'Die Zirndorfer Fussballvereine stehen vor grossen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende oeffentliche Zuschuesse.<br><br>Mit unserer Spendenaktion moechten wir die Vereine dabei unterstuetzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Massnahmen bei den Vereinen geplant sind.<br><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
-			'donate.p1':'100 % der Spenden gehen direkt an die Zirndorfer Fussballvereine und werden gleichmaessig auf alle Vereine und ihre Projekte verteilt.',
-			'donate.p2': 'Ab einer Spende von 15€ gibts das Franconja Trikot dazu!*',
-			'donate.note': '*Abholung in 90513 Zirndorf oder gegen Übernahme der Versandkosten, bitte Nachricht per Mail, Insta, FB.',
-			'donate.cta': 'Jetzt spenden & T-Shirt sichern',
+			'projects.intro': 'Die Zirndorfer Fu\u00dfballvereine stehen vor gro\u00dfen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende \u00f6ffentliche Zusch\u00fcsse.<br><br>Mit unserer Spendenaktion m\u00f6chten wir die Vereine dabei unterst\u00fctzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Ma\u00dfnahmen bei den Vereinen geplant sind.<br><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fu\u00dfballvereine und werden gleichm\u00e4\u00dfig auf alle Vereine und ihre Projekte verteilt.',
+			'donate.p1':'Ab einer Spende von 15\u20ac erhaltet ihr unser francoNJa T-Shirt dazu.* 100 % der Spenden gehen zu gleichen Teilen direkt an die Vereine.',
+			'donate.p2': '',
+			'donate.note': '*Abholung in 90513 Zirndorf oder Versand bei \u00dcbernahme der Versandkosten. Bitte kontaktiert uns per Mail, Instagram oder Facebook. Nur solange der Vorrat reicht.',
+			'donate.cta': 'Jetzt spenden und T-Shirt sichern',
 			'donate.title': 'Spende an Vereine',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
-			'subtitle.journey': 'Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion fuer die Zirndorfer Fussballvereine</strong>',
-			'about.title': 'Ueber uns',
-			'about.p1': 'Wir sind Andy & Andy, zwei Fussballfans aus Zirndorf (bei Nuernberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ankuendigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, traeumen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
-			'about.p2': 'Unsere Mission: <strong>Fussballfans aus allen 211 FIFA-Laendern treffen</strong>, <strong>moeglichst viele WM-Stadien besuchen</strong> und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale unterstuetzen. Diese Reise ist mehr als nur Fussball - es geht um Gemeinschaft, kulturellen Austausch und unvergessliche Geschichten, die wir teilen werden.',
-			'about.p3': 'Gestartet sind wir mit dem UEFA Nations League Final Four im Juni 2025 in Deutschland, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns unserem grossen Ziel naeher: die WM 2026 komplett live zu erleben.',
-			'projects.title': 'Projekte der Fussballvereine',
+			'subtitle.journey': 'Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion f\u00fcr die Zirndorfer Fu\u00dfballvereine</strong>',
+			'about.title': '\u00dcber uns',
+			'about.p1': 'Wir sind Andy & Andy, zwei Fu\u00dfballfans aus Zirndorf (bei N\u00fcrnberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ank\u00fcndigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, tr\u00e4umen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
+			'about.p2': 'Unsere Mission: <strong>Fu\u00dfballfans aus allen 211 FIFA-L\u00e4ndern treffen</strong>, <strong>m\u00f6glichst viele WM-Stadien besuchen</strong> und die <strong>deutsche Nationalmannschaft</strong> leidenschaftlich bis ins Finale unterst\u00fctzen. Diese Reise ist mehr als nur Fu\u00dfball - es geht um Gemeinschaft, kulturellen Austausch und unvergessliche Geschichten, die wir teilen werden.',
+			'about.p3': 'Gestartet sind wir mit dem UEFA Nations League Final Four im Juni 2025 in Deutschland, gefolgt von der U21-Europameisterschaft in der Slowakei. Jeder Schritt bringt uns unserem gro\u00dfen Ziel n\u00e4her: die WM 2026 komplett live zu erleben.',
+			'projects.title': 'Projekte der Fu\u00dfballvereine',
 			'sponsors.title': 'Supporter Wall',
-			'sponsors.hint': 'Vielen Dank fuer eure Unterstuetzung und Spenden an die Zirndorfer Fussballvereine.',
+			'sponsors.hint': 'Vielen Dank f\u00fcr eure Unterst\u00fctzung und Spenden an die Zirndorfer Fu\u00dfballvereine.',
 			'sponsors.main': 'Sponsoren',
 			'sponsors.ultra': 'Ultras',
 			'sponsors.supporter': 'Supporter',
@@ -443,10 +443,13 @@
 			detailLabelBestGame: 'Bestes Spiel',
 			detailLabelChampions: 'WM26-Sieger',
 			languageToggleLabel: 'Sprache wechseln',
-			statsLabelCountries: 'Laender',
+			statsLabelCountries: 'L\u00e4nder',
 		},
 	};
 	const detectLanguage = () => {
+		const preset = (document.documentElement.getAttribute('data-user-lang') || document.documentElement.lang || '').toLowerCase();
+		if (preset.startsWith('de')) return 'de';
+		if (preset.startsWith('en')) return 'en';
 		const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
 		return lang.startsWith('de') ? 'de' : 'en';
 	};
@@ -493,15 +496,15 @@
 				subject: 'Bitte nehmt Kontakt mit mir auf',
 				body: [
 					'Liebes franconja-Team,',
-					'ich moechte mit meinem Unternehmen gerne an eurer Aktion teilnehmen.',
-					'Bitte nehmt Kontakt mit mir auf! (unzutreffendes bitte streichen):',
+					'ich m\u00f6chte mit meinem Unternehmen gerne an eurer Aktion teilnehmen.',
+					'Bitte nehmt Kontakt mit mir auf! (Unzutreffendes bitte streichen):',
 					'Mail:',
 					'Telefon:',
 					'instagram:',
 					'',
 					'Mit dem Senden dieser E-Mail stimme ich der Verarbeitung der oben angegebenen Daten zum Zweck der Kontaktaufnahme zu.',
 					'',
-					'Freundliche Gruesse',
+					'Freundliche Gr\u00fc\u00dfe',
 				].join('\n'),
 			},
 			en: {
@@ -581,6 +584,8 @@
 		updateStats();
 		renderVisitedCountriesList();
 		renderProjects();
+		document.documentElement.classList.remove('i18n-pending');
+		document.documentElement.classList.add('i18n-ready');
 	};
 	if (languageToggle) {
 		languageToggle.addEventListener('click', () => {
@@ -1117,12 +1122,12 @@
 			}
 		}
 		// Tooltip-Logik
-		const showTooltip = (e) => {
+		const showTooltip = (e, touchInteraction = false) => {
 			const displayName = getLocalizedCountryName(name, root);
 			tooltip.textContent = displayName;
 			tooltip.style.opacity = '1';
 
-			if (isTouchDevice) {
+			if (touchInteraction) {
 				tooltip.classList.add('touch');
 				// Die Position bleibt durch die CSS-Klasse festgelegt.
 			} else {
@@ -1141,11 +1146,11 @@
 			tooltip.style.opacity = '0';
 		};
 
-		// Tooltip fÃ¼r alle GerÃ¤te
+		// Tooltip fuer alle Geraete: auf Hybrid-Devices darf Hover nicht deaktiviert werden.
 		if (isTouchDevice) {
 			country.addEventListener('touchstart', (e) => {
 				e.preventDefault();
-				showTooltip(e.touches[0]);
+				showTooltip(e.touches[0], true);
 				detailElement.style.display = 'none';
 			});
 
@@ -1153,11 +1158,11 @@
 				e.preventDefault();
 				hideTooltip();
 			});
-		} else {
-			country.addEventListener('mouseover', showTooltip);
-			country.addEventListener('mousemove', showTooltip);
-			country.addEventListener('mouseout', hideTooltip);
 		}
+
+		country.addEventListener('mouseenter', (e) => showTooltip(e, false));
+		country.addEventListener('mousemove', (e) => showTooltip(e, false));
+		country.addEventListener('mouseleave', hideTooltip);
 
 		// Klick-Logik nur fÃ¼r visited-LÃ¤nder und ihre Subregionen
 		if (country.classList.contains('visited') || country.closest('.visited')) {
@@ -1343,7 +1348,7 @@
 			mapPanzoom.zoomIn({ animate: true });
 		});
 	} else {
-		console.error('SVG-Element nicht gefunden. Bitte Ã¼berprÃ¼fe deinen Selektor oder die HTML-Struktur.');
+		console.error('SVG-Element nicht gefunden. Bitte \u00fcberpr\u00fcfe deinen Selektor oder die HTML-Struktur.');
 	}
 
 	// Detail-Element schliessen, wenn ausserhalb geklickt wird
