@@ -97,10 +97,12 @@
 		schemm_consulting: 'https://www.schemm-finance.de/',
 		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
+		'90fünfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
+		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 	};
 	const fallbackSponsorLink = 'https://example.com';
 	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'bäckerei_beck', 'baeckerei_beck'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
