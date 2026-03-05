@@ -1391,6 +1391,17 @@ g.country path:hover {
 }
 
 /* Stelle sicher, dass der Hover-Effekt auch für Subregionen funktioniert */
+.country.is-hovered,
+.country.is-hovered path,
+g.country.is-hovered path {
+	fill: #ff9800 !important;
+	stroke: #000000;
+}
+
+/* Helper circles are only visual aids in the source map and should not capture hover. */
+.circlexx {
+	pointer-events: none;
+}
 
 
 .tooltip {

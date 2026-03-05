@@ -1,6 +1,15 @@
 ﻿document.addEventListener('DOMContentLoaded', async () => {
 	const tooltip = document.getElementById('tooltip');
-	const countries = document.querySelectorAll('.country');
+	const worldmap = document.getElementById('worldmap');
+	if (worldmap) {
+		// Normalize country roots: if a titled group contains country paths, treat the group as country root.
+		worldmap.querySelectorAll('g[title]').forEach((group) => {
+			if (!group.classList.contains('country') && group.querySelector('.country')) {
+				group.classList.add('country');
+			}
+		});
+	}
+	let countries = Array.from(document.querySelectorAll('.country'));
 	const detailElement = document.createElement('div');
 	const startScreen = document.querySelector('.start-screen');
 	const titleContainer = document.querySelector('.title-container');
@@ -842,13 +851,8 @@
 
 	// LÃ¤nder markieren, die in der JSON aufgelistet sind
 	encounteredCountries.forEach((countryName) => {
-		const countryElement = Array.from(countries).find(
-			(country) => country.getAttribute('title') === countryName
-		);
-		if (countryElement) {
-			countryElement.classList.add('visited');
-
-		}
+		const matchingElements = countries.filter((country) => country.getAttribute('title') === countryName);
+		matchingElements.forEach((countryElement) => countryElement.classList.add('visited'));
 	});
 
 	updateStats();
@@ -961,20 +965,23 @@
 	const processedCountryRoots = new Set();
 
 	countries.forEach(country => {
-		const name = country.getAttribute('title');
+		// Determine country root. If a subpath has its own country title different from the parent
+		// group title (e.g. Kosovo inside Serbia group), treat the subpath as its own root.
+		const parentGroup = country.tagName.toLowerCase() === 'g' ? null : (country.closest && country.closest('g.country'));
+		const countryTitle = (country.getAttribute && country.getAttribute('title') || '').trim();
+		const parentTitle = (parentGroup && parentGroup.getAttribute && parentGroup.getAttribute('title') || '').trim();
+		const hasOwnCountryIdentity = Boolean(countryTitle) && countryTitle !== parentTitle;
+		const root = country.tagName.toLowerCase() === 'g'
+			? country
+			: ((parentGroup && !hasOwnCountryIdentity) ? parentGroup : country);
+		const rootName = root.getAttribute('title') || '';
+		const name = country.getAttribute('title') || rootName;
+		const isFirstCountryForRoot = !processedCountryRoots.has(root);
+		if (isFirstCountryForRoot) {
+			processedCountryRoots.add(root);
+		}
 
-		// Determine the root element representing the whole country: the <g.country> if present, otherwise the element itself
-		const root = country.tagName.toLowerCase() === 'g' ? country : (country.closest && country.closest('g.country')) || country;
-
-		// If we've already processed this root (another subpath mapped to it), skip to avoid duplicate gradients
-		if (processedCountryRoots.has(root)) return;
-
-		// Mark root as processed (even if we don't generate a gradient for it)
-		processedCountryRoots.add(root);
-
-		const rootName = root.getAttribute('title');
-
-		if (!hostCountries.includes(rootName) && root.classList && root.classList.contains('visited')) {
+		if (isFirstCountryForRoot && !hostCountries.includes(rootName) && root.classList && root.classList.contains('visited')) {
 			// ZufÃ¤llige gedeckte Farbe generieren
 			const generateRandomColor = () => {
 				const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
@@ -1134,10 +1141,17 @@
 			}
 		}
 		// Tooltip-Logik
+		const setRootHovered = (active) => {
+			if (root && root.classList) {
+				root.classList.toggle('is-hovered', Boolean(active));
+			}
+		};
+
 		const showTooltip = (e, touchInteraction = false) => {
-			const displayName = getLocalizedCountryName(name, root);
+			const displayName = getLocalizedCountryName(name, country);
 			tooltip.textContent = displayName;
 			tooltip.style.opacity = '1';
+			setRootHovered(true);
 
 			if (touchInteraction) {
 				tooltip.classList.add('touch');
@@ -1154,8 +1168,13 @@
 			}
 		};
 
-		const hideTooltip = () => {
+		const hideTooltip = (e) => {
+			// If pointer moves within the same country root, keep tooltip/hover state.
+			if (e && e.relatedTarget && root && root.contains && root.contains(e.relatedTarget)) {
+				return;
+			}
 			tooltip.style.opacity = '0';
+			setRootHovered(false);
 		};
 
 		// Tooltip fuer alle Geraete: auf Hybrid-Devices darf Hover nicht deaktiviert werden.
@@ -1179,8 +1198,14 @@
 		// Klick-Logik nur fÃ¼r visited-LÃ¤nder und ihre Subregionen
 		if (country.classList.contains('visited') || country.closest('.visited')) {
 			const clickHandler = async (id = null) => {
-				// Finde das Hauptland, entweder das Element selbst oder das Ã¼bergeordnete g-Element
-				const mainElement = country.tagName.toLowerCase() === 'g' ? country : country.closest('g.country');
+				// Resolve main country consistently with root logic (supports independent subpaths like Kosovo)
+				const clickParentGroup = country.tagName.toLowerCase() === 'g' ? null : country.closest('g.country');
+				const clickCountryTitle = (country.getAttribute('title') || '').trim();
+				const clickParentTitle = (clickParentGroup && clickParentGroup.getAttribute('title') || '').trim();
+				const clickHasOwnCountryIdentity = Boolean(clickCountryTitle) && clickCountryTitle !== clickParentTitle;
+				const mainElement = country.tagName.toLowerCase() === 'g'
+					? country
+					: ((clickParentGroup && !clickHasOwnCountryIdentity) ? clickParentGroup : country);
 				const mainCountry = mainElement ? mainElement.getAttribute('title') : name;
 				const encounters = encountersByCountry[mainCountry] || [];
 				detailElement.innerHTML = '';
@@ -1211,7 +1236,7 @@
 						}
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
-                                <img src="encounters/${name}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
+                                <img src="encounters/${mainCountry}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
                                 <p><strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}</p>
                                 <p><strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}</p>
                                 <p><strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}</p>
@@ -1230,7 +1255,7 @@
 						});
 
 						const thumbnail = document.createElement('img');
-						thumbnail.src = `encounters/${name}/${encounter.image}`;
+						thumbnail.src = `encounters/${mainCountry}/${encounter.image}`;
 						thumbnail.alt = encounter.name;
 						thumbnail.classList.add('thumbnail');
 
@@ -1260,7 +1285,7 @@
 					const pText = document.createElement('p');
 
 
-					img.src = `encounters/${name}/${encounter.image}`;
+					img.src = `encounters/${mainCountry}/${encounter.image}`;
 					img.alt = encounter.name;
 					img.className = 'detail-image';
 					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounter.name}`;
@@ -1310,6 +1335,12 @@
 			if (country.tagName.toLowerCase() === 'g') {
 				const subPaths = country.querySelectorAll('path');
 				subPaths.forEach(path => {
+					// Skip forwarding for subpaths that are independent countries with own title.
+					const pathTitle = (path.getAttribute('title') || '').trim();
+					const groupTitle = (country.getAttribute('title') || '').trim();
+					if (path.classList.contains('country') && pathTitle && pathTitle !== groupTitle) {
+						return;
+					}
 					// Stelle sicher, dass der Pfad die country-Klasse hat
 
 
