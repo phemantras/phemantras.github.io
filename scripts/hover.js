@@ -104,6 +104,7 @@
 	const supporterLinks = {
 		enzo_pulera: 'https://share.google/9vnt4oWQMqib09kkB',
 		schemm_consulting: 'https://www.schemm-finance.de/',
+		arnulf_rocks: 'https://www.arnulf.rocks/',
 		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fünfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
@@ -111,7 +112,7 @@
 	};
 	const fallbackSponsorLink = 'https://example.com';
 	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
