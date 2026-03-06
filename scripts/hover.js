@@ -498,7 +498,15 @@
 		// Single elements (e.g. path) that have title and visited but are not inside a visited group
 		const singles = Array.from(document.querySelectorAll('.country[title].visited')).filter(el => el.tagName.toLowerCase() !== 'g');
 		const uniqueSingles = singles.filter(el => !el.closest('g.country[title].visited'));
-		return [...groups, ...uniqueSingles];
+		const combined = [...groups, ...uniqueSingles];
+		const uniqueByTitle = new Map();
+		combined.forEach((el) => {
+			const title = (el.getAttribute('title') || '').trim();
+			if (!title) return;
+			// Keep first occurrence (groups are added first), avoid double counting (e.g. France + gf path).
+			if (!uniqueByTitle.has(title)) uniqueByTitle.set(title, el);
+		});
+		return Array.from(uniqueByTitle.values());
 	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
 	const buildBusinessMailtoHref = () => {
