@@ -124,6 +124,9 @@
 		cmap: 'CMAP',
 		cmap_logo: 'CMAP',
 	};
+	const supporterDisplayNames = {
+		antonio: 'Antonio Stile Italiano',
+	};
 	const logoDirectories = {
 		main: 'images/logos/sponsors',
 		ultra: 'images/logos/ultra',
@@ -233,7 +236,11 @@
 				link = fallbackSponsorLink;
 			}
 			return {
-				name: tier === 'main' ? (mainSponsorDisplayNames[slug] || getNameFromFilename(fileName)) : getNameFromFilename(fileName),
+				name: tier === 'main'
+					? (mainSponsorDisplayNames[slug] || getNameFromFilename(fileName))
+					: tier === 'supporter'
+						? (supporterDisplayNames[slug] || getNameFromFilename(fileName))
+						: getNameFromFilename(fileName),
 				logo: `${logoDirectories[tier]}/${fileName}`,
 				link,
 				slug,
