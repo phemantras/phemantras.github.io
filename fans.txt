@@ -8,3 +8,4 @@ Ivo Driesser
 Yannick Gelbe
 Martin Stubner
 Stefan Popp
+Andre Hofer
