@@ -9,3 +9,7 @@ Yannick Gelbe
 Martin Stubner
 Stefan Popp
 Andre Hofer
+Fabian Klotz
+Steffen Koch
+Maximilian Eder
+Marcus Spath
