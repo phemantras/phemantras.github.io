@@ -30,6 +30,7 @@
 	let mapPanzoom = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
+	let activeEncounterDetail = null;
 	const sponsorsData = { main: [], ultra: [], supporter: [], fan: [] };
 	const sponsorsContainer = document.querySelector('.sponsors-container');
 	const bottomLogosContainer = document.getElementById('bottom-logos');
@@ -521,6 +522,55 @@
 		return Array.from(uniqueByTitle.values());
 	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
+	const encounterValueTranslations = {
+		de: {
+			wcc: {
+				Argentina: 'Argentinien',
+				Australia: 'Australien',
+				Brazil: 'Brasilien',
+				Colombia: 'Kolumbien',
+				England: 'England',
+				France: 'Frankreich',
+				Germany: 'Deutschland',
+				Hungary: 'Ungarn',
+				Portugal: 'Portugal',
+				Romania: 'Rumänien',
+				Spain: 'Spanien',
+			},
+			location: {
+				Munich: 'München',
+				Zilina: 'Žilina',
+			},
+		},
+	};
+	const translateEncounterFallbackValue = (field, value) => {
+		if (typeof value !== 'string' || !value) return '';
+		if (currentLanguage !== 'de') return value;
+		const fieldTranslations = encounterValueTranslations.de[field];
+		if (!fieldTranslations) return value;
+		return value.replace(/Argentina|Australia|Brazil|Colombia|England|France|Germany|Hungary|Portugal|Romania|Spain|Munich|Zilina/g, (match) => fieldTranslations[match] || match);
+	};
+	const getLocalizedEncounterField = (encounter, field) => {
+		if (!encounter) return '';
+		const localizedKey = `${field}-${currentLanguage}`;
+		if (currentLanguage !== 'en' && Object.prototype.hasOwnProperty.call(encounter, localizedKey)) {
+			const localizedValue = encounter[localizedKey];
+			if (typeof localizedValue === 'string' && localizedValue) return localizedValue;
+		}
+		const defaultValue = encounter[field];
+		return typeof defaultValue === 'string' ? translateEncounterFallbackValue(field, defaultValue) : '';
+	};
+	const getEncounterDisplayData = (encounter, countryElement = null) => ({
+		name: getLocalizedEncounterField(encounter, 'name'),
+		location: getLocalizedEncounterField(encounter, 'location'),
+		date: encounter?.date || '',
+		favClub: getLocalizedEncounterField(encounter, 'favClub'),
+		favPlayer: getLocalizedEncounterField(encounter, 'favPlayer'),
+		favGame: getLocalizedEncounterField(encounter, 'favGame'),
+		wcc: getLocalizedEncounterField(encounter, 'wcc'),
+		text: getLocalizedEncounterField(encounter, 'text'),
+		country: getLocalizedCountryName(encounter?.country || '', countryElement),
+	});
 	const buildBusinessMailtoHref = () => {
 		const mailContentByLanguage = {
 			de: {
@@ -615,6 +665,10 @@
 		updateStats();
 		renderVisitedCountriesList();
 		renderProjects();
+		populateNewsfeed();
+		if (activeEncounterDetail?.countryElement && typeof activeEncounterDetail.countryElement.clickHandler === 'function') {
+			activeEncounterDetail.countryElement.clickHandler(activeEncounterDetail.encounterId);
+		}
 		document.documentElement.classList.remove('i18n-pending');
 		document.documentElement.classList.add('i18n-ready');
 	};
@@ -637,6 +691,7 @@
 	detailCloseBtn.addEventListener('click', (event) => {
 		// Nur das Encounter-Detail schließen, Friendbook offen lassen.
 		event.stopPropagation();
+		activeEncounterDetail = null;
 		detailElement.style.display = 'none';
 	});
 
@@ -790,6 +845,7 @@
 		document.body.classList.remove('modal-open');
 		if (startScreen) startScreen.classList.remove('hidden');
 		if (newsfeed) newsfeed.classList.remove('expanded');
+		activeEncounterDetail = null;
 		detailElement.style.display = 'none';
 	};
 
@@ -854,7 +910,7 @@
 // Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
-			const response = await fetch('encounters/encounters.json');
+			const response = await fetch('encounters/encounters.json', { cache: 'no-store' });
 			if (response.ok) {
 				return await response.json(); // JSON-Inhalt zurÃ¼ckgeben
 			} else {
@@ -915,7 +971,7 @@
 			try {
 				// URL-encode countryName to avoid issues with spaces / special chars
 				const url = `encounters/${encodeURIComponent(countryName)}/data.json`;
-				const response = await fetch(url);
+				const response = await fetch(url, { cache: 'no-store' });
 				if (response.ok) {
 					const data = await response.json();
 					encountersByCountry[countryName] = data.encounters.map(encounter => ({
@@ -939,19 +995,21 @@
 	};
 
 	// ðŸ”¹ Funktion: Newsfeed mit Encounters anzeigen
-	const populateNewsfeed = () => {
+	function populateNewsfeed() {
 		newsfeedList.innerHTML = ''; // Liste leeren
 
 		allEncounters.forEach(encounter => {
+			const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country) || null;
+			const encounterData = getEncounterDisplayData(encounter, countryElement);
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
 
 			// ðŸ”¹ Thumbnail + Kurzinfo
 			listItem.innerHTML = `
-		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
+		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounterData.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
-		                <p><strong>${encounter.date} ${encounter.name} </strong></p>
-						<p>${encounter.location}, ${encounter.country}</p>
+		                <p><strong>${encounterData.date} ${encounterData.name} </strong></p>
+						<p>${encounterData.location}, ${encounterData.country}</p>
 		            </div>
 		        `;
 
@@ -969,7 +1027,7 @@
 
 			newsfeedList.appendChild(listItem);
 		});
-	};
+	}
 
 	// ðŸ”¹ Encounters abrufen und Newsfeed befÃ¼llen
 	await fetchEncounters();
@@ -1228,18 +1286,20 @@
 					: ((clickParentGroup && !clickHasOwnCountryIdentity) ? clickParentGroup : country);
 				const mainCountry = mainElement ? mainElement.getAttribute('title') : name;
 				const encounters = encountersByCountry[mainCountry] || [];
+				activeEncounterDetail = { countryElement: country, encounterId: id };
 				detailElement.innerHTML = '';
 				detailElement.appendChild(detailCloseBtn);
 				const title = document.createElement('p');
 				title.className = 'encounter-title';
-				title.textContent = mainCountry;
+				title.textContent = getLocalizedCountryName(mainCountry, mainElement || country);
 				detailElement.appendChild(title);
 
 				if (encounters.length > 1) {
 					const encounterList = document.createElement('div');
 					encounterList.classList.add('encounter-list');
 
-					encounters.forEach((encounter, index) => {
+					encounters.forEach((encounter) => {
+						const encounterData = getEncounterDisplayData(encounter, mainElement || country);
 						const encounterItem = document.createElement('div');
 						encounterItem.classList.add('encounter-item');
 
@@ -1256,12 +1316,12 @@
 						}
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
-                                <img src="encounters/${mainCountry}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-                                <p><strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}</p>
-                                <p><strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}</p>
-                                <p><strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}</p>
-                                <p><strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}</p>
-                                <p class="story">${encounter.text}</p>
+                                <img src="encounters/${mainCountry}/${encounter.image}" alt="${encounterData.name}" class="detail-image" />
+                                <p><strong>${t('detailLabelClub')}:</strong> ${encounterData.favClub}</p>
+                                <p><strong>${t('detailLabelPlayer')}:</strong> ${encounterData.favPlayer}</p>
+                                <p><strong>${t('detailLabelBestGame')}:</strong> ${encounterData.favGame}</p>
+                                <p><strong>${t('detailLabelChampions')}:</strong> ${encounterData.wcc}</p>
+                                <p class="story">${encounterData.text}</p>
                             `;
 
 						toggleButton.addEventListener('click', () => {
@@ -1276,12 +1336,12 @@
 
 						const thumbnail = document.createElement('img');
 						thumbnail.src = `encounters/${mainCountry}/${encounter.image}`;
-						thumbnail.alt = encounter.name;
+						thumbnail.alt = encounterData.name;
 						thumbnail.classList.add('thumbnail');
 
 						const info = document.createElement('div');
 						info.classList.add('encounter-info');
-						info.innerHTML = `<strong>${encounter.name}</strong> <p>${encounter.location}</p><p>${encounter.date}</p>`;
+						info.innerHTML = `<strong>${encounterData.name}</strong> <p>${encounterData.location}</p><p>${encounterData.date}</p>`;
 
 						encounterItem.appendChild(toggleButton);
 						encounterItem.appendChild(thumbnail);
@@ -1294,6 +1354,7 @@
 					detailElement.appendChild(encounterList);
 				} else if (encounters.length === 1) {
 					const encounter = encounters[0];
+					const encounterData = getEncounterDisplayData(encounter, mainElement || country);
 
 					const img = document.createElement('img');
 					const pName = document.createElement('p');
@@ -1306,20 +1367,20 @@
 
 
 					img.src = `encounters/${mainCountry}/${encounter.image}`;
-					img.alt = encounter.name;
+					img.alt = encounterData.name;
 					img.className = 'detail-image';
-					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounter.name}`;
-					pLocation.innerHTML = `<strong>${t('detailLabelLocation')}:</strong> ${encounter.location}`;
-					favClub.innerHTML = `<strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}`;
-					favPlayer.innerHTML = `<strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}`;
-					favGame.innerHTML = `<strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}`;
-					wcc.innerHTML = `<strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}`;
+					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounterData.name}`;
+					pLocation.innerHTML = `<strong>${t('detailLabelLocation')}:</strong> ${encounterData.location}`;
+					favClub.innerHTML = `<strong>${t('detailLabelClub')}:</strong> ${encounterData.favClub}`;
+					favPlayer.innerHTML = `<strong>${t('detailLabelPlayer')}:</strong> ${encounterData.favPlayer}`;
+					favGame.innerHTML = `<strong>${t('detailLabelBestGame')}:</strong> ${encounterData.favGame}`;
+					wcc.innerHTML = `<strong>${t('detailLabelChampions')}:</strong> ${encounterData.wcc}`;
 					pText.classList.add('story');
-					pText.textContent = encounter.text;
+					pText.textContent = encounterData.text;
 
 					const pDate = document.createElement('p');
 					pDate.classList.add('date')
-					pDate.innerHTML = `${encounter.date}`;
+					pDate.innerHTML = `${encounterData.date}`;
 
 					detailElement.appendChild(img);
 					detailElement.appendChild(pName);
