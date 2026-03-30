@@ -107,16 +107,18 @@
 		schemm_consulting: 'https://www.schemm-finance.de/',
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
+		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
 		antonio: 'http://www.antonio-stile-italiano.de/',
 		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fünfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
+		pizza_deluxe: 'https://www.pizza-deluxe-zirndorf.de/',
 		'das gute zirndorfer': 'https://www.zirndorfer.de/',
 	};
 	const fallbackSponsorLink = 'https://example.com';
 	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'das gute zirndorfer'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
 		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
@@ -129,6 +131,8 @@
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
 		der_kleine_grieche: 'Der kleine Grieche',
+		mosena: 'Eiscafe Mosena',
+		pizza_deluxe: 'Pizza de Luxe',
 	};
 	const logoDirectories = {
 		main: 'images/logos/sponsors',
