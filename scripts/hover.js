@@ -94,8 +94,6 @@
 		},
 	];
 	const mainSponsorLinks = {
-		'hausverwaltung-bru�ckner': 'https://www.hausverwaltung-brueckner.de',
-		'hausverwaltung-br�ckner': 'https://www.hausverwaltung-brueckner.de',
 		'hausverwaltung-brueckner': 'https://www.hausverwaltung-brueckner.de',
 		cmap_logo: 'https://cmap.shop',
 		cmap: 'https://cmap.shop',
@@ -109,20 +107,16 @@
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
 		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
 		antonio: 'http://www.antonio-stile-italiano.de/',
-		'b�ckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
-		'90f�nfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		pizza_deluxe: 'https://www.pizza-deluxe-zirndorf.de/',
 		'das gute zirndorfer': 'https://www.zirndorfer.de/',
 	};
-	const fallbackSponsorLink = 'https://example.com';
-	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const fallbackSponsorLink = null;
+	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'antonio', 'baeckerei_beck', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
-		'hausverwaltung-bru�ckner': 'Hausverwaltung Br�ckner',
-		'hausverwaltung-br�ckner': 'Hausverwaltung Br�ckner',
-		'hausverwaltung-brueckner': 'Hausverwaltung Br�ckner',
+		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
 		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
@@ -133,6 +127,7 @@
 		der_kleine_grieche: 'Der kleine Grieche',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
+		'das gute zirndorfer': 'Das Gute Zirndorfer',
 	};
 	const logoDirectories = {
 		main: 'images/logos/sponsors',
@@ -153,8 +148,19 @@
 			.trim();
 
 	const getSlugFromFilename = (fileName) => fileName.replace(/\.[^/.]+$/, '').toLowerCase();
-	const getMainSponsorLookupSlug = (slug) =>
-		hausverwaltungPattern.test(slug) ? 'hausverwaltung-brueckner' : slug;
+	const getCanonicalSponsorSlug = (slug, tier) => {
+		const lower = String(slug || '').toLowerCase();
+		if (tier === 'main' && hausverwaltungPattern.test(lower)) return 'hausverwaltung-brueckner';
+		if (tier === 'supporter') {
+			if (/^b.*ckerei_beck$/u.test(lower)) return 'baeckerei_beck';
+			if (/^90f.*nfdreizehn$/u.test(lower)) return '90fuenfdreizehn';
+		}
+		return lower
+			.replace(/\u00e4|ä/g, 'ae')
+			.replace(/\u00f6|ö/g, 'oe')
+			.replace(/\u00fc|ü/g, 'ue')
+			.replace(/ß/g, 'ss');
+	};
 
 	const getGitHubRepoFromHostname = () => {
 		const host = window.location.hostname.toLowerCase();
@@ -236,25 +242,23 @@
 
 	const buildSponsorEntries = (tier, files) => {
 		const entries = files.map((fileName) => {
-			const slug = getSlugFromFilename(fileName);
-			const mainLookupSlug = tier === 'main' ? getMainSponsorLookupSlug(slug) : slug;
+			const rawSlug = getSlugFromFilename(fileName);
+			const lookupSlug = getCanonicalSponsorSlug(rawSlug, tier);
 			let link = null;
 			if (tier === 'main') {
-				link = Object.prototype.hasOwnProperty.call(mainSponsorLinks, mainLookupSlug) ? mainSponsorLinks[mainLookupSlug] : fallbackSponsorLink;
+				link = mainSponsorLinks[lookupSlug] || fallbackSponsorLink;
 			} else if (tier === 'supporter') {
-				link = Object.prototype.hasOwnProperty.call(supporterLinks, slug) ? supporterLinks[slug] : fallbackSponsorLink;
-			} else if (tier === 'fan') {
-				link = fallbackSponsorLink;
+				link = supporterLinks[lookupSlug] || fallbackSponsorLink;
 			}
 			return {
 				name: tier === 'main'
-					? (mainSponsorDisplayNames[mainLookupSlug] || getNameFromFilename(fileName))
+					? (mainSponsorDisplayNames[lookupSlug] || getNameFromFilename(fileName))
 					: tier === 'supporter'
-						? (supporterDisplayNames[slug] || getNameFromFilename(fileName))
+						? (supporterDisplayNames[lookupSlug] || getNameFromFilename(fileName))
 						: getNameFromFilename(fileName),
-				logo: `${logoDirectories[tier]}/${fileName}`,
+				logo: logoDirectories[tier] + '/' + fileName,
 				link,
-				slug: mainLookupSlug,
+				slug: lookupSlug,
 			};
 		});
 		if (tier === 'main') {
@@ -279,7 +283,6 @@
 		}
 		return entries;
 	};
-
 	const loadSponsorsData = async () => {
 		const [mainFiles, ultraFiles, supporterFiles, fanFiles] = await Promise.all([
 			loadLogoFiles(logoDirectories.main),
@@ -406,7 +409,7 @@
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
 			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.p1':'For donations of �15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
+			'donate.p1':'For donations of \u20ac15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
 			'donate.p2': '',
 			'donate.note': '*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.',
 			'donate.cta': 'Donate now and secure your T-Shirt',
@@ -697,7 +700,7 @@
 	detailCloseBtn.className = 'close-btn';
 	detailCloseBtn.innerHTML = '&times;';
 	detailCloseBtn.addEventListener('click', (event) => {
-		// Nur das Encounter-Detail schlie�en, Friendbook offen lassen.
+		// Nur das Encounter-Detail schließen, Friendbook offen lassen.
 		event.stopPropagation();
 		activeEncounterDetail = null;
 		detailElement.style.display = 'none';
@@ -1003,7 +1006,7 @@
 	};
 
 	//Funktion: Newsfeed mit Encounters anzeigen
-	const populateNewsfeed = () => {
+	function populateNewsfeed() {
 		newsfeedList.innerHTML = ''; // Liste leeren
 
 		allEncounters.forEach(encounter => {
@@ -1012,7 +1015,7 @@
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
 
-			// 🔹 Thumbnail + Kurzinfo
+			// Thumbnail + Kurzinfo
 			listItem.innerHTML = `
 		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounterData.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
@@ -1021,7 +1024,7 @@
 		            </div>
 		        `;
 
-			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
+			// Beim Klicken auf das Newsfeed-Item -> Land auf der Karte öffnen
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
 				openModal('map-modal');
@@ -1037,7 +1040,7 @@
 		});
 	}
 
-	// 🔹 Encounters abrufen und Newsfeed befüllen
+	// Encounters abrufen und Newsfeed befüllen
 	await fetchEncounters();
 
 	// Statistik aktualisieren
@@ -1089,7 +1092,6 @@
 			// Use a stable id based on the root element (prefer element id, fall back to title)
 			const gradientIdBase = root.id || rootName || Math.random().toString(36).slice(2, 8);
 			// Namespace generated ids to avoid colliding with hand-authored defs
-			const gradientId = `ph-gradient-${gradientIdBase}`;
 			const svg = document.getElementById('worldmap');
 			if (!svg) {
 				console.error('SVG element not found');
@@ -1146,7 +1148,7 @@
 			gradient.appendChild(stop1);
 			gradient.appendChild(stop2);
 			// Before appending/applying a generated gradient, detect if this root (or any of its
-			// subpaths) already uses a hand-authored fill referencing a url(#...) — in that case
+			// subpaths) already uses a hand-authored fill referencing a url(#...) - in that case
 			// we must NOT generate or apply our gradient to avoid visual overlays (fixes Germany).
 			const hasAuthorDefinedFill = (() => {
 				try {
@@ -1180,7 +1182,7 @@
 			})();
 
 			if (hasAuthorDefinedFill) {
-				// Do not create/apply a generated gradient for this root — respect hand-authored styling.
+				// Do not create/apply a generated gradient for this root - respect hand-authored styling.
 				return;
 			}
 
@@ -1194,7 +1196,7 @@
 			// Wende den Gradient auf das Root-Element (Gruppe) und alle seine Subregionen an
 			const finalGradientId = safeGradientId;
 			if (root.tagName.toLowerCase() === 'g') {
-				// Für Länder mit Subregionen — apply only to subpaths that don't already have an
+				// Für Länder mit Subregionen - apply only to subpaths that don't already have an
 				// author-defined url(...) fill to avoid overwriting/overlaying hand-authored styles.
 				root.querySelectorAll('path').forEach(path => {
 					// If the rendered/computed fill of the path already references a url(...), skip it.
@@ -1503,3 +1505,5 @@
 		}
 	});
 });
+
+

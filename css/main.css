@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
 	font-family: 'SCHABO';
 	src: url('/fonts/SCHABO-Condensed.otf') format('opentype');
 	font-weight: normal;
@@ -1774,8 +1774,9 @@ g.country.is-hovered path {
 		letter-spacing: 0;
 		line-height: 1.1;
 		white-space: normal;
-		overflow-wrap: anywhere;
-		word-break: break-word;
+		overflow-wrap: normal;
+		word-break: normal;
+		hyphens: manual;
 	}
 
 	.sponsor-toc {
@@ -2057,3 +2058,4 @@ g.country.is-hovered path {
 		transform: translate(-50%, -50%) scale(1);
 	}
 }
+
