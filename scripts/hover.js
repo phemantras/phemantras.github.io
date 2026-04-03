@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
 	const tooltip = document.getElementById('tooltip');
 	const worldmap = document.getElementById('worldmap');
 	if (worldmap) {
@@ -93,8 +93,8 @@
 		},
 	];
 	const mainSponsorLinks = {
-		'hausverwaltung-brückner': 'https://www.hausverwaltung-brueckner.de',
-		'hausverwaltung-brückner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-bru�ckner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-br�ckner': 'https://www.hausverwaltung-brueckner.de',
 		'hausverwaltung-brueckner': 'https://www.hausverwaltung-brueckner.de',
 		cmap_logo: 'https://cmap.shop',
 		cmap: 'https://cmap.shop',
@@ -107,19 +107,19 @@
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
 		antonio: 'http://www.antonio-stile-italiano.de/',
-		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
+		'b�ckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
-		'90fünfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
+		'90f�nfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		'das gute zirndorfer': 'https://www.zirndorfer.de/',
 	};
 	const fallbackSponsorLink = 'https://example.com';
-	const mainSponsorOrder = ['hausverwaltung-brückner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'das gute zirndorfer'];
+	const mainSponsorOrder = ['hausverwaltung-bru�ckner', 'hausverwaltung-br�ckner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'antonio', 'b�ckerei_beck', 'baeckerei_beck', '90f�nfdreizehn', '90fuenfdreizehn', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
-		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
-		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
-		'hausverwaltung-brueckner': 'Hausver­waltung Brückner',
+		'hausverwaltung-bru�ckner': 'Hausver�waltung Br�ckner',
+		'hausverwaltung-br�ckner': 'Hausver�waltung Br�ckner',
+		'hausverwaltung-brueckner': 'Hausver�waltung Br�ckner',
 		printmedia: 'Printmedia',
 		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
@@ -396,8 +396,8 @@
 			'menu.friendbooksub': 'Encounters with football fans from all over the world',
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
-			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.p1':'For donations of €15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
+			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
+			'donate.p1':'For donations of �15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
 			'donate.p2': '',
 			'donate.note': '*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.',
 			'donate.cta': 'Donate now and secure your T-Shirt',
@@ -437,7 +437,7 @@
 			'menu.friendbooksub': 'Begegnungen mit Fu\u00dfball Fans aus aller Welt',
 			'menu.projects': 'Projekte',
 			'menu.projectssub': 'Wohin gehen die Spenden?',
-			'projects.intro': 'Die Zirndorfer Fu\u00dfballvereine stehen vor gro\u00dfen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende \u00f6ffentliche Zusch\u00fcsse.<br><br>Mit unserer Spendenaktion m\u00f6chten wir die Vereine dabei unterst\u00fctzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Ma\u00dfnahmen bei den Vereinen geplant sind.<br><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fu\u00dfballvereine und werden gleichm\u00e4\u00dfig auf alle Vereine und ihre Projekte verteilt.',
+			'projects.intro': 'Die Zirndorfer Fu\u00dfballvereine stehen vor gro\u00dfen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende \u00f6ffentliche Zusch\u00fcsse.<br><br>Mit unserer Spendenaktion m\u00f6chten wir die Vereine dabei unterst\u00fctzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Ma\u00dfnahmen bei den Vereinen geplant sind.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fu\u00dfballvereine und werden gleichm\u00e4\u00dfig auf alle Vereine und ihre Projekte verteilt.',
 			'donate.p1':'Ab einer Spende von 15\u20ac erhaltet ihr unser francoNJa T-Shirt dazu.* 100 % der Spenden gehen zu gleichen Teilen direkt an die Vereine.',
 			'donate.p2': '',
 			'donate.note': '*Abholung in 90513 Zirndorf oder Versand bei \u00dcbernahme der Versandkosten. Bitte kontaktiert uns per Mail, Instagram oder Facebook. Nur solange der Vorrat reicht.',
@@ -630,12 +630,12 @@
 	detailElement.classList.add('detail-element');
 	document.body.appendChild(detailElement);
 
-	// SchlieÃŸen-Button fÃ¼r das Detail-Element (einmal anlegen)
+	// Schließen-Button für das Detail-Element (einmal anlegen)
 	const detailCloseBtn = document.createElement('button');
 	detailCloseBtn.className = 'close-btn';
 	detailCloseBtn.innerHTML = '&times;';
 	detailCloseBtn.addEventListener('click', (event) => {
-		// Nur das Encounter-Detail schließen, Friendbook offen lassen.
+		// Nur das Encounter-Detail schlie�en, Friendbook offen lassen.
 		event.stopPropagation();
 		detailElement.style.display = 'none';
 	});
@@ -851,12 +851,12 @@
 		});
 	}
 
-// Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
+// Funktion: Liste der verfügbaren Länder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
 			const response = await fetch('encounters/encounters.json');
 			if (response.ok) {
-				return await response.json(); // JSON-Inhalt zurÃ¼ckgeben
+				return await response.json(); // JSON-Inhalt zurückgeben
 			} else {
 				console.error('Fehler beim Abrufen der encounters.json');
 			}
@@ -866,10 +866,10 @@
 		return [];
 	};
 
-	// LÃ¤nder aus der JSON-Datei abrufen
+	// Länder aus der JSON-Datei abrufen
 	const encounteredCountries = await getEncounteredCountries();
 
-	// LÃ¤nder markieren, die in der JSON aufgelistet sind
+	// Länder markieren, die in der JSON aufgelistet sind
 	encounteredCountries.forEach((countryName) => {
 		const matchingElements = countries.filter((country) => country.getAttribute('title') === countryName);
 		matchingElements.forEach((countryElement) => countryElement.classList.add('visited'));
@@ -931,14 +931,14 @@
 				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
 			}
 		}
-		// Flache Liste fÃ¼r Newsfeed
+		// Flache Liste für Newsfeed
 		allEncounters = Object.values(encountersByCountry).flat();
 		// Nach Datum sortieren
 		allEncounters.sort((a, b) => new Date(b.date) - new Date(a.date));
 		populateNewsfeed();
 	};
 
-	// ðŸ”¹ Funktion: Newsfeed mit Encounters anzeigen
+	// 🔹 Funktion: Newsfeed mit Encounters anzeigen
 	const populateNewsfeed = () => {
 		newsfeedList.innerHTML = ''; // Liste leeren
 
@@ -946,7 +946,7 @@
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
 
-			// ðŸ”¹ Thumbnail + Kurzinfo
+			// 🔹 Thumbnail + Kurzinfo
 			listItem.innerHTML = `
 		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
@@ -955,7 +955,7 @@
 		            </div>
 		        `;
 
-			// ðŸ”¹ Beim Klicken auf das Newsfeed-Item â†’ Land auf der Karte Ã¶ffnen
+			// 🔹 Beim Klicken auf das Newsfeed-Item → Land auf der Karte öffnen
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
 				openModal('map-modal');
@@ -971,13 +971,13 @@
 		});
 	};
 
-	// ðŸ”¹ Encounters abrufen und Newsfeed befÃ¼llen
+	// 🔹 Encounters abrufen und Newsfeed befüllen
 	await fetchEncounters();
 
 	// Statistik aktualisieren
 	updateStats();
 
-	// GastgeberlÃ¤nder, die ihre Farbe nicht Ã¤ndern
+	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
 
 
@@ -1002,10 +1002,10 @@
 		}
 
 		if (isFirstCountryForRoot && !hostCountries.includes(rootName) && root.classList && root.classList.contains('visited')) {
-			// ZufÃ¤llige gedeckte Farbe generieren
+			// Zufällige gedeckte Farbe generieren
 			const generateRandomColor = () => {
 				const r = Math.random() * 150 + 50; // Gedecktes Rot (50-200)
-				const g = Math.random() * 150 + 50; // Gedecktes GrÃ¼n (50-200)
+				const g = Math.random() * 150 + 50; // Gedecktes Grün (50-200)
 				const b = Math.random() * 150 + 50; // Gedecktes Blau (50-200)
 				return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
 			};
@@ -1080,7 +1080,7 @@
 			gradient.appendChild(stop1);
 			gradient.appendChild(stop2);
 			// Before appending/applying a generated gradient, detect if this root (or any of its
-			// subpaths) already uses a hand-authored fill referencing a url(#...) â€” in that case
+			// subpaths) already uses a hand-authored fill referencing a url(#...) — in that case
 			// we must NOT generate or apply our gradient to avoid visual overlays (fixes Germany).
 			const hasAuthorDefinedFill = (() => {
 				try {
@@ -1114,7 +1114,7 @@
 			})();
 
 			if (hasAuthorDefinedFill) {
-				// Do not create/apply a generated gradient for this root â€” respect hand-authored styling.
+				// Do not create/apply a generated gradient for this root — respect hand-authored styling.
 				return;
 			}
 
@@ -1128,7 +1128,7 @@
 			// Wende den Gradient auf das Root-Element (Gruppe) und alle seine Subregionen an
 			const finalGradientId = safeGradientId;
 			if (root.tagName.toLowerCase() === 'g') {
-				// FÃ¼r LÃ¤nder mit Subregionen â€” apply only to subpaths that don't already have an
+				// Für Länder mit Subregionen — apply only to subpaths that don't already have an
 				// author-defined url(...) fill to avoid overwriting/overlaying hand-authored styles.
 				root.querySelectorAll('path').forEach(path => {
 					// If the rendered/computed fill of the path already references a url(...), skip it.
@@ -1215,7 +1215,7 @@
 		country.addEventListener('mousemove', (e) => showTooltip(e, false));
 		country.addEventListener('mouseleave', hideTooltip);
 
-		// Klick-Logik nur fÃ¼r visited-LÃ¤nder und ihre Subregionen
+		// Klick-Logik nur für visited-Länder und ihre Subregionen
 		if (country.classList.contains('visited') || country.closest('.visited')) {
 			const clickHandler = async (id = null) => {
 				// Resolve main country consistently with root logic (supports independent subpaths like Kosovo)
@@ -1243,7 +1243,7 @@
 						const encounterItem = document.createElement('div');
 						encounterItem.classList.add('encounter-item');
 
-						// "+" Button fÃ¼r Aufklappen
+						// "+" Button für Aufklappen
 						const toggleButton = document.createElement('button');
 						toggleButton.textContent = "+";
 						toggleButton.classList.add('expand-btn');
@@ -1351,7 +1351,7 @@
 				});
 			}
 
-			// Wenn dies ein LÃ¤nder-Element mit Subregionen ist, fÃ¼ge Event-Listener zu allen Pfaden hinzu
+			// Wenn dies ein Länder-Element mit Subregionen ist, füge Event-Listener zu allen Pfaden hinzu
 			if (country.tagName.toLowerCase() === 'g') {
 				const subPaths = country.querySelectorAll('path');
 				subPaths.forEach(path => {
@@ -1364,7 +1364,7 @@
 					// Stelle sicher, dass der Pfad die country-Klasse hat
 
 
-					// FÃ¼ge die Event-Listener hinzu
+					// Füge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
 						tooltip.style.opacity = '0';
 						const parentGroup = e.currentTarget.closest('g.country');
