@@ -117,9 +117,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const mainSponsorOrder = ['hausverwaltung-bru¨ckner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
 	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
-		'hausverwaltung-bru¨ckner': 'Hausver­waltung Brückner',
-		'hausverwaltung-brückner': 'Hausver­waltung Brückner',
-		'hausverwaltung-brueckner': 'Hausver­waltung Brückner',
+		'hausverwaltung-bru¨ckner': 'Hausverwaltung Brückner',
+		'hausverwaltung-brückner': 'Hausverwaltung Brückner',
+		'hausverwaltung-brueckner': 'Hausverwaltung Brückner',
 		printmedia: 'Printmedia',
 		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	const imagePattern = /\.(png|jpe?g|svg|webp|gif|avif)$/i;
 	let assetManifestPromise = null;
+	const hausverwaltungPattern = /hausverwaltung.*br.*ckner/u;
 
 	const getNameFromFilename = (fileName) =>
 		fileName
@@ -147,6 +148,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 			.trim();
 
 	const getSlugFromFilename = (fileName) => fileName.replace(/\.[^/.]+$/, '').toLowerCase();
+	const getMainSponsorLookupSlug = (slug) =>
+		hausverwaltungPattern.test(slug) ? 'hausverwaltung-brueckner' : slug;
 
 	const getGitHubRepoFromHostname = () => {
 		const host = window.location.hostname.toLowerCase();
@@ -229,9 +232,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const buildSponsorEntries = (tier, files) => {
 		const entries = files.map((fileName) => {
 			const slug = getSlugFromFilename(fileName);
+			const mainLookupSlug = tier === 'main' ? getMainSponsorLookupSlug(slug) : slug;
 			let link = null;
 			if (tier === 'main') {
-				link = Object.prototype.hasOwnProperty.call(mainSponsorLinks, slug) ? mainSponsorLinks[slug] : fallbackSponsorLink;
+				link = Object.prototype.hasOwnProperty.call(mainSponsorLinks, mainLookupSlug) ? mainSponsorLinks[mainLookupSlug] : fallbackSponsorLink;
 			} else if (tier === 'supporter') {
 				link = Object.prototype.hasOwnProperty.call(supporterLinks, slug) ? supporterLinks[slug] : fallbackSponsorLink;
 			} else if (tier === 'fan') {
@@ -239,13 +243,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 			}
 			return {
 				name: tier === 'main'
-					? (mainSponsorDisplayNames[slug] || getNameFromFilename(fileName))
+					? (mainSponsorDisplayNames[mainLookupSlug] || getNameFromFilename(fileName))
 					: tier === 'supporter'
 						? (supporterDisplayNames[slug] || getNameFromFilename(fileName))
 						: getNameFromFilename(fileName),
 				logo: `${logoDirectories[tier]}/${fileName}`,
 				link,
-				slug,
+				slug: mainLookupSlug,
 			};
 		});
 		if (tier === 'main') {
