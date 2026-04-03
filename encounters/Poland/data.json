@@ -11,7 +11,9 @@
             "favPlayer": "Ronaldo Nazario",
             "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
             "text": "",
-            "text-de": ""
+            "text-de": "",
+            "location-de": "Zilina",
+            "wcc-de": "Spanien"
         },
         {
             "name": "Iro",
@@ -23,7 +25,9 @@
             "favPlayer": "Bruno Fernandes",
             "favGame": "Pogoń Szczecin - Wisła Kraków (1:2, Cup Final 2024)",
             "text": "",
-            "text-de": ""
+            "text-de": "",
+            "location-de": "Zilina",
+            "wcc-de": "Spanien"
         }
     ]
 }

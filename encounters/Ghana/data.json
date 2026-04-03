@@ -1,0 +1,19 @@
+{
+    "title": "Ghana",
+    "encounters": [
+        {
+            "name": "Atta & Kojo",
+            "location": "Stuttgart",
+            "location-de": "Stuttgart",
+            "date": "2026-03-30",
+            "image": "atta_kojo.jpg",
+            "wcc": "Ghana",
+            "wcc-de": "Ghana",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Mohammed Kudus",
+            "favGame": "AC Milan - Liverpool FC (2:3, UCL Final 2005)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+ï»¿document.addEventListener('DOMContentLoaded', async () => {
 	const tooltip = document.getElementById('tooltip');
 	const worldmap = document.getElementById('worldmap');
 	if (worldmap) {
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	let mapPanzoom = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
+	let activeEncounterDetail = null;
 	const sponsorsData = { main: [], ultra: [], supporter: [], fan: [] };
 	const sponsorsContainer = document.querySelector('.sponsors-container');
 	const bottomLogosContainer = document.getElementById('bottom-logos');
@@ -93,8 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 		},
 	];
 	const mainSponsorLinks = {
-		'hausverwaltung-bru¨ckner': 'https://www.hausverwaltung-brueckner.de',
-		'hausverwaltung-brückner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-bruï¿½ckner': 'https://www.hausverwaltung-brueckner.de',
+		'hausverwaltung-brï¿½ckner': 'https://www.hausverwaltung-brueckner.de',
 		'hausverwaltung-brueckner': 'https://www.hausverwaltung-brueckner.de',
 		cmap_logo: 'https://cmap.shop',
 		cmap: 'https://cmap.shop',
@@ -106,20 +107,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 		schemm_consulting: 'https://www.schemm-finance.de/',
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
+		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
 		antonio: 'http://www.antonio-stile-italiano.de/',
-		'bäckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
+		'bï¿½ckerei_beck': 'https://share.google/VFKI9jyzyDghQxHtV',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
-		'90fünfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
+		'90fï¿½nfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
+		pizza_deluxe: 'https://www.pizza-deluxe-zirndorf.de/',
 		'das gute zirndorfer': 'https://www.zirndorfer.de/',
 	};
 	const fallbackSponsorLink = 'https://example.com';
-	const mainSponsorOrder = ['hausverwaltung-bru¨ckner', 'hausverwaltung-brückner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'antonio', 'bäckerei_beck', 'baeckerei_beck', '90fünfdreizehn', '90fuenfdreizehn', 'das gute zirndorfer'];
+	const mainSponsorOrder = ['hausverwaltung-bruÌˆckner', 'hausverwaltung-brÃ¼ckner', 'hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'antonio', 'bÃ¤ckerei_beck', 'baeckerei_beck', '90fÃ¼nfdreizehn', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
-		'hausverwaltung-bru¨ckner': 'Hausverwaltung Brückner',
-		'hausverwaltung-brückner': 'Hausverwaltung Brückner',
-		'hausverwaltung-brueckner': 'Hausverwaltung Brückner',
+		'hausverwaltung-bruï¿½ckner': 'Hausverwaltung Brï¿½ckner',
+		'hausverwaltung-brï¿½ckner': 'Hausverwaltung Brï¿½ckner',
+		'hausverwaltung-brueckner': 'Hausverwaltung Brï¿½ckner',
 		printmedia: 'Printmedia',
 		'hilpert-media': 'Hilpert Media',
 		cmap: 'CMAP',
@@ -128,6 +131,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
 		der_kleine_grieche: 'Der kleine Grieche',
+		mosena: 'Eiscafe Mosena',
+		pizza_deluxe: 'Pizza de Luxe',
 	};
 	const logoDirectories = {
 		main: 'images/logos/sponsors',
@@ -401,7 +406,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
 			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
-			'donate.p1':'For donations of €15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
+			'donate.p1':'For donations of ï¿½15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
 			'donate.p2': '',
 			'donate.note': '*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.',
 			'donate.cta': 'Donate now and secure your T-Shirt',
@@ -525,6 +530,55 @@ document.addEventListener('DOMContentLoaded', async () => {
 		return Array.from(uniqueByTitle.values());
 	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
+	const encounterValueTranslations = {
+		de: {
+			wcc: {
+				Argentina: 'Argentinien',
+				Australia: 'Australien',
+				Brazil: 'Brasilien',
+				Colombia: 'Kolumbien',
+				England: 'England',
+				France: 'Frankreich',
+				Germany: 'Deutschland',
+				Hungary: 'Ungarn',
+				Portugal: 'Portugal',
+				Romania: 'RumÃ¤nien',
+				Spain: 'Spanien',
+			},
+			location: {
+				Munich: 'MÃ¼nchen',
+				Zilina: 'Å½ilina',
+			},
+		},
+	};
+	const translateEncounterFallbackValue = (field, value) => {
+		if (typeof value !== 'string' || !value) return '';
+		if (currentLanguage !== 'de') return value;
+		const fieldTranslations = encounterValueTranslations.de[field];
+		if (!fieldTranslations) return value;
+		return value.replace(/Argentina|Australia|Brazil|Colombia|England|France|Germany|Hungary|Portugal|Romania|Spain|Munich|Zilina/g, (match) => fieldTranslations[match] || match);
+	};
+	const getLocalizedEncounterField = (encounter, field) => {
+		if (!encounter) return '';
+		const localizedKey = `${field}-${currentLanguage}`;
+		if (currentLanguage !== 'en' && Object.prototype.hasOwnProperty.call(encounter, localizedKey)) {
+			const localizedValue = encounter[localizedKey];
+			if (typeof localizedValue === 'string' && localizedValue) return localizedValue;
+		}
+		const defaultValue = encounter[field];
+		return typeof defaultValue === 'string' ? translateEncounterFallbackValue(field, defaultValue) : '';
+	};
+	const getEncounterDisplayData = (encounter, countryElement = null) => ({
+		name: getLocalizedEncounterField(encounter, 'name'),
+		location: getLocalizedEncounterField(encounter, 'location'),
+		date: encounter?.date || '',
+		favClub: getLocalizedEncounterField(encounter, 'favClub'),
+		favPlayer: getLocalizedEncounterField(encounter, 'favPlayer'),
+		favGame: getLocalizedEncounterField(encounter, 'favGame'),
+		wcc: getLocalizedEncounterField(encounter, 'wcc'),
+		text: getLocalizedEncounterField(encounter, 'text'),
+		country: getLocalizedCountryName(encounter?.country || '', countryElement),
+	});
 	const buildBusinessMailtoHref = () => {
 		const mailContentByLanguage = {
 			de: {
@@ -619,6 +673,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 		updateStats();
 		renderVisitedCountriesList();
 		renderProjects();
+		populateNewsfeed();
+		if (activeEncounterDetail?.countryElement && typeof activeEncounterDetail.countryElement.clickHandler === 'function') {
+			activeEncounterDetail.countryElement.clickHandler(activeEncounterDetail.encounterId);
+		}
 		document.documentElement.classList.remove('i18n-pending');
 		document.documentElement.classList.add('i18n-ready');
 	};
@@ -639,8 +697,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	detailCloseBtn.className = 'close-btn';
 	detailCloseBtn.innerHTML = '&times;';
 	detailCloseBtn.addEventListener('click', (event) => {
-		// Nur das Encounter-Detail schließen, Friendbook offen lassen.
+		// Nur das Encounter-Detail schlieï¿½en, Friendbook offen lassen.
 		event.stopPropagation();
+		activeEncounterDetail = null;
 		detailElement.style.display = 'none';
 	});
 
@@ -794,6 +853,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		document.body.classList.remove('modal-open');
 		if (startScreen) startScreen.classList.remove('hidden');
 		if (newsfeed) newsfeed.classList.remove('expanded');
+		activeEncounterDetail = null;
 		detailElement.style.display = 'none';
 	};
 
@@ -858,7 +918,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Funktion: Liste der verfÃ¼gbaren LÃ¤nder aus der lokalen JSON laden
 	const getEncounteredCountries = async () => {
 		try {
-			const response = await fetch('encounters/encounters.json');
+			const response = await fetch('encounters/encounters.json', { cache: 'no-store' });
 			if (response.ok) {
 				return await response.json(); // JSON-Inhalt zurÃ¼ckgeben
 			} else {
@@ -919,7 +979,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			try {
 				// URL-encode countryName to avoid issues with spaces / special chars
 				const url = `encounters/${encodeURIComponent(countryName)}/data.json`;
-				const response = await fetch(url);
+				const response = await fetch(url, { cache: 'no-store' });
 				if (response.ok) {
 					const data = await response.json();
 					encountersByCountry[countryName] = data.encounters.map(encounter => ({
@@ -942,20 +1002,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 		populateNewsfeed();
 	};
 
-	// ðŸ”¹ Funktion: Newsfeed mit Encounters anzeigen
+	//Funktion: Newsfeed mit Encounters anzeigen
 	const populateNewsfeed = () => {
 		newsfeedList.innerHTML = ''; // Liste leeren
 
 		allEncounters.forEach(encounter => {
+			const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country) || null;
+			const encounterData = getEncounterDisplayData(encounter, countryElement);
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
 
 			// ðŸ”¹ Thumbnail + Kurzinfo
 			listItem.innerHTML = `
-		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounter.name}" class="newsfeed-thumbnail" />
+		            <img src="encounters/${encounter.country}/${encounter.image}" alt="${encounterData.name}" class="newsfeed-thumbnail" />
 		            <div class="newsfeed-info">
-		                <p><strong>${encounter.date} ${encounter.name} </strong></p>
-						<p>${encounter.location}, ${encounter.country}</p>
+		                <p><strong>${encounterData.date} ${encounterData.name} </strong></p>
+						<p>${encounterData.location}, ${encounterData.country}</p>
 		            </div>
 		        `;
 
@@ -973,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 			newsfeedList.appendChild(listItem);
 		});
-	};
+	}
 
 	// ðŸ”¹ Encounters abrufen und Newsfeed befÃ¼llen
 	await fetchEncounters();
@@ -1232,18 +1294,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 					: ((clickParentGroup && !clickHasOwnCountryIdentity) ? clickParentGroup : country);
 				const mainCountry = mainElement ? mainElement.getAttribute('title') : name;
 				const encounters = encountersByCountry[mainCountry] || [];
+				activeEncounterDetail = { countryElement: country, encounterId: id };
 				detailElement.innerHTML = '';
 				detailElement.appendChild(detailCloseBtn);
 				const title = document.createElement('p');
 				title.className = 'encounter-title';
-				title.textContent = mainCountry;
+				title.textContent = getLocalizedCountryName(mainCountry, mainElement || country);
 				detailElement.appendChild(title);
 
 				if (encounters.length > 1) {
 					const encounterList = document.createElement('div');
 					encounterList.classList.add('encounter-list');
 
-					encounters.forEach((encounter, index) => {
+					encounters.forEach((encounter) => {
+						const encounterData = getEncounterDisplayData(encounter, mainElement || country);
 						const encounterItem = document.createElement('div');
 						encounterItem.classList.add('encounter-item');
 
@@ -1260,12 +1324,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 						}
 						encounterDetail.classList.add('encounter-detail');
 						encounterDetail.innerHTML = `
-                                <img src="encounters/${mainCountry}/${encounter.image}" alt="${encounter.name}" class="detail-image" />
-                                <p><strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}</p>
-                                <p><strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}</p>
-                                <p><strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}</p>
-                                <p><strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}</p>
-                                <p class="story">${encounter.text}</p>
+                                <img src="encounters/${mainCountry}/${encounter.image}" alt="${encounterData.name}" class="detail-image" />
+                                <p><strong>${t('detailLabelClub')}:</strong> ${encounterData.favClub}</p>
+                                <p><strong>${t('detailLabelPlayer')}:</strong> ${encounterData.favPlayer}</p>
+                                <p><strong>${t('detailLabelBestGame')}:</strong> ${encounterData.favGame}</p>
+                                <p><strong>${t('detailLabelChampions')}:</strong> ${encounterData.wcc}</p>
+                                <p class="story">${encounterData.text}</p>
                             `;
 
 						toggleButton.addEventListener('click', () => {
@@ -1280,12 +1344,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 						const thumbnail = document.createElement('img');
 						thumbnail.src = `encounters/${mainCountry}/${encounter.image}`;
-						thumbnail.alt = encounter.name;
+						thumbnail.alt = encounterData.name;
 						thumbnail.classList.add('thumbnail');
 
 						const info = document.createElement('div');
 						info.classList.add('encounter-info');
-						info.innerHTML = `<strong>${encounter.name}</strong> <p>${encounter.location}</p><p>${encounter.date}</p>`;
+						info.innerHTML = `<strong>${encounterData.name}</strong> <p>${encounterData.location}</p><p>${encounterData.date}</p>`;
 
 						encounterItem.appendChild(toggleButton);
 						encounterItem.appendChild(thumbnail);
@@ -1298,6 +1362,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 					detailElement.appendChild(encounterList);
 				} else if (encounters.length === 1) {
 					const encounter = encounters[0];
+					const encounterData = getEncounterDisplayData(encounter, mainElement || country);
 
 					const img = document.createElement('img');
 					const pName = document.createElement('p');
@@ -1310,20 +1375,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 					img.src = `encounters/${mainCountry}/${encounter.image}`;
-					img.alt = encounter.name;
+					img.alt = encounterData.name;
 					img.className = 'detail-image';
-					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounter.name}`;
-					pLocation.innerHTML = `<strong>${t('detailLabelLocation')}:</strong> ${encounter.location}`;
-					favClub.innerHTML = `<strong>${t('detailLabelClub')}:</strong> ${encounter.favClub}`;
-					favPlayer.innerHTML = `<strong>${t('detailLabelPlayer')}:</strong> ${encounter.favPlayer}`;
-					favGame.innerHTML = `<strong>${t('detailLabelBestGame')}:</strong> ${encounter.favGame}`;
-					wcc.innerHTML = `<strong>${t('detailLabelChampions')}:</strong> ${encounter.wcc}`;
+					pName.innerHTML = `<strong>${t('detailLabelName')}:</strong> ${encounterData.name}`;
+					pLocation.innerHTML = `<strong>${t('detailLabelLocation')}:</strong> ${encounterData.location}`;
+					favClub.innerHTML = `<strong>${t('detailLabelClub')}:</strong> ${encounterData.favClub}`;
+					favPlayer.innerHTML = `<strong>${t('detailLabelPlayer')}:</strong> ${encounterData.favPlayer}`;
+					favGame.innerHTML = `<strong>${t('detailLabelBestGame')}:</strong> ${encounterData.favGame}`;
+					wcc.innerHTML = `<strong>${t('detailLabelChampions')}:</strong> ${encounterData.wcc}`;
 					pText.classList.add('story');
-					pText.textContent = encounter.text;
+					pText.textContent = encounterData.text;
 
 					const pDate = document.createElement('p');
 					pDate.classList.add('date')
-					pDate.innerHTML = `${encounter.date}`;
+					pDate.innerHTML = `${encounterData.date}`;
 
 					detailElement.appendChild(img);
 					detailElement.appendChild(pName);
