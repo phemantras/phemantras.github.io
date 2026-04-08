@@ -106,6 +106,7 @@
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
 		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
+		goldener_loewe: 'https://share.google/tD0fOsHPZAhXYykUQ',
 		antonio: 'http://www.antonio-stile-italiano.de/',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
@@ -114,7 +115,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'antonio', 'baeckerei_beck', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['enzo_pulera', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', 'baeckerei_beck', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -125,6 +126,7 @@
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
 		der_kleine_grieche: 'Der kleine Grieche',
+		goldener_loewe: 'Goldener L\u00f6we',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
 		'das gute zirndorfer': 'Das Gute Zirndorfer',
@@ -139,6 +141,22 @@
 	const imagePattern = /\.(png|jpe?g|svg|webp|gif|avif)$/i;
 	let assetManifestPromise = null;
 	const hausverwaltungPattern = /hausverwaltung.*br.*ckner/u;
+	const normalizeSupporterKey = (value) =>
+		String(value || '')
+			.toLowerCase()
+			.replace(/\u00e4|ä/g, 'ae')
+			.replace(/\u00f6|ö/g, 'oe')
+			.replace(/\u00fc|ü/g, 'ue')
+			.replace(/ß/g, 'ss')
+			.replace(/[^a-z0-9]+/g, '_')
+			.replace(/^_+|_+$/g, '');
+	const normalizedSupporterLinks = Object.fromEntries(
+		Object.entries(supporterLinks).map(([key, value]) => [normalizeSupporterKey(key), value])
+	);
+	const normalizedSupporterOrder = supporterOrder.map((key) => normalizeSupporterKey(key));
+	const normalizedSupporterDisplayNames = Object.fromEntries(
+		Object.entries(supporterDisplayNames).map(([key, value]) => [normalizeSupporterKey(key), value])
+	);
 
 	const getNameFromFilename = (fileName) =>
 		fileName
@@ -152,8 +170,10 @@
 		const lower = String(slug || '').toLowerCase();
 		if (tier === 'main' && hausverwaltungPattern.test(lower)) return 'hausverwaltung-brueckner';
 		if (tier === 'supporter') {
+			const normalized = normalizeSupporterKey(lower);
 			if (/^b.*ckerei_beck$/u.test(lower)) return 'baeckerei_beck';
 			if (/^90f.*nfdreizehn$/u.test(lower)) return '90fuenfdreizehn';
+			return normalized;
 		}
 		return lower
 			.replace(/\u00e4|ä/g, 'ae')
@@ -248,13 +268,13 @@
 			if (tier === 'main') {
 				link = mainSponsorLinks[lookupSlug] || fallbackSponsorLink;
 			} else if (tier === 'supporter') {
-				link = supporterLinks[lookupSlug] || fallbackSponsorLink;
+				link = normalizedSupporterLinks[lookupSlug] || fallbackSponsorLink;
 			}
 			return {
 				name: tier === 'main'
 					? (mainSponsorDisplayNames[lookupSlug] || getNameFromFilename(fileName))
 					: tier === 'supporter'
-						? (supporterDisplayNames[lookupSlug] || getNameFromFilename(fileName))
+						? (normalizedSupporterDisplayNames[lookupSlug] || getNameFromFilename(fileName))
 						: getNameFromFilename(fileName),
 				logo: logoDirectories[tier] + '/' + fileName,
 				link,
@@ -273,8 +293,8 @@
 		}
 		if (tier === 'supporter') {
 			return entries.sort((a, b) => {
-				const aIndex = supporterOrder.indexOf(a.slug);
-				const bIndex = supporterOrder.indexOf(b.slug);
+				const aIndex = normalizedSupporterOrder.indexOf(a.slug);
+				const bIndex = normalizedSupporterOrder.indexOf(b.slug);
 				const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
 				const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
 				if (aRank !== bRank) return aRank - bRank;
