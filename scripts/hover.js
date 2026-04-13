@@ -102,6 +102,7 @@
 	};
 	const supporterLinks = {
 		enzo_pulera: 'https://share.google/9vnt4oWQMqib09kkB',
+		juwelier_koluman: 'https://juwelier-koluman.de/',
 		riess_fliesenverlegung: 'https://www.fliesenleger-nuernberg.de/',
 		kfz_gruebl: 'https://kfz-gruebl.de/',
 		schemm_consulting: 'https://www.schemm-finance.de/',
@@ -117,7 +118,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'riess_fliesenverlegung', 'kfz_gruebl', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', 'baeckerei_beck', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'riess_fliesenverlegung', 'kfz_gruebl', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', 'baeckerei_beck', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -129,6 +130,7 @@
 		antonio: 'Antonio Stile Italiano',
 		der_kleine_grieche: 'Der kleine Grieche',
 		goldener_loewe: 'Goldener L\u00f6we',
+		juwelier_koluman: 'Juwelier Koluman',
 		kfz_gruebl: 'KFZ Gr\u00fcbl',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
