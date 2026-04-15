@@ -1,0 +1,19 @@
+{
+    "title": "India",
+    "encounters": [
+        {
+            "name": "Smruti",
+            "location": "Nuremberg",
+            "date": "2026-04-14",
+            "image": "sam.JPG",
+            "wcc": "Germany",
+            "favClub": "National's Men and Women's Cricket team",
+            "favPlayer": "Virat Kohli",
+            "favGame": "Cricket World Cup 2011 (whole India was partying on the streets)",
+            "text": "Big cricket fan from India, living in Nürnberg and of course rooting for Germany at the World Cup :)",
+            "text-de": "Großer Cricket-Fan aus Indien, lebt in Nürnberg und unterstützt bei der Weltmeisterschaft natürlich Deutschland :)",
+            "location-de": "Nürnberg",
+            "wcc-de": "Deutschland"
+        }
+    ]
+}
