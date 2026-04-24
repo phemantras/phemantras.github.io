@@ -107,6 +107,7 @@
 		kfz_gruebl: 'https://kfz-gruebl.de/',
 		nazar: 'https://share.google/yfaLaJPzWUVoBmxRb',
 		schemm_consulting: 'https://www.schemm-finance.de/',
+		m_und_m: 'https://www.123autoservice.com/',
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
 		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
@@ -119,7 +120,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -133,6 +134,7 @@
 		goldener_loewe: 'Goldener L\u00f6we',
 		juwelier_koluman: 'Juwelier Koluman',
 		kfz_gruebl: 'KFZ Gr\u00fcbl',
+		m_und_m: 'M&M Autoservice',
 		nazar: 'Nazar Kebap',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
