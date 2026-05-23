@@ -16,9 +16,11 @@
 	const overlay = document.querySelector('.modal-overlay');
 	const modals = document.querySelectorAll('.modal');
 	const mapModal = document.getElementById('map-modal');
+	const tippspielModal = document.getElementById('tippspiel-modal');
 	const modalCards = document.querySelectorAll('.modal-card');
 	const donateButton = document.querySelector('.donate-button');
 	const modalTriggers = document.querySelectorAll('.modal-card');
+	const promoLink = document.querySelector('.promo-link');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
@@ -446,6 +448,9 @@
 			'donate.title': 'Donate to clubs',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
+			'tippspiel.title': 'Kicktipp Giveaway',
+			'tippspiel.copy': 'Join our Kicktipp World Cup giveaway with great prizes. Main prize: a signed Germany jersey.',
+			'tippspiel.cta': 'Go to predictor game',
 			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans from Zirndorf (near Nuremberg), preparing for a special journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would take place in the USA, Mexico, and Canada, we have dreamed of following the World Cup live from start to finish.',
@@ -487,6 +492,9 @@
 			'donate.title': 'Spende an Vereine',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
+			'tippspiel.title': 'Kicktipp-Gewinnspiel',
+			'tippspiel.copy': 'Mach mit bei unserem Kicktipp-Gewinnspiel zur WM mit tollen Preisen. Hauptpreis: ein Deutschlandtrikot mit Unterschriften.',
+			'tippspiel.cta': 'Zum Tippspiel',
 			'subtitle.journey': 'Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion f\u00fcr die Zirndorfer Fu\u00dfballvereine</strong>',
 			'about.title': '\u00dcber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fu\u00dfballfans aus Zirndorf (bei N\u00fcrnberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ank\u00fcndigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, tr\u00e4umen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
@@ -520,6 +528,15 @@
 	};
 	let currentLanguage = detectLanguage();
 	let currentProjectClubId = clubProjects[0]?.id || null;
+	const isTippspielPromoActive = () => {
+		const now = new Date();
+		const currentDateKey = [
+			now.getFullYear(),
+			String(now.getMonth() + 1).padStart(2, '0'),
+			String(now.getDate()).padStart(2, '0'),
+		].join('-');
+		return currentDateKey >= '2026-05-28' && currentDateKey <= '2026-06-14';
+	};
 	const getCountryCode = (element) => {
 		const rawId = (element && (element.id || element.getAttribute && element.getAttribute('id'))) || '';
 		if (!rawId) return null;
@@ -917,6 +934,12 @@
 		}
 	};
 
+	const canDismissOpenModalFromBackdrop = () => {
+		const openModalEl = [...modals].find(m => m.classList.contains('open'));
+		if (!openModalEl) return true;
+		return openModalEl.getAttribute('data-overlay-close') !== 'false';
+	};
+
 	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
 		closeBtn.className = 'close-btn';
@@ -941,8 +964,13 @@
 		donateButton.addEventListener('click', () => openModal('donate-modal'));
 	}
 
+	if (promoLink) {
+		promoLink.addEventListener('click', () => closeAllModals());
+	}
+
 	if (overlay) {
 		overlay.addEventListener('click', () => {
+			if (!canDismissOpenModalFromBackdrop()) return;
 			tooltip.style.opacity = '0';
 			closeAllModals();
 		});
@@ -1075,6 +1103,12 @@
 
 	// Statistik aktualisieren
 	updateStats();
+
+	const clearHoveredCountries = () => {
+		document.querySelectorAll('.country.is-hovered').forEach((element) => {
+			element.classList.remove('is-hovered');
+		});
+	};
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
@@ -1261,6 +1295,9 @@
 		// Tooltip-Logik
 		const setRootHovered = (active) => {
 			if (root && root.classList) {
+				if (active) {
+					clearHoveredCountries();
+				}
 				root.classList.toggle('is-hovered', Boolean(active));
 			}
 		};
@@ -1292,13 +1329,14 @@
 				return;
 			}
 			tooltip.style.opacity = '0';
-			setRootHovered(false);
+			clearHoveredCountries();
 		};
 
 		// Tooltip fuer alle Geraete: auf Hybrid-Devices darf Hover nicht deaktiviert werden.
 		if (isTouchDevice) {
 			country.addEventListener('touchstart', (e) => {
 				e.preventDefault();
+				clearHoveredCountries();
 				showTooltip(e.touches[0], true);
 				detailElement.style.display = 'none';
 			});
@@ -1440,12 +1478,14 @@
 			country.addEventListener('click', (e) => {
 				// Stop event from bubbling up to parent elements
 				tooltip.style.opacity = '0';
+				clearHoveredCountries();
 				e.stopPropagation();
 				clickHandler();
 			});
 			if (isTouchDevice) {
 				country.addEventListener('touchend', (e) => {
 					tooltip.style.opacity = '0';
+					clearHoveredCountries();
 					e.preventDefault();
 					e.stopPropagation();
 					clickHandler();
@@ -1468,6 +1508,7 @@
 					// Füge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
 						tooltip.style.opacity = '0';
+						clearHoveredCountries();
 						const parentGroup = e.currentTarget.closest('g.country');
 						if (parentGroup && typeof parentGroup.clickHandler === 'function') {
 							parentGroup.clickHandler();
@@ -1477,6 +1518,7 @@
 					if (isTouchDevice) {
 						path.addEventListener('touchend', (e) => {
 							tooltip.style.opacity = '0';
+							clearHoveredCountries();
 							e.preventDefault();
 							e.stopPropagation();
 							clickHandler();
@@ -1521,6 +1563,7 @@
 		// Detail-Element schliessen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';
+			clearHoveredCountries();
 		}
 		// Modal schliessen
 		const openModalEl = [...modals].find(m => m.classList.contains('open'));
@@ -1531,9 +1574,14 @@
 			!e.target.closest('.detail-element') &&
 			!e.target.closest('.donate-button')
 		) {
+			if (!canDismissOpenModalFromBackdrop()) return;
 			closeAllModals();
 		}
 	});
+
+	if (tippspielModal && isTippspielPromoActive()) {
+		openModal('tippspiel-modal');
+	}
 });
 
 
