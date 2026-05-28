@@ -561,6 +561,28 @@ button:focus:not(:focus-visible) {
 	margin-bottom: 12px;
 }
 
+.promo-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+	margin: 18px 0 20px;
+}
+
+.promo-gallery img {
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	border-radius: 14px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+.promo-gallery img[src$="kicktipp1.jpg"] {
+	object-fit: contain;
+	background: rgba(8, 12, 20, 0.75);
+	padding: 6px;
+}
+
 .promo-copy {
 	margin: 0;
 	font-family: Arial, sans-serif;
@@ -653,6 +675,12 @@ button:focus:not(:focus-visible) {
 	font-size: 2rem;
 	cursor: pointer;
 	z-index: 10001;
+}
+
+.promo-modal .close-btn {
+	font-size: 2.5rem;
+	top: 8px;
+	right: 14px;
 }
 
 .about-container p {
