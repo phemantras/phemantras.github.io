@@ -115,6 +115,7 @@
 		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
 		goldener_loewe: 'https://share.google/tD0fOsHPZAhXYykUQ',
 		tamara_gast: 'https://www.tamaragast.de/',
+		pflanzenhaus_schoener: 'https://www.pflanzenhaus-schoener.de',
 		antonio: 'https://share.google/QfIXGlVNq6zIvNQph',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
@@ -123,7 +124,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -141,6 +142,7 @@
 		nazar: 'Nazar Kebap',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
+		pflanzenhaus_schoener: 'Pflanzenhaus Sch\u00f6ner',
 		riess_fliesenverlegung: 'Riess Fliesen- verlegung',
 		tamara_gast: 'Tamara Gast',
 		'das gute zirndorfer': 'Das Gute Zirndorfer',
