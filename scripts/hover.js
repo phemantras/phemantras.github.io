@@ -103,6 +103,7 @@
 		printmedia: 'http://my-print-store.de/',
 	};
 	const supporterLinks = {
+		goldstube: 'https://zirndorfer-goldstube.com/',
 		enzo_pulera: 'https://share.google/9vnt4oWQMqib09kkB',
 		juwelier_koluman: 'https://juwelier-koluman.de/',
 		riess_fliesenverlegung: 'https://www.fliesenleger-nuernberg.de/',
@@ -124,7 +125,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['goldstube', 'enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -135,6 +136,7 @@
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
 		der_kleine_grieche: 'Der kleine Grieche',
+		goldstube: 'Zirndorfer Goldstube',
 		goldener_loewe: 'Goldener L\u00f6we',
 		juwelier_koluman: 'Juwelier Koluman',
 		kfz_gruebl: 'KFZ Gr\u00fcbl',
