@@ -16,9 +16,11 @@
 	const overlay = document.querySelector('.modal-overlay');
 	const modals = document.querySelectorAll('.modal');
 	const mapModal = document.getElementById('map-modal');
+	const tippspielModal = document.getElementById('tippspiel-modal');
 	const modalCards = document.querySelectorAll('.modal-card');
 	const donateButton = document.querySelector('.donate-button');
 	const modalTriggers = document.querySelectorAll('.modal-card');
+	const promoLink = document.querySelector('.promo-link');
 	const visitedCountriesList = document.getElementById('visited-countries-list');
 	const statsContainer = document.querySelector('.stats-container');
 	const newsfeedList = document.getElementById('newsfeed-list');
@@ -101,16 +103,21 @@
 		printmedia: 'http://my-print-store.de/',
 	};
 	const supporterLinks = {
+		goldstube: 'https://zirndorfer-goldstube.com/',
 		enzo_pulera: 'https://share.google/9vnt4oWQMqib09kkB',
 		juwelier_koluman: 'https://juwelier-koluman.de/',
 		riess_fliesenverlegung: 'https://www.fliesenleger-nuernberg.de/',
+		bayern_doener: 'https://share.google/QiplFvxNCtn3D9dJj',
 		kfz_gruebl: 'https://kfz-gruebl.de/',
 		nazar: 'https://share.google/yfaLaJPzWUVoBmxRb',
 		schemm_consulting: 'https://www.schemm-finance.de/',
+		m_und_m: 'https://www.123autoservice.com/',
 		arnulf_rocks: 'https://www.arnulf.rocks/',
 		der_kleine_grieche: 'https://www.kleiner-grieche.de/',
 		mosena: 'https://eiscafe-mosena.eatbu.com/?lang=de',
 		goldener_loewe: 'https://share.google/tD0fOsHPZAhXYykUQ',
+		tamara_gast: 'https://www.tamaragast.de/',
+		pflanzenhaus_schoener: 'https://www.pflanzenhaus-schoener.de',
 		antonio: 'https://share.google/QfIXGlVNq6zIvNQph',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
@@ -119,7 +126,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['goldstube', 'enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'bayern_doener', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -129,14 +136,19 @@
 	};
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
+		bayern_doener: 'Bayern Doener',
 		der_kleine_grieche: 'Der kleine Grieche',
+		goldstube: 'Zirndorfer Goldstube',
 		goldener_loewe: 'Goldener L\u00f6we',
 		juwelier_koluman: 'Juwelier Koluman',
 		kfz_gruebl: 'KFZ Gr\u00fcbl',
+		m_und_m: 'M&M Autoservice',
 		nazar: 'Nazar Kebap',
 		mosena: 'Eiscafe Mosena',
 		pizza_deluxe: 'Pizza de Luxe',
+		pflanzenhaus_schoener: 'Pflanzenhaus Sch\u00f6ner',
 		riess_fliesenverlegung: 'Riess Fliesen- verlegung',
+		tamara_gast: 'Tamara Gast',
 		'das gute zirndorfer': 'Das Gute Zirndorfer',
 	};
 	const logoDirectories = {
@@ -436,7 +448,7 @@
 			'menu.friendbooksub': 'Encounters with football fans from all over the world',
 			'menu.projects': 'Projects',
 			'menu.projectssub': 'Where do the donations go?',
-			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
+			'projects.intro': 'The football clubs in Zirndorf are facing major financial challenges: outdated sports facilities and infrastructure, sharply rising energy and operating costs, and declining public subsidies.<br><br>With our fundraising campaign, we want to support the clubs in implementing urgently needed projects. This page transparently shows which measures are planned at each club.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_Teil_2_v2_poster.jpg"><source src="images/Interviews_Teil_2_v2_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100% of all donations</strong> go directly to the football clubs in Zirndorf and are distributed equally among all clubs and their projects.',
 			'donate.p1':'For donations of \u20ac15 or more, you will receive our francoNJa T-shirt.* 100% of donations go directly to the clubs in equal shares.',
 			'donate.p2': '',
 			'donate.note': '*Pickup in 90513 Zirndorf or shipping is possible if shipping costs are covered. Please contact us via email, Instagram, or Facebook. While supplies last.',
@@ -444,6 +456,9 @@
 			'donate.title': 'Donate to clubs',
 			'donate.private': 'Private individuals',
 			'donate.business': 'Companies',
+			'tippspiel.title': 'Kicktipp Giveaway',
+			'tippspiel.copy': 'Join our World Cup prediction game and win great prizes, including a match-worn 1. FC Nuremberg jersey, a signed SpVgg Greuther Fuerth jersey, Zirndorfer beer, and plenty of merch.',
+			'tippspiel.cta': 'Join now!',
 			'subtitle.journey': 'Everything about our journey to the 2026 FIFA World Cup and the <strong>fundraising campaign for the football clubs of Zirndorf</strong>',
 			'about.title': 'About us',
 			'about.p1': 'We are Andy & Andy, two football fans from Zirndorf (near Nuremberg), preparing for a special journey to the 2026 World Cup. Since the announcement in 2018 that the tournament would take place in the USA, Mexico, and Canada, we have dreamed of following the World Cup live from start to finish.',
@@ -477,7 +492,7 @@
 			'menu.friendbooksub': 'Begegnungen mit Fu\u00dfball Fans aus aller Welt',
 			'menu.projects': 'Projekte',
 			'menu.projectssub': 'Wohin gehen die Spenden?',
-			'projects.intro': 'Die Zirndorfer Fu\u00dfballvereine stehen vor gro\u00dfen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende \u00f6ffentliche Zusch\u00fcsse.<br><br>Mit unserer Spendenaktion m\u00f6chten wir die Vereine dabei unterst\u00fctzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Ma\u00dfnahmen bei den Vereinen geplant sind.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fu\u00dfballvereine und werden gleichm\u00e4\u00dfig auf alle Vereine und ihre Projekte verteilt.',
+			'projects.intro': 'Die Zirndorfer Fu\u00dfballvereine stehen vor gro\u00dfen finanziellen Herausforderungen: veraltete Sportanlagen und Infrastruktur, stark gestiegene Energie- und Nebenkosten sowie sinkende \u00f6ffentliche Zusch\u00fcsse.<br><br>Mit unserer Spendenaktion m\u00f6chten wir die Vereine dabei unterst\u00fctzen, dringend notwendige Projekte umzusetzen. Hier wird transparent dargestellt, welche Ma\u00dfnahmen bei den Vereinen geplant sind.<br><br><span class="projects-inline-videos" aria-label="Projects videos"><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_v3_poster.jpg"><source src="images/Interviews_v3_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span><span class="projects-video-card"><video class="projects-video" controls preload="none" playsinline poster="images/Interviews_Teil_2_v2_poster.jpg"><source src="images/Interviews_Teil_2_v2_web.mp4" type="video/mp4">Your browser does not support the video tag.</video></span></span><br><strong>100 % der Spenden</strong> gehen direkt an die Zirndorfer Fu\u00dfballvereine und werden gleichm\u00e4\u00dfig auf alle Vereine und ihre Projekte verteilt.',
 			'donate.p1':'Ab einer Spende von 15\u20ac erhaltet ihr unser francoNJa T-Shirt dazu.* 100 % der Spenden gehen zu gleichen Teilen direkt an die Vereine.',
 			'donate.p2': '',
 			'donate.note': '*Abholung in 90513 Zirndorf oder Versand bei \u00dcbernahme der Versandkosten. Bitte kontaktiert uns per Mail, Instagram oder Facebook. Nur solange der Vorrat reicht.',
@@ -485,6 +500,9 @@
 			'donate.title': 'Spende an Vereine',
 			'donate.private': 'Privatpersonen',
 			'donate.business': 'Unternehmen',
+			'tippspiel.title': 'Kicktipp-Gewinnspiel',
+			'tippspiel.copy': 'Mach mit bei unserem WM Tippspiel und gewinne tolle Preise – darunter ein Matchworn-Trikot des 1. FC Nürnberg, ein unterschriebenes Trikot der SpVgg Greuther Fürth, Zirndorfer Bier und jede Menge Merch.',
+			'tippspiel.cta': 'Jetzt mitmachen!',
 			'subtitle.journey': 'Alles zu unserer Reise zur WM 2026 und der <strong>Spendenaktion f\u00fcr die Zirndorfer Fu\u00dfballvereine</strong>',
 			'about.title': '\u00dcber uns',
 			'about.p1': 'Wir sind Andy & Andy, zwei Fu\u00dfballfans aus Zirndorf (bei N\u00fcrnberg), die sich auf eine besondere Reise zur WM 2026 vorbereiten. Seit der Ank\u00fcndigung im Jahr 2018, dass das Turnier in den USA, Mexiko und Kanada stattfindet, tr\u00e4umen wir davon, die Weltmeisterschaft von Anfang bis Ende vor Ort zu begleiten.',
@@ -518,6 +536,15 @@
 	};
 	let currentLanguage = detectLanguage();
 	let currentProjectClubId = clubProjects[0]?.id || null;
+	const isTippspielPromoActive = () => {
+		const now = new Date();
+		const currentDateKey = [
+			now.getFullYear(),
+			String(now.getMonth() + 1).padStart(2, '0'),
+			String(now.getDate()).padStart(2, '0'),
+		].join('-');
+		return currentDateKey >= '2026-05-28' && currentDateKey <= '2026-06-14';
+	};
 	const getCountryCode = (element) => {
 		const rawId = (element && (element.id || element.getAttribute && element.getAttribute('id'))) || '';
 		if (!rawId) return null;
@@ -915,6 +942,12 @@
 		}
 	};
 
+	const canDismissOpenModalFromBackdrop = () => {
+		const openModalEl = [...modals].find(m => m.classList.contains('open'));
+		if (!openModalEl) return true;
+		return openModalEl.getAttribute('data-overlay-close') !== 'false';
+	};
+
 	modals.forEach(modal => {
 		const closeBtn = document.createElement('button');
 		closeBtn.className = 'close-btn';
@@ -939,8 +972,13 @@
 		donateButton.addEventListener('click', () => openModal('donate-modal'));
 	}
 
+	if (promoLink) {
+		promoLink.addEventListener('click', () => closeAllModals());
+	}
+
 	if (overlay) {
 		overlay.addEventListener('click', () => {
+			if (!canDismissOpenModalFromBackdrop()) return;
 			tooltip.style.opacity = '0';
 			closeAllModals();
 		});
@@ -1073,6 +1111,12 @@
 
 	// Statistik aktualisieren
 	updateStats();
+
+	const clearHoveredCountries = () => {
+		document.querySelectorAll('.country.is-hovered').forEach((element) => {
+			element.classList.remove('is-hovered');
+		});
+	};
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
@@ -1259,6 +1303,9 @@
 		// Tooltip-Logik
 		const setRootHovered = (active) => {
 			if (root && root.classList) {
+				if (active) {
+					clearHoveredCountries();
+				}
 				root.classList.toggle('is-hovered', Boolean(active));
 			}
 		};
@@ -1290,13 +1337,14 @@
 				return;
 			}
 			tooltip.style.opacity = '0';
-			setRootHovered(false);
+			clearHoveredCountries();
 		};
 
 		// Tooltip fuer alle Geraete: auf Hybrid-Devices darf Hover nicht deaktiviert werden.
 		if (isTouchDevice) {
 			country.addEventListener('touchstart', (e) => {
 				e.preventDefault();
+				clearHoveredCountries();
 				showTooltip(e.touches[0], true);
 				detailElement.style.display = 'none';
 			});
@@ -1438,12 +1486,14 @@
 			country.addEventListener('click', (e) => {
 				// Stop event from bubbling up to parent elements
 				tooltip.style.opacity = '0';
+				clearHoveredCountries();
 				e.stopPropagation();
 				clickHandler();
 			});
 			if (isTouchDevice) {
 				country.addEventListener('touchend', (e) => {
 					tooltip.style.opacity = '0';
+					clearHoveredCountries();
 					e.preventDefault();
 					e.stopPropagation();
 					clickHandler();
@@ -1466,6 +1516,7 @@
 					// Füge die Event-Listener hinzu
 					path.addEventListener('click', (e) => {
 						tooltip.style.opacity = '0';
+						clearHoveredCountries();
 						const parentGroup = e.currentTarget.closest('g.country');
 						if (parentGroup && typeof parentGroup.clickHandler === 'function') {
 							parentGroup.clickHandler();
@@ -1475,6 +1526,7 @@
 					if (isTouchDevice) {
 						path.addEventListener('touchend', (e) => {
 							tooltip.style.opacity = '0';
+							clearHoveredCountries();
 							e.preventDefault();
 							e.stopPropagation();
 							clickHandler();
@@ -1519,6 +1571,7 @@
 		// Detail-Element schliessen
 		if (!e.target.closest('.detail-element') && !e.target.classList.contains('visited')) {
 			detailElement.style.display = 'none';
+			clearHoveredCountries();
 		}
 		// Modal schliessen
 		const openModalEl = [...modals].find(m => m.classList.contains('open'));
@@ -1529,9 +1582,14 @@
 			!e.target.closest('.detail-element') &&
 			!e.target.closest('.donate-button')
 		) {
+			if (!canDismissOpenModalFromBackdrop()) return;
 			closeAllModals();
 		}
 	});
+
+	if (tippspielModal && isTippspielPromoActive()) {
+		openModal('tippspiel-modal');
+	}
 });
 
 

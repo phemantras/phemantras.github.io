@@ -486,7 +486,7 @@ button:focus:not(:focus-visible) {
 	font-size: 1.1em;
 	letter-spacing: 0.04em;
 	transition: background-color 0.3s ease, transform 0.2s ease;
-	z-index: 1000;
+	z-index: 10002;
 }
 
 .language-toggle:hover {
@@ -546,6 +546,116 @@ button:focus:not(:focus-visible) {
 	box-sizing: border-box;
 }
 
+.modal.promo-modal {
+	width: min(560px, 92vw);
+	min-height: 0;
+	padding: 24px 20px 20px;
+	background:
+		linear-gradient(145deg, rgba(17, 21, 31, 0.98), rgba(12, 15, 23, 0.96)),
+		linear-gradient(135deg, rgba(255, 205, 64, 0.16), rgba(255, 255, 255, 0));
+	border: 1px solid rgba(255, 205, 64, 0.32);
+}
+
+.promo-modal h1 {
+	margin-top: 4px;
+	margin-bottom: 12px;
+}
+
+.promo-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	max-width: none;
+	gap: 10px;
+	margin: 14px auto 16px;
+	align-items: stretch;
+}
+
+.promo-shot {
+	margin: 0;
+	overflow: hidden;
+	border-radius: 16px;
+	background: rgba(8, 12, 20, 0.75);
+}
+
+.promo-gallery img {
+	width: 90%;
+	aspect-ratio: 4 / 4.25;
+	height: auto;
+	object-fit: cover;
+	border-radius: 14px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+	display: block;
+	margin: 0;
+	transform: none;
+	transition: transform 0.3s ease;
+}
+
+.promo-shot:hover img {
+	transform: scale(1.04);
+}
+
+.promo-shot--contain img {
+	object-fit: contain;
+	padding: 14px;
+}
+
+.promo-shot--contain:hover img {
+	transform: scale(1.02);
+}
+
+.promo-copy {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.92);
+}
+
+.promo-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 18px;
+}
+
+.promo-link,
+.promo-dismiss {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 54px;
+	padding: 14px 16px;
+	border-radius: 12px;
+	font-family: 'SCHABO', Arial, sans-serif;
+	font-size: 1.9rem;
+	text-decoration: none;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.promo-link {
+	color: #0c0f17;
+	background: linear-gradient(135deg, #ffd451 0%, #ffbe2f 45%, #f39b1d 100%);
+	border: 1px solid rgba(0, 0, 0, 0.14);
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+.promo-dismiss {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.promo-link:hover,
+.promo-dismiss:hover {
+	transform: translateY(-2px);
+	filter: brightness(1.03);
+}
+
 .modal.open {
 	opacity: 1;
 	visibility: visible;
@@ -586,6 +696,12 @@ button:focus:not(:focus-visible) {
 	font-size: 2rem;
 	cursor: pointer;
 	z-index: 10001;
+}
+
+.promo-modal .close-btn {
+	font-size: 2.5rem;
+	top: 8px;
+	right: 14px;
 }
 
 .about-container p {
@@ -1179,6 +1295,11 @@ button:focus:not(:focus-visible) {
 
 	.projects-gallery {
 		padding: 6px 10px 8px;
+	}
+
+	.promo-gallery {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
 	}
 
 	.project-thumb {
@@ -2032,7 +2153,20 @@ g.country.is-hovered path {
 		transform: translate(-50%, -50%) scale(0.9);
 	}
 
+	.modal.promo-modal {
+		top: 50%;
+		left: 50%;
+		width: 86vw;
+		max-width: 86vw;
+		min-height: 0;
+		transform: translate(-50%, -50%) scale(0.9);
+	}
+
 	.modal.donate-modal.open {
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	.modal.promo-modal.open {
 		transform: translate(-50%, -50%) scale(1);
 	}
 
@@ -2041,6 +2175,10 @@ g.country.is-hovered path {
 	}
 
 	.modal.donate-modal.open:not(.map-modal) {
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	.modal.promo-modal.open:not(.map-modal) {
 		transform: translate(-50%, -50%) scale(1);
 	}
 
@@ -2056,6 +2194,30 @@ g.country.is-hovered path {
 
 	.map-modal.open {
 		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+@media (orientation: landscape) and (max-height: 700px) {
+	.promo-gallery {
+		gap: 8px;
+		margin: 12px auto 14px;
+	}
+
+	.promo-shot {
+		height: 96px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.promo-gallery img,
+	.promo-shot--contain img {
+		width: 100%;
+		height: 100%;
+		aspect-ratio: auto;
+		object-fit: contain;
+		padding: 8px;
+		margin: 0;
 	}
 }
 
