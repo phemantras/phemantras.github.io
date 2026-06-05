@@ -1,0 +1,19 @@
+{
+    "title": "Bangladesh",
+    "encounters": [
+        {
+            "name": "Sazzad",
+            "location": "Rocky Mountain National Park",
+            "location-de": "Rocky Mountain National Park",
+            "date": "2026-06-04",
+            "image": "sazzad.jpg",
+            "wcc": "Brazil",
+            "wcc-de": "Brasilien",
+            "favClub": "FC Arsenal",
+            "favPlayer": "Ronaldinho",
+            "favGame": "Brazil - Germany (WM 2026, 1:7)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
