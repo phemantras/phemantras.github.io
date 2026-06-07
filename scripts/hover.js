@@ -1120,7 +1120,26 @@
 
 	// Gastgeberländer, die ihre Farbe nicht ändern
 	const hostCountries = ["Canada", "Mexico", "United States", "Germany"];
+	const markHostCountry = (countryElement) => {
+		if (!countryElement || !countryElement.classList) return;
+		countryElement.classList.add('host-country');
+		if (countryElement.tagName.toLowerCase() === 'g') {
+			countryElement.querySelectorAll('.country').forEach((child) => child.classList.add('host-country'));
+		}
+	};
 
+	countries.forEach((country) => {
+		const parentGroup = country.tagName.toLowerCase() === 'g' ? null : (country.closest && country.closest('g.country'));
+		const countryTitle = (country.getAttribute && country.getAttribute('title') || '').trim();
+		const parentTitle = (parentGroup && parentGroup.getAttribute && parentGroup.getAttribute('title') || '').trim();
+		const hasOwnCountryIdentity = Boolean(countryTitle) && countryTitle !== parentTitle;
+		const root = country.tagName.toLowerCase() === 'g'
+			? country
+			: ((parentGroup && !hasOwnCountryIdentity) ? parentGroup : country);
+		const rootName = (root && root.getAttribute && root.getAttribute('title') || '').trim();
+		if (hostCountries.includes(countryTitle)) markHostCountry(country);
+		if (hostCountries.includes(rootName)) markHostCountry(root);
+	});
 
 	// Track which country roots we've already processed so we only create one gradient per country
 	const processedCountryRoots = new Set();
@@ -1415,8 +1434,12 @@
 							encounterDetail.classList.toggle('expanded');
 							if (encounterDetail.classList.contains('expanded')) {
 								toggleButton.textContent = "-";
+								activeEncounterDetail = { countryElement: country, encounterId: encounter.id };
 							} else {
 								toggleButton.textContent = "+";
+								if (activeEncounterDetail?.encounterId === encounter.id) {
+									activeEncounterDetail = { countryElement: country, encounterId: null };
+								}
 							}
 						});
 

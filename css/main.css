@@ -1530,8 +1530,12 @@ svg {
 	/* Überschreibt die CSS-Füllung mit der SVG-spezifischen */
 }
 
-.visited {
+.visited:not(.host-country) {
 	fill: #7EBAB5;
+	stroke: #000000;
+}
+
+.visited.host-country {
 	stroke: #000000;
 }
 

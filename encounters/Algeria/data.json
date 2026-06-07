@@ -1,0 +1,20 @@
+{
+    "title": "Algeria",
+    "encounters": [
+        {
+            "name": "Amine",
+            "location": "Chicago",
+            "location-de": "Chicago",
+            "date": "2026-06-06",
+            "image": "Amine.JPG",
+            "wcc": "Brazil",
+            "wcc-de": "Brasilien",
+            "favClub": "Manchester City",
+            "favPlayer": "Riyad Mahrez",
+            "favGame": "FC Barcelona - Juventus (0:3, UEFA Champions League, 2020)",
+            "favGame-de": "FC Barcelona - Juventus Turin (0:3, UEFA Champions League, 2020)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

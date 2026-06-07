@@ -1,0 +1,35 @@
+{
+    "title": "United States",
+    "encounters": [
+        {
+            "name": "Tristan, Coltan & Sebastian",
+            "location": "Chicago",
+            "location-de": "Chicago",
+            "date": "2026-06-06",
+            "image": "boys.JPG",
+            "wcc": "USA",
+            "wcc-de": "USA",
+            "favClub": "Manchester City, Manchester United, Real Madrid",
+            "favPlayer": "Sergiño Dest, Christian Pulisic, Weston McKennie",
+            "favGame": "USA - Canada (1:1, World Cup Qualifier 2021)",
+            "favGame-de": "USA - Kanada (1:1, WM-Qualifikation 2021)",
+            "text": "",
+            "text-de": ""
+        },
+        {
+            "name": "Stefanie & the Girls",
+            "location": "Chicago",
+            "location-de": "Chicago",
+            "date": "2026-06-06",
+            "image": "girls.JPG",
+            "wcc": "USA",
+            "wcc-de": "USA",
+            "favClub": "Columbus Crew",
+            "favPlayer": "Matt Turner",
+            "favGame": "USA - Canada (1:1, World Cup Qualifier 2021)",
+            "favGame-de": "USA - Kanada (1:1, WM-Qualifikation 2021)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

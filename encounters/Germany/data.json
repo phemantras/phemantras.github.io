@@ -12,6 +12,7 @@
             "favClub": "SC Freiburg",
             "favPlayer": "Ritsu Dōan",
             "favGame": "SC Freiburg - RB Leipzig (2:4, Cup Final 2022)",
+            "favGame-de": "SC Freiburg - RB Leipzig (2:4, DFB-Pokalfinale 2022)",
             "text": "Our hitchhiker we took from west to east Slovakia to see the U21 Semifinal.",
             "text-de": "Ein Anhalter, den wir vom Westen in den Osten der Slowakei mitnahmen um das U21 Halbfinale anzusehen."
         },
@@ -26,6 +27,7 @@
             "favClub": "Hansa Rostock",
             "favPlayer": "Dieter Schneider / Cristiano Ronaldo",
             "favGame": "FC Barcelona - Hansa Rostock (3:0, European Cup 1991) / Hansa Rostock - 1. FC Kaiserslautern (5:1, 2009)",
+            "favGame-de": "FC Barcelona - Hansa Rostock (3:0, Europapokal 1991) / Hansa Rostock - 1. FC Kaiserslautern (5:1, 2009)",
             "text": "",
             "text-de": ""
         },
@@ -40,6 +42,7 @@
             "favClub": "1. FC Kaiserslautern",
             "favPlayer": "Fritz Walter",
             "favGame": "1. FC Kaiserslautern - 1. FC Köln (3:0, 2008)",
+            "favGame-de": "1. FC Kaiserslautern - 1. FC Köln (3:0, 2008)",
             "text": "",
             "text-de": ""
         },
@@ -54,6 +57,7 @@
             "favClub": "SV Waldhof Mannheim",
             "favPlayer": "Diego Maradona",
             "favGame": "Germany - France (1:0, World Cup 2014)",
+            "favGame-de": "Deutschland - Frankreich (1:0, WM 2014)",
             "text": "",
             "text-de": ""
         },
@@ -68,6 +72,7 @@
             "favClub": "Borussia M‘Gladbach",
             "favPlayer": "Raffael",
             "favGame": "M‘Gladbach - 1. FC Köln (5:2, 2022)",
+            "favGame-de": "M‘Gladbach - 1. FC Köln (5:2, 2022)",
             "text": "",
             "text-de": ""
         },
@@ -82,6 +87,7 @@
             "favClub": "SpVgg Greuther Fürth",
             "favPlayer": "Tom Sichling",
             "favGame": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
+            "favGame-de": "TSV Altenfurt - TSV Zirndorf (1:2, 2023, Relegation)",
             "text": "",
             "text-de": ""
         },
@@ -96,6 +102,7 @@
             "favClub": "1. FC Kaiserslautern / Liverpool FC",
             "favPlayer": "Trent Alexander Arnold",
             "favGame": "Germany vs. Portugal (4:2, EURO 2021)",
+            "favGame-de": "Deutschland - Portugal (4:2, EM 2021)",
             "text": "",
             "text-de": ""
         }
