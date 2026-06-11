@@ -1,0 +1,20 @@
+{
+    "title": "Costa Rica",
+    "encounters": [
+        {
+            "name": "Victor",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-10",
+            "image": "victor.JPG",
+            "wcc": "Portugal",
+            "wcc-de": "Portugal",
+            "favClub": "CS Herediano",
+            "favPlayer": "Keylor Navas",
+            "favGame": "Italy - Costa Rica (0:1, World Cup 2014)",
+            "favGame-de": "Italien - Costa Rica (0:1, WM 2014)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "title": "Ireland",
+    "encounters": [
+        {
+            "name": "The 3 Musketeers",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-10",
+            "image": "lads.JPG",
+            "wcc": "Spain",
+            "wcc-de": "Spanien",
+            "favClub": "Celtic FC",
+            "favPlayer": "Roy Keane",
+            "favGame": "Ireland - Italy (1:0, UEFA Euros 2016)",
+            "favGame-de": "Irland - Italien (1:0, EM 2016)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
