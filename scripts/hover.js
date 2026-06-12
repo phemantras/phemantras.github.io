@@ -16,7 +16,6 @@
 	const overlay = document.querySelector('.modal-overlay');
 	const modals = document.querySelectorAll('.modal');
 	const mapModal = document.getElementById('map-modal');
-	const tippspielModal = document.getElementById('tippspiel-modal');
 	const modalCards = document.querySelectorAll('.modal-card');
 	const donateButton = document.querySelector('.donate-button');
 	const modalTriggers = document.querySelectorAll('.modal-card');
@@ -536,15 +535,6 @@
 	};
 	let currentLanguage = detectLanguage();
 	let currentProjectClubId = clubProjects[0]?.id || null;
-	const isTippspielPromoActive = () => {
-		const now = new Date();
-		const currentDateKey = [
-			now.getFullYear(),
-			String(now.getMonth() + 1).padStart(2, '0'),
-			String(now.getDate()).padStart(2, '0'),
-		].join('-');
-		return currentDateKey >= '2026-05-28' && currentDateKey <= '2026-06-14';
-	};
 	const getCountryCode = (element) => {
 		const rawId = (element && (element.id || element.getAttribute && element.getAttribute('id'))) || '';
 		if (!rawId) return null;
@@ -1610,9 +1600,6 @@
 		}
 	});
 
-	if (tippspielModal && isTippspielPromoActive()) {
-		openModal('tippspiel-modal');
-	}
 });
 
 
