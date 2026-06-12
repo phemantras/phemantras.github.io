@@ -1,0 +1,20 @@
+{
+    "title": "South Korea",
+    "encounters": [
+        {
+            "name": "Andrew & Yj",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-11",
+            "image": "andrew_yj.JPG",
+            "wcc": "Spain / England",
+            "wcc-de": "Spanien / England",
+            "favClub": "Bayern Munich / Arsenal FC",
+            "favPlayer": "Min-jae Kim / Heung-min Son",
+            "favGame": "Korea Republic - Czech Republic (2:1, World Cup 2026)",
+            "favGame-de": "S\u00fcdkorea - Tschechien (2:1, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

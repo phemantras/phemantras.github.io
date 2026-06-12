@@ -1,0 +1,20 @@
+{
+    "title": "Guatemala",
+    "encounters": [
+        {
+            "name": "Karen & Byron",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-11",
+            "image": "karen_byron.JPG",
+            "wcc": "Portugal",
+            "wcc-de": "Portugal",
+            "favClub": "Real Madrid CF",
+            "favPlayer": "Cristiano Ronaldo",
+            "favGame": "Korea Republic - Czech Republic (2:1, World Cup 2026)",
+            "favGame-de": "S\u00fcdkorea - Tschechien (2:1, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "title": "Japan",
+    "encounters": [
+        {
+            "name": "Simon",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-11",
+            "image": "simon.jpg",
+            "wcc": "Portugal",
+            "wcc-de": "Portugal",
+            "favClub": "SS Lazio",
+            "favPlayer": "Miroslav Klose",
+            "favGame": "Argentina - Sweden (1:1, World Cup 2002)",
+            "favGame-de": "Argentinien - Schweden (1:1, WM 2002)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

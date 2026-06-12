@@ -1,0 +1,20 @@
+{
+    "title": "Mexico",
+    "encounters": [
+        {
+            "name": "Fernando & Lizbeth",
+            "location": "Guadalajara",
+            "location-de": "Guadalajara",
+            "date": "2026-06-11",
+            "image": "fernando_lizbeth.JPG",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "Real Madrid CF",
+            "favPlayer": "Cristiano Ronaldo",
+            "favGame": "Manchester United - Chelsea FC (6:5, UEFA Champions League Final)",
+            "favGame-de": "Manchester United - Chelsea FC (6:5, Champions-League-Finale)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
