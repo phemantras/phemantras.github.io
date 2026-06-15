@@ -118,6 +118,7 @@
 		tamara_gast: 'https://www.tamaragast.de/',
 		pflanzenhaus_schoener: 'https://www.pflanzenhaus-schoener.de',
 		antonio: 'https://share.google/QfIXGlVNq6zIvNQph',
+		orfeas: 'https://orfeas-zirndorf.de/',
 		baeckerei_beck: 'https://share.google/VFKI9jyzyDghQxHtV',
 		'90fuenfdreizehn': 'https://90fuenfdreizehn.myspreadshop.de',
 		pizza_deluxe: 'https://www.pizza-deluxe-zirndorf.de/',
@@ -125,7 +126,7 @@
 	};
 	const fallbackSponsorLink = null;
 	const mainSponsorOrder = ['hausverwaltung-brueckner', 'printmedia', 'hilpert-media', 'cmap'];
-	const supporterOrder = ['goldstube', 'enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'bayern_doener', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
+	const supporterOrder = ['goldstube', 'enzo_pulera', 'juwelier_koluman', 'baeckerei_beck', 'riess_fliesenverlegung', 'bayern_doener', 'kfz_gruebl', 'nazar', 'schemm_consulting', 'm_und_m', 'arnulf_rocks', 'der_kleine_grieche', 'mosena', 'goldener_loewe', 'tamara_gast', 'pflanzenhaus_schoener', 'antonio', 'orfeas', '90fuenfdreizehn', 'pizza_deluxe', 'das gute zirndorfer'];
 	const mainSponsorDisplayNames = {
 		'hausverwaltung-brueckner': 'Hausver\u00adwaltung Br\u00fcckner',
 		printmedia: 'Printmedia',
@@ -135,6 +136,7 @@
 	};
 	const supporterDisplayNames = {
 		antonio: 'Antonio Stile Italiano',
+		orfeas: 'Orfeas',
 		bayern_doener: 'Bayern Doener',
 		der_kleine_grieche: 'Der kleine Grieche',
 		goldstube: 'Zirndorfer Goldstube',
