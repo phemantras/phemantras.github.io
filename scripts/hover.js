@@ -31,6 +31,8 @@
 	let mapPanzoom = null;
 	let allEncounters = [];
 	let encountersByCountry = {};
+	let visitedCountriesCache = null;
+	let visitedCountryByTitle = new Map();
 	let activeEncounterDetail = null;
 	const sponsorsData = { main: [], ultra: [], supporter: [], fan: [] };
 	const sponsorsContainer = document.querySelector('.sponsors-container');
@@ -564,6 +566,7 @@
 	// Avoid including subregion <path> elements that may lack a title attribute which caused NPEs when
 	// later used to build fetch URLs.
 	const getVisitedCountries = () => {
+		if (visitedCountriesCache) return visitedCountriesCache;
 		// Groups which represent countries and have a title
 		const groups = Array.from(document.querySelectorAll('g.country[title].visited'));
 		// Single elements (e.g. path) that have title and visited but are not inside a visited group
@@ -577,7 +580,11 @@
 			// Keep first occurrence (groups are added first), avoid double counting (e.g. France + gf path).
 			if (!uniqueByTitle.has(title)) uniqueByTitle.set(title, el);
 		});
-		return Array.from(uniqueByTitle.values());
+		visitedCountriesCache = Array.from(uniqueByTitle.values());
+		visitedCountryByTitle = new Map(
+			visitedCountriesCache.map((countryElement) => [countryElement.getAttribute('title'), countryElement])
+		);
+		return visitedCountriesCache;
 	};
 	const t = (key) => translations[currentLanguage]?.[key] || translations.en[key] || key;
 	const encounterValueTranslations = {
@@ -999,6 +1006,8 @@
 		const matchingElements = countries.filter((country) => country.getAttribute('title') === countryName);
 		matchingElements.forEach((countryElement) => countryElement.classList.add('visited'));
 	});
+	visitedCountriesCache = null;
+	getVisitedCountries();
 
 	updateStats();
 	renderVisitedCountriesList();
@@ -1029,13 +1038,13 @@
 	}
 
 	const fetchEncounters = async () => {
-		let id = 0;
 		encountersByCountry = {}; // leeren
-		for (const country of getVisitedCountries()) {
+		const visitedCountries = getVisitedCountries();
+		const countryData = await Promise.all(visitedCountries.map(async (country) => {
 			const countryName = country && country.getAttribute ? country.getAttribute('title') : null;
 			if (!countryName) {
 				// skip elements without a title (defensive)
-				continue;
+				return null;
 			}
 			try {
 				// URL-encode countryName to avoid issues with spaces / special chars
@@ -1043,11 +1052,10 @@
 				const response = await fetch(url, { cache: 'no-store' });
 				if (response.ok) {
 					const data = await response.json();
-					encountersByCountry[countryName] = data.encounters.map(encounter => ({
-						...encounter,
-						country: countryName,
-						id: id++
-					}));
+					return {
+						countryName,
+						encounters: Array.isArray(data.encounters) ? data.encounters : [],
+					};
 				} else {
 					// Non-OK responses are logged but don't stop processing other countries
 					console.warn(`encounters data not found for ${countryName}:`, response.status);
@@ -1055,7 +1063,16 @@
 			} catch (error) {
 				console.error(`Fehler beim Abrufen von ${countryName}:`, error);
 			}
-		}
+			return null;
+		}));
+		let id = 0;
+		countryData.filter(Boolean).forEach(({ countryName, encounters }) => {
+			encountersByCountry[countryName] = encounters.map(encounter => ({
+				...encounter,
+				country: countryName,
+				id: id++
+			}));
+		});
 		// Flache Liste für Newsfeed
 		allEncounters = Object.values(encountersByCountry).flat();
 		// Nach Datum sortieren
@@ -1068,7 +1085,7 @@
 		newsfeedList.innerHTML = ''; // Liste leeren
 
 		allEncounters.forEach(encounter => {
-			const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country) || null;
+			const countryElement = visitedCountryByTitle.get(encounter.country) || null;
 			const encounterData = getEncounterDisplayData(encounter, countryElement);
 			const listItem = document.createElement('li');
 			listItem.classList.add('newsfeed-item');
@@ -1086,7 +1103,7 @@
 			listItem.addEventListener('click', () => {
 				tooltip.style.opacity = '0';
 				openModal('map-modal');
-				const countryElement = Array.from(getVisitedCountries()).find(c => c.getAttribute('title') === encounter.country);
+				const countryElement = visitedCountryByTitle.get(encounter.country);
 				if (countryElement && typeof countryElement.clickHandler === 'function') {
 					setTimeout(() => {
 						countryElement.clickHandler(encounter.id);
@@ -1097,12 +1114,6 @@
 			newsfeedList.appendChild(listItem);
 		});
 	}
-
-	// Encounters abrufen und Newsfeed befüllen
-	await fetchEncounters();
-
-	// Statistik aktualisieren
-	updateStats();
 
 	const clearHoveredCountries = () => {
 		document.querySelectorAll('.country.is-hovered').forEach((element) => {
@@ -1135,6 +1146,14 @@
 
 	// Track which country roots we've already processed so we only create one gradient per country
 	const processedCountryRoots = new Set();
+	const hasUrlFill = (element) => {
+		if (!element) return false;
+		const styleAttr = (element.getAttribute && element.getAttribute('style')) || '';
+		if (styleAttr.includes('url(#')) return true;
+		if (element.style && element.style.fill && String(element.style.fill).includes('url(#')) return true;
+		const fillAttr = (element.getAttribute && element.getAttribute('fill')) || '';
+		return fillAttr.includes('url(#');
+	};
 
 	countries.forEach(country => {
 		// Determine country root. If a subpath has its own country title different from the parent
@@ -1234,32 +1253,12 @@
 			// subpaths) already uses a hand-authored fill referencing a url(#...) - in that case
 			// we must NOT generate or apply our gradient to avoid visual overlays (fixes Germany).
 			const hasAuthorDefinedFill = (() => {
-				try {
-					// Check computed style on the root: if it resolves to a url(...) fill,
-					// that means the author already painted the country via a pattern/gradient.
-					const rootComputed = window.getComputedStyle(root);
-					if (rootComputed && String(rootComputed.fill).includes('url(')) return true;
-
-					// Also check the inline style attributes as a fallback
-					const styleAttr = (root.getAttribute && root.getAttribute('style')) || '';
-					if (styleAttr.includes('url(#')) return true;
-					if (root.style && root.style.fill && String(root.style.fill).includes('url(#')) return true;
-
-					// Check child paths' computed fills too (they may inherit from group)
-					const childPaths = root.querySelectorAll && root.querySelectorAll('path');
-					if (childPaths && childPaths.length) {
-						for (const p of childPaths) {
-							const pComputed = window.getComputedStyle(p);
-							if (pComputed && String(pComputed.fill).includes('url(')) return true;
-							const pStyle = (p.getAttribute && p.getAttribute('style')) || '';
-							if (pStyle.includes('url(#')) return true;
-							if (p.style && p.style.fill && String(p.style.fill).includes('url(#')) return true;
-						}
+				if (hasUrlFill(root)) return true;
+				const childPaths = root.querySelectorAll && root.querySelectorAll('path');
+				if (childPaths && childPaths.length) {
+					for (const p of childPaths) {
+						if (hasUrlFill(p)) return true;
 					}
-				} catch (err) {
-					// Defensive: if computedStyle fails for any reason, fall back to attribute checks only
-					const styleAttr = (root.getAttribute && root.getAttribute('style')) || '';
-					if (styleAttr.includes('url(#')) return true;
 				}
 				return false;
 			})();
@@ -1282,30 +1281,13 @@
 				// Für Länder mit Subregionen - apply only to subpaths that don't already have an
 				// author-defined url(...) fill to avoid overwriting/overlaying hand-authored styles.
 				root.querySelectorAll('path').forEach(path => {
-					// If the rendered/computed fill of the path already references a url(...), skip it.
-					try {
-						const comp = window.getComputedStyle(path);
-						if (comp && String(comp.fill).includes('url(')) return; // skip
-					} catch (e) {
-						// ignore and fall back to attribute checks
-					}
-					const pStyleAttr = (path.getAttribute && path.getAttribute('style')) || '';
-					if (pStyleAttr.includes('url(#')) return; // skip
-					if (path.style && path.style.fill && String(path.style.fill).includes('url(#')) return;
+					if (hasUrlFill(path)) return;
 					path.style.fill = `url(#${finalGradientId})`;
 				});
 			} else {
 				// For single-element countries, if they already reference a url(...) skip applying.
 				let shouldApplyRoot = true;
-				try {
-					const compRoot = window.getComputedStyle(root);
-					if (compRoot && String(compRoot.fill).includes('url(')) shouldApplyRoot = false;
-				} catch (e) {
-					// ignore and rely on attribute checks
-				}
-				const rootStyle = (root.getAttribute && root.getAttribute('style')) || '';
-				if (rootStyle.includes('url(#')) shouldApplyRoot = false;
-				if (root.style && root.style.fill && String(root.style.fill).includes('url(#')) shouldApplyRoot = false;
+				if (hasUrlFill(root)) shouldApplyRoot = false;
 				if (shouldApplyRoot) {
 					root.style.fill = `url(#${finalGradientId})`;
 				}
@@ -1550,6 +1532,13 @@
 				});
 			}
 		}
+	});
+
+	// Encounters im Hintergrund laden, damit Karte und Hover sofort interaktiv werden.
+	fetchEncounters().then(() => {
+		updateStats();
+	}).catch((error) => {
+		console.error('Fehler beim Laden der Encounters:', error);
 	});
 
 	// Panzoom initialisieren
