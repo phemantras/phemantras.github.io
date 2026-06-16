@@ -1,0 +1,20 @@
+{
+    "title": "Israel",
+    "encounters": [
+        {
+            "name": "Elad & friends",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "elad_friends.jpg",
+            "wcc": "Spain",
+            "wcc-de": "Spanien",
+            "favClub": "Maccabi Haifa",
+            "favPlayer": "Andrea Pirlo",
+            "favGame": "AC Milan - Liverpool FC (3:2 on pens, UEFA Champions League 2005)",
+            "favGame-de": "AC Milan - Liverpool FC (3:2 n.E., UEFA Champions League 2005)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

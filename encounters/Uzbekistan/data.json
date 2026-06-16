@@ -1,0 +1,20 @@
+{
+    "title": "Uzbekistan",
+    "encounters": [
+        {
+            "name": "Alex",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "alex.jpg",
+            "wcc": "Uzbekistan",
+            "wcc-de": "Usbekistan",
+            "favClub": "Inter Milan",
+            "favPlayer": "Abdukodir Khusanov",
+            "favGame": "Iran - New Zealand (2:2, World Cup 2026)",
+            "favGame-de": "Iran - Neuseeland (2:2, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

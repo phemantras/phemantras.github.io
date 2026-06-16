@@ -1,0 +1,20 @@
+{
+    "title": "Tajikistan",
+    "encounters": [
+        {
+            "name": "Fayz",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "fayz.jpg",
+            "wcc": "Germany",
+            "wcc-de": "Deutschland",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Sadio Mane",
+            "favGame": "Liverpool FC - FC Barcelona (4:0, UEFA Champions League 2019)",
+            "favGame-de": "Liverpool FC - FC Barcelona (4:0, UEFA Champions League 2019)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "title": "Brazil",
+    "encounters": [
+        {
+            "name": "Rafael",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "rafael.jpg",
+            "wcc": "Brazil",
+            "wcc-de": "Brasilien",
+            "favClub": "Botafogo FR",
+            "favPlayer": "Ronaldo Nazario",
+            "favGame": "River Plate - Juventus Turin (2:1, 2004)",
+            "favGame-de": "River Plate - Juventus Turin (2:1, 2004)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

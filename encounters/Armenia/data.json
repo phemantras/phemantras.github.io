@@ -1,0 +1,20 @@
+{
+    "title": "Armenia",
+    "encounters": [
+        {
+            "name": "Khachig",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "khachig.jpg",
+            "wcc": "Morocco",
+            "wcc-de": "Marokko",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Pele",
+            "favGame": "Yugoslavia - Italy (2:1, Olympics 1984)",
+            "favGame-de": "Jugoslawien - Italien (2:1, Olympia 1984)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

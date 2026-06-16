@@ -1,0 +1,20 @@
+{
+    "title": "El Salvador",
+    "encounters": [
+        {
+            "name": "Carlos",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "carlos.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "FC Barcelona",
+            "favPlayer": "Lionel Messi",
+            "favGame": "FC Barcelona - Real Madrid (3:2, Champions Cup Miami 2017)",
+            "favGame-de": "FC Barcelona - Real Madrid (3:2, Champions Cup Miami 2017)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

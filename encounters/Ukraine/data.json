@@ -1,0 +1,20 @@
+{
+    "title": "Ukraine",
+    "encounters": [
+        {
+            "name": "Daniel",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-15",
+            "image": "daniel.jpg",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "Real Madrid",
+            "favPlayer": "Ronaldinho",
+            "favGame": "Inter Milan - FC Barcelona (4:3, UEFA Champions League 2025)",
+            "favGame-de": "Inter Mailand - FC Barcelona (4:3, UEFA Champions League 2025)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
