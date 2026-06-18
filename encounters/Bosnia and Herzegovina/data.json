@@ -1,0 +1,20 @@
+{
+    "title": "Bosnia and Herzegovina",
+    "encounters": [
+        {
+            "name": "Redzo & Family",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "redzo_family.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Mohamed Salah",
+            "favGame": "Switzerland - Bosnia and Herzegovina (4:1, World Cup 2026)",
+            "favGame-de": "Schweiz - Bosnien und Herzegowina (4:1, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

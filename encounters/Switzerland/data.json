@@ -1,0 +1,20 @@
+{
+    "title": "Switzerland",
+    "encounters": [
+        {
+            "name": "Martin",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "martin.png",
+            "wcc": "England",
+            "wcc-de": "England",
+            "favClub": "FC Basel",
+            "favPlayer": "Georges Bregy",
+            "favGame": "Switzerland - Bosnia and Herzegovina (4:1, World Cup 2026)",
+            "favGame-de": "Schweiz - Bosnien und Herzegowina (4:1, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

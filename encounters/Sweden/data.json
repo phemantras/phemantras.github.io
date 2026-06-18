@@ -1,0 +1,20 @@
+{
+    "title": "Sweden",
+    "encounters": [
+        {
+            "name": "Erik & Family",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "erik_family.jpg",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "Landskrona BoIS",
+            "favPlayer": "Paulo Dybala",
+            "favGame": "Landskrona BoIS - Helsingborgs IF (2:1, 2023)",
+            "favGame-de": "Landskrona BoIS - Helsingborgs IF (2:1, 2023)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

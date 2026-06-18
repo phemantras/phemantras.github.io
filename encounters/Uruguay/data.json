@@ -1,0 +1,20 @@
+{
+    "title": "Uruguay",
+    "encounters": [
+        {
+            "name": "Laly",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "laly.png",
+            "wcc": "Uruguay",
+            "wcc-de": "Uruguay",
+            "favClub": "Club Nacional de Football",
+            "favPlayer": "Diego Forlan",
+            "favGame": "Switzerland - Bosnia and Herzegovina (4:1, World Cup 2026)",
+            "favGame-de": "Schweiz - Bosnien und Herzegowina (4:1, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

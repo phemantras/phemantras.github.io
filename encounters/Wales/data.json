@@ -1,0 +1,20 @@
+{
+    "title": "Wales",
+    "encounters": [
+        {
+            "name": "Zak & Joanne",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "zak_joanne.jpg",
+            "wcc": "Germany",
+            "wcc-de": "Deutschland",
+            "favClub": "Swansea City",
+            "favPlayer": "Wilfried Bony",
+            "favGame": "Swansea City - Reading FC (4:2, Championship Play-off Final 2011)",
+            "favGame-de": "Swansea City - Reading FC (4:2, Championship-Playoff-Finale 2011)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "title": "Turkey",
+    "encounters": [
+        {
+            "name": "Utku",
+            "location": "Los Angeles",
+            "location-de": "Los Angeles",
+            "date": "2026-06-19",
+            "image": "utku.jpg",
+            "wcc": "Spain",
+            "wcc-de": "Spanien",
+            "favClub": "Fenerbahce Istanbul",
+            "favPlayer": "Alex",
+            "favGame": "Chelsea FC - Liverpool FC (4:5, UEFA Super Cup 2019)",
+            "favGame-de": "Chelsea FC - Liverpool FC (4:5, UEFA-Supercup 2019)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
