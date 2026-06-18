@@ -1,0 +1,20 @@
+{
+    "title": "Peru",
+    "encounters": [
+        {
+            "name": "Madeleine",
+            "location": "San Francisco",
+            "location-de": "San Francisco",
+            "date": "2026-06-17",
+            "image": "madeleine.JPG",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "Chelsea FC",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Peru - Colombia (1:1, World Cup Qualifier 2018)",
+            "favGame-de": "Peru - Kolumbien (1:1, WM-Qualifikation 2018)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
