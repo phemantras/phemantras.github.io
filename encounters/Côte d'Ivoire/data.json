@@ -1,0 +1,20 @@
+{
+    "title": "Côte d'Ivoire",
+    "encounters": [
+        {
+            "name": "Christopher",
+            "location": "Toronto",
+            "location-de": "Toronto",
+            "date": "2026-06-21",
+            "image": "christopher.jpg",
+            "wcc": "Côte d'Ivoire",
+            "wcc-de": "Elfenbeinküste",
+            "favClub": "Manchester United",
+            "favPlayer": "Zinedine Zidane",
+            "favGame": "Manchester United - Arsenal FC (2:1, FA Charity Shield 2001)",
+            "favGame-de": "Manchester United - FC Arsenal (2:1, FA-Charity-Shield 2001)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

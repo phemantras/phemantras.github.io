@@ -1,0 +1,20 @@
+{
+    "title": "Zambia",
+    "encounters": [
+        {
+            "name": "Kasolo & Mukuka",
+            "location": "Toronto",
+            "location-de": "Toronto",
+            "date": "2026-06-21",
+            "image": "kasolo_mukuka.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Manchester United / Chelsea FC",
+            "favPlayer": "Eric Cantona / Didier Drogba",
+            "favGame": "Bata Bullets - Limbe (1:0, 1988)",
+            "favGame-de": "Bata Bullets - Limbe (1:0, 1988)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

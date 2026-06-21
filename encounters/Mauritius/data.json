@@ -1,0 +1,20 @@
+{
+    "title": "Mauritius",
+    "encounters": [
+        {
+            "name": "Hemrish",
+            "location": "Toronto",
+            "location-de": "Toronto",
+            "date": "2026-06-21",
+            "image": "hemrish.jpg",
+            "wcc": "Canada",
+            "wcc-de": "Kanada",
+            "favClub": "Manchester United",
+            "favPlayer": "Matheus Cunha",
+            "favGame": "Manchester United - Chelsea FC (6:5, UEFA Champions League Final 2008)",
+            "favGame-de": "Manchester United - FC Chelsea (6:5, UEFA-Champions-League-Finale 2008)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

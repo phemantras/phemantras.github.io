@@ -1,0 +1,20 @@
+{
+    "title": "Burkina Faso",
+    "encounters": [
+        {
+            "name": "Mahamadi",
+            "location": "Toronto",
+            "location-de": "Toronto",
+            "date": "2026-06-21",
+            "image": "mahamadi.png",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Chelsea FC",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Netherlands - Argentina (2:1, World Cup 1998)",
+            "favGame-de": "Niederlande - Argentinien (2:1, Weltmeisterschaft 1998)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

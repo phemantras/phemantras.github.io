@@ -1,0 +1,20 @@
+{
+    "title": "Benin",
+    "encounters": [
+        {
+            "name": "Gabriel",
+            "location": "Toronto",
+            "location-de": "Toronto",
+            "date": "2026-06-21",
+            "image": "gabriel.png",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "Real Madrid",
+            "favPlayer": "Kylian Mbappé",
+            "favGame": "Argentina - France (4:2, World Cup 2022)",
+            "favGame-de": "Argentinien - Frankreich (4:2, Weltmeisterschaft 2022)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
