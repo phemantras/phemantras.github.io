@@ -1,0 +1,20 @@
+{
+    "title": "Egypt",
+    "encounters": [
+        {
+            "name": "Bashar",
+            "location": "Vancouver",
+            "date": "2026-06-21",
+            "image": "bashar.jpg",
+            "wcc": "France",
+            "favClub": "Al Ahly FC",
+            "favPlayer": "Emam Ashour",
+            "favGame": "New Zealand - Egypt (1:3, World Cup 2026)",
+            "favGame-de": "Neuseeland - Ägypten (1:3, WM 2026)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Vancouver",
+            "wcc-de": "Frankreich"
+        }
+    ]
+}

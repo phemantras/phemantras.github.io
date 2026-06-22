@@ -2,19 +2,19 @@
     "title": "Australia",
     "encounters": [
         {
-            "name": "Simon & Liz",
-            "location": "Labuan Bajo",
-            "date": "2024-11-11",
-            "image": "dags.jpg",
-            "wcc": "Australia",
-            "favClub": "Melbourne Victory",
-            "favPlayer": "Andreas Merkel",
-            "favGame": "Melbourne Victory vs. Sydney FC",
-            "favGame-de": "Melbourne Victory - Sydney FC",
-            "text": "We've met a couple of dags in Indonesia back then in 2024. Maybe we'll see them around some day.. or at the world cup?",
-            "text-de": "We've met a couple of dags in Indonesia back then in 2024. Maybe we'll see them around some day.. or at the world cup?",
-            "location-de": "Labuan Bajo",
-            "wcc-de": "Australien"
+            "name": "Claudia / Adrian",
+            "location": "Vancouver",
+            "date": "2026-06-21",
+            "image": "claudia_adrian.jpg",
+            "wcc": "France",
+            "favClub": "Western City Wanderers",
+            "favPlayer": "Lionel Messi",
+            "favGame": "South Korea - Australia (1:2, AFC Asian Cup 2015)",
+            "favGame-de": "Südkorea - Australien (1:2, AFC-Asienmeisterschaft 2015)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Vancouver",
+            "wcc-de": "Frankreich"
         }
     ]
 }
