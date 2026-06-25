@@ -1,0 +1,20 @@
+{
+    "title": "Kuwait",
+    "encounters": [
+        {
+            "name": "Latifah",
+            "location": "Seattle",
+            "date": "2026-06-24",
+            "image": "latifah.jpg",
+            "wcc": "Argentina",
+            "favClub": "FC Barcelona",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Argentina - France (4:2, World Cup 2022)",
+            "favGame-de": "Argentinien - Frankreich (4:2, WM 2022)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Seattle",
+            "wcc-de": "Argentinien"
+        }
+    ]
+}
