@@ -1,0 +1,20 @@
+{
+    "title": "Ecuador",
+    "encounters": [
+        {
+            "name": "Antonio",
+            "location": "New York/New Jersey",
+            "date": "2026-06-25",
+            "image": "antonio.jpg",
+            "wcc": "Spain",
+            "favClub": "Chelsea",
+            "favPlayer": "Moisés Caicedo",
+            "favGame": "Côte d'Ivoire - Ecuador (1:0, World Cup 2026)",
+            "favGame-de": "Elfenbeinküste - Ecuador (1:0, WM 2026)",
+            "text": "",
+            "text-de": "",
+            "location-de": "New York/New Jersey",
+            "wcc-de": "Spanien"
+        }
+    ]
+}
