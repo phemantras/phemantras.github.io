@@ -1,0 +1,20 @@
+{
+    "title": "Nepal",
+    "encounters": [
+        {
+            "name": "Utsay",
+            "location": "Philadelphia",
+            "date": "2026-06-27",
+            "image": "utsay.jpg",
+            "wcc": "Brazil",
+            "favClub": "Al Hilal SFC",
+            "favPlayer": "Neymar",
+            "favGame": "Croatia - Ghana (2:1, FIFA World Cup 2026)",
+            "favGame-de": "Kroatien - Ghana (2:1, FIFA WM 2026)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Philadelphia",
+            "wcc-de": "Brasilien"
+        }
+    ]
+}

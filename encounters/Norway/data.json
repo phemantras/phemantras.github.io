@@ -1,0 +1,20 @@
+{
+    "title": "Norway",
+    "encounters": [
+        {
+            "name": "Kjell",
+            "location": "Boston",
+            "date": "2026-06-26",
+            "image": "kjell.jpg",
+            "wcc": "France",
+            "favClub": "FK Bodø/Glimt",
+            "favPlayer": "Erling Haaland",
+            "favGame": "Iraq - Norway (1:4, World Cup 2026)",
+            "favGame-de": "Irak - Norwegen (1:4, WM 2026)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Boston",
+            "wcc-de": "Frankreich"
+        }
+    ]
+}

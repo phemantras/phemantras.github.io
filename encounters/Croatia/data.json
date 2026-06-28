@@ -1,0 +1,20 @@
+{
+    "title": "Croatia",
+    "encounters": [
+        {
+            "name": "Rosi & Anton",
+            "location": "Philadelphia",
+            "date": "2026-06-27",
+            "image": "rosi_anton.jpg",
+            "wcc": "Croatia",
+            "favClub": "HNK Hajduk Split",
+            "favPlayer": "Luka Modrić / Diego Maradona",
+            "favGame": "Netherlands - Croatia (2:4, UEFA Nations League 2023)",
+            "favGame-de": "Niederlande - Kroatien (2:4, UEFA Nations League 2023)",
+            "text": "",
+            "text-de": "",
+            "location-de": "Philadelphia",
+            "wcc-de": "Kroatien"
+        }
+    ]
+}
