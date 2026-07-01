@@ -1,0 +1,20 @@
+{
+    "title": "Scotland",
+    "encounters": [
+        {
+            "name": "Pauline",
+            "location": "Boston",
+            "location-de": "Boston",
+            "date": "2026-06-29",
+            "image": "pauline.jpg",
+            "wcc": "Germany",
+            "wcc-de": "Deutschland",
+            "favClub": "Heart of Midlothian FC",
+            "favPlayer": "Craig Gordon",
+            "favGame": "Heart of Midlothian - Glasgow Rangers (2:1, Scottish Cup Final 1998)",
+            "favGame-de": "Heart of Midlothian - Glasgow Rangers (2:1, Scottish-Cup-Finale 1998)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

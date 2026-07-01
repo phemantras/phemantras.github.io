@@ -1,0 +1,20 @@
+{
+    "title": "Paraguay",
+    "encounters": [
+        {
+            "name": "Mathias",
+            "location": "Boston",
+            "location-de": "Boston",
+            "date": "2026-06-29",
+            "image": "mathias.jpg",
+            "wcc": "Brazil",
+            "wcc-de": "Brasilien",
+            "favClub": "Club Olimpia",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Club Olimpia - Atl\u00e9tico Mineiro (2:0, Copa Libertadores 2013)",
+            "favGame-de": "Club Olimpia - Atl\u00e9tico Mineiro (2:0, Copa Libertadores 2013)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
