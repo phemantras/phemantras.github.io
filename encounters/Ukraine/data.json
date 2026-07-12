@@ -15,6 +15,21 @@
             "favGame-de": "Inter Mailand - FC Barcelona (4:3, UEFA Champions League 2025)",
             "text": "",
             "text-de": ""
+        },
+        {
+            "name": "Michael",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-11",
+            "image": "michael.jpg",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "FC Chelsea",
+            "favPlayer": "Eden Hazard",
+            "favGame": "FC Chelsea - Paris St Germain (3:0, Club World Cup 2025)",
+            "favGame-de": "FC Chelsea - Paris Saint-Germain (3:0, Klub-WM 2025)",
+            "text": "",
+            "text-de": ""
         }
     ]
 }

@@ -1,0 +1,20 @@
+{
+    "title": "Russian Federation",
+    "encounters": [
+        {
+            "name": "Stas",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-11",
+            "image": "stas.jpg",
+            "wcc": "Norway",
+            "wcc-de": "Norwegen",
+            "favClub": "FC Chelsea",
+            "favPlayer": "Zinedine Zidane",
+            "favGame": "Belgium - Japan (3:2, World Cup 2018)",
+            "favGame-de": "Belgien - Japan (3:2, WM 2018)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

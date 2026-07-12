@@ -1,0 +1,20 @@
+{
+    "title": "Georgia",
+    "encounters": [
+        {
+            "name": "Lasha",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-11",
+            "image": "lasha.jpg",
+            "wcc": "France",
+            "wcc-de": "Frankreich",
+            "favClub": "FC Chelsea",
+            "favPlayer": "Ronaldo Nazario",
+            "favGame": "Hamburger SV - 1. FC Köln (2:1, Bundesliga 2018)",
+            "favGame-de": "Hamburger SV - 1. FC Köln (2:1, Bundesliga 2018)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
