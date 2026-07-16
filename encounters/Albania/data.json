@@ -1,0 +1,20 @@
+{
+    "title": "Albania",
+    "encounters": [
+        {
+            "name": "Gena & Qamil",
+            "location": "Atlanta",
+            "location-de": "Atlanta",
+            "date": "2026-07-15",
+            "image": "gena-qamil.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "FC Barcelona",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Paris Saint-Germain - FC Bayern Munich (2:0, FIFA Club World Cup 2025)",
+            "favGame-de": "Paris Saint-Germain - FC Bayern München (2:0, FIFA Klub-WM 2025)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
