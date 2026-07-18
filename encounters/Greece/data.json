@@ -1,0 +1,20 @@
+{
+    "title": "Greece",
+    "encounters": [
+        {
+            "name": "Mary",
+            "location": "Atlanta",
+            "location-de": "Atlanta",
+            "date": "2026-07-17",
+            "image": "mary.jpg",
+            "wcc": "Spain",
+            "wcc-de": "Spanien",
+            "favClub": "Atlanta United",
+            "favPlayer": "Josef Martinez",
+            "favGame": "Atlanta United - Portland Timbers (2:0, MLS Cup Final 2018)",
+            "favGame-de": "Atlanta United - Portland Timbers (2:0, MLS-Cup-Finale 2018)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
