@@ -1,0 +1,20 @@
+{
+    "title": "Chile",
+    "encounters": [
+        {
+            "name": "Angelo",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "angelo.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Club Deportivo Universidad Católica",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Spain - Chile (0:2, FIFA World Cup 2014)",
+            "favGame-de": "Spanien - Chile (0:2, WM 2014)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

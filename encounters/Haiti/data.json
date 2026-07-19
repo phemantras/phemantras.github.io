@@ -1,0 +1,20 @@
+{
+    "title": "Haiti",
+    "encounters": [
+        {
+            "name": "Benson",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "benson.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "FC Barcelona",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Argentina - Cabo Verde (3:2 AET, FIFA World Cup 2026)",
+            "favGame-de": "Argentinien - Kap Verde (3:2 n.V., WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

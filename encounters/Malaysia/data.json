@@ -1,0 +1,20 @@
+{
+    "title": "Malaysia",
+    "encounters": [
+        {
+            "name": "John",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "john.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Chelsea FC",
+            "favPlayer": "Lionel Messi",
+            "favGame": "France - England (4:6, FIFA World Cup 2026)",
+            "favGame-de": "Frankreich - England (4:6, WM 2026)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

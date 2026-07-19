@@ -1,0 +1,20 @@
+{
+    "title": "Lithuania",
+    "encounters": [
+        {
+            "name": "Alvydas & Ary",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "alvydas_ary.jpg",
+            "wcc": "Argentina / Spain",
+            "wcc-de": "Argentinien / Spanien",
+            "favClub": "Manchester United / Liverpool FC",
+            "favPlayer": "Lionel Messi / Mohamed Salah",
+            "favGame": "Inter Miami vs Red Bull (2:2, MLS 2026) / FC Romar Mažeikiai - FK Inkaras Kaunas (1:0, 1990)",
+            "favGame-de": "Inter Miami - Red Bull (2:2, MLS 2026) / FC Romar Mažeikiai - FK Inkaras Kaunas (1:0, 1990)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}

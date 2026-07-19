@@ -15,6 +15,21 @@
             "favGame-de": "FC Barcelona - Real Madrid (5:1, La Liga 2018)",
             "text": "",
             "text-de": ""
+        },
+        {
+            "name": "Jorge",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "jorge.jpg",
+            "wcc": "Spain",
+            "wcc-de": "Spanien",
+            "favClub": "Real Madrid CF",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Inter Miami - CR Flamengo (0:2, FIFA Club World Cup 2025)",
+            "favGame-de": "Inter Miami - CR Flamengo (0:2, FIFA Klub-WM 2025)",
+            "text": "",
+            "text-de": ""
         }
     ]
 }

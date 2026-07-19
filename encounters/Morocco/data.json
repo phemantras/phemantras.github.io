@@ -1,0 +1,20 @@
+{
+    "title": "Morocco",
+    "encounters": [
+        {
+            "name": "Haitam",
+            "location": "Miami",
+            "location-de": "Miami",
+            "date": "2026-07-18",
+            "image": "haitam.jpg",
+            "wcc": "Argentina",
+            "wcc-de": "Argentinien",
+            "favClub": "Liverpool FC",
+            "favPlayer": "Lionel Messi",
+            "favGame": "Morocco - Spain (3:0 AET, FIFA World Cup 2022)",
+            "favGame-de": "Marokko - Spanien (3:0 n.V., WM 2022)",
+            "text": "",
+            "text-de": ""
+        }
+    ]
+}
